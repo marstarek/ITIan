@@ -83,7 +83,7 @@ const UserProfile = () => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/auth-development-64923/databases/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),
@@ -94,7 +94,7 @@ const UserProfile = () => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/auth-development-64923/databases/(default)/documents/users"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/users"
       )
         .then((value) => value.json())
         .then((value) => setUsers(value.documents)),
