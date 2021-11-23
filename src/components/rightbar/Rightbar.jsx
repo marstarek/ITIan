@@ -12,7 +12,7 @@ export const RightBar = () => {
         <hr />
         <ul className="rightbarNewsList">
           {Newz.map((n) => (
-            <News kew={n.id} news={n} />
+            <News key={n.id} news={n} />
           ))}
         </ul>
       </div>

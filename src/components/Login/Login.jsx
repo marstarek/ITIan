@@ -57,13 +57,11 @@ const Login = () => {
         loading: false,
       });
       history.push("/");
-      console.log(user);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  console.log(user);
   return (
     <div className={`container   bg-body   my-auto ${styles.login__container}`}>
       <div className={`align-items-center d-flex ${styles.login__wrapper}`}>

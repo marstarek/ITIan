@@ -69,22 +69,8 @@ const UserProfile = (paramz) => {
     ]).catch((err) => {
       console.log(err);
     });
-    // console.log(users[0]);
   }, []);
 
-  if (myNEWprofile) {
-    myNEWprofile[0].fields.CONTACTS.stringValue.split(",").map((s) => {
-      console.log(s);
-    });
-  } else {
-    console.log("myNEWprofile[0].fields");
-  }
-  // console.log(users[1]);
-  if (users) {
-    console.log(users[paramz.location.params]);
-  } else {
-    console.log("users[paramz.location.params]");
-  }
   return user && users ? (
     <section className="profile">
       <div className="container ">

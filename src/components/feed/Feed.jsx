@@ -8,7 +8,7 @@ import {
 } from "react-icons/bs";
 import { FaPaperPlane } from "react-icons/fa";
 import ShowMoreText from "react-show-more-text";
-import { db, storage } from "../../firebase-config";
+import { db, storage, auth } from "../../firebase-config";
 import { useState, useEffect } from "react";
 import {
   collection,
@@ -19,7 +19,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { BsCardImage, BsTrashFill } from "react-icons/bs";
-import { CurUserContext } from "../../context/curUserContext";
+// import { CurUserContext } from "../../context/curUserContext";
 import Img from "../../image1.jpg";
 import { useContext } from "react";
 import { Timestamp, getDoc } from "firebase/firestore";
@@ -36,17 +36,24 @@ export const Feed = () => {
   const [refresh, setrefresh] = useState(false);
   const [I, setI] = useState();
   /* ------------------------------------- END Stats------------------------------------- */
-  const { curUser } = useContext(CurUserContext);
+  // const { curUser } = useContext(CurUserContext);
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
     const postsData = await getDocs(postsCollectionRefrance);
     setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
+  const [curUser, setcurUser] = useState();
 
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
     getposts();
     getnewcomments();
+    auth?.currentUser &&
+      getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
+        if (docSnap.exists()) {
+          setcurUser(docSnap.data());
+        }
+      });
   }, []);
 
   useEffect(() => {
@@ -109,8 +116,6 @@ export const Feed = () => {
 
   const delatePost = async (i) => {
     if (posts[i].from.includes(curUser.uid)) {
-      console.log(posts[i].id);
-      console.log(posts);
       const postDoc = doc(db, "posts", posts[i].id);
       await deleteDoc(postDoc);
       setrefresh(!refresh);
@@ -157,6 +162,7 @@ export const Feed = () => {
     if (newcomments[index].from.includes(curUser.uid)) {
       const commentDoc = doc(db, "comments", newcomments[index].id);
       await deleteDoc(commentDoc);
+      setrefresh(!refresh);
     } else {
       alert("you cant delete");
     }

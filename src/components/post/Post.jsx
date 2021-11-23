@@ -4,8 +4,6 @@ import { Users } from "../../dummyData";
 import { useState } from "react";
 // import { Input } from "@mui/material";
 export const Post = ({ post }) => {
-  // const user = Users.filter((u) => u.id === post.userId);
-  // console.log(user);
   const [like, setlike] = useState(post.like);
   const [islike, setislike] = useState(false);
   const likeHandler = () => {

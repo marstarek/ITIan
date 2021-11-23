@@ -13,7 +13,6 @@ const Online = ({ user1, user, selectUser, chat }) => {
     });
     return () => unsub();
   }, []);
-  console.log(user.isOnline);
   return (
     <>
       <div className={styles.user_wrapper} onClick={() => selectUser(user)}>

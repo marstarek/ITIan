@@ -152,13 +152,6 @@ const Profile = () => {
     });
   }, [refresh]);
 
-  if (myNEWprofile) {
-    myNEWprofile[0].fields.CONTACTS.stringValue.split(",").map((s) => {
-      console.log(s);
-    });
-  } else {
-    console.log("myNEWprofile[0].fields");
-  }
   return user ? (
     <section className="profile">
       <div className="container ">

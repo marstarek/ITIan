@@ -76,7 +76,6 @@ const Register = () => {
         loading: false,
       });
       history.push("/");
-      console.log(user);
     } catch (error) {
       setError(error.message);
       alert(error.message);

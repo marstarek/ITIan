@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "./navbar.module.css";
-import { CurUserContext } from "../../../context/curUserContext";
+// import { CurUserContext } from "../../../context/curUserContext";
 import { auth, db } from "../../../firebase-config";
 import { useContext } from "react";
 import { signOut } from "firebase/auth";
-import { updateDoc, doc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+
+import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import Img from "../../../image1.jpg";
 import {
@@ -22,7 +24,7 @@ import {
 } from "react-icons/bs";
 const Navbar = () => {
   const history = useHistory();
-  const { curUser } = useContext(CurUserContext);
+  // const { curUser } = useContext(CurUserContext);
   const handleSignout = async () => {
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       isOnline: false,
@@ -30,6 +32,16 @@ const Navbar = () => {
     await signOut(auth);
     history.replace("/login");
   };
+  const [curUser, setcurUser] = useState();
+  useEffect(() => {
+    auth?.currentUser &&
+      getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
+        if (docSnap.exists()) {
+          setcurUser(docSnap.data());
+        }
+      });
+  }, []);
+
   return (
     <>
       <nav class="navBar navbar navbar-expand-lg navbar-dark bg-danger">

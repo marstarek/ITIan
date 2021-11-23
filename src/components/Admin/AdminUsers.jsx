@@ -62,7 +62,7 @@ const AdminUsers = () => {
                   </thead>
                   <tbody>
                     {Users.map((user) => (
-                      <tr>
+                      <tr key={user.id}>
                         <td className="align-middle">
                           <div className="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
                             <input
