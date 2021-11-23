@@ -32,7 +32,7 @@ const Online = ({ user1, user, selectUser, chat }) => {
             </div>
             <div
               className={`${styles.user_status} ${
-                user.isOnline ? "bg-success" : "bg-success opacity-25"
+                user.isOnline ? "bg-success" : "bg-light"
               }`}
             ></div>
           </div>

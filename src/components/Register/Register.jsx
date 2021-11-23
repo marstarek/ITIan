@@ -64,6 +64,9 @@ const Register = () => {
         avatar:
           "https://www.duke-nus.edu.sg/images/librariesprovider5/people/1-placeholder.png?sfvrsn=61a8955c_0",
         avatarPath: "",
+        SKILLS: "",
+        EXPERIANCES: "",
+        CONTACTS: "",
       });
       setData({
         name: "",

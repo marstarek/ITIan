@@ -2,6 +2,7 @@ import "./userprofile.css";
 import Img from "../../image1.jpg";
 import { useState, useEffect } from "react";
 import { storage, db, auth } from "../../firebase-config";
+import NewSidebar from "../newSidbar/NewSidebar";
 import { BsTrashFill } from "react-icons/bs";
 import {
   collection,
@@ -17,7 +18,7 @@ import {
   deleteObject,
 } from "firebase/storage";
 
-const UserProfile = () => {
+const UserProfile = (paramz) => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
 
@@ -27,47 +28,14 @@ const UserProfile = () => {
     getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
       if (docSnap.exists) {
         setUser(docSnap.data());
-        console.log(user);
+        // console.log(user);
       }
     });
-
-    if (img) {
-      const uploadImg = async () => {
-        const imgRef = ref(
-          storage,
-          `avatar/${new Date().getTime()} - ${img.name}`
-        );
-        try {
-          if (user.avatarPath) {
-            await deleteObject(ref(storage, user.avatarPath));
-          }
-          const snap = await uploadBytes(imgRef, img);
-          const url = await getDownloadURL(ref(storage, snap.ref.fullPath));
-
-          await updateDoc(doc(db, "users", auth.currentUser.uid), {
-            avatar: url,
-            avatarPath: snap.ref.fullPath,
-          });
-
-          setImg("");
-        } catch (err) {
-          console.log(err.message);
-        }
-      };
-      uploadImg();
-      setrefresh(!refresh);
-    }
-  }, [img]);
-
+  }, []);
   /* -------------------------------------------------------------------------- */
   const [myprofile, setmyprofile] = useState([]);
   const [myNEWprofile, setmyNEWprofile] = useState(null);
-  const [SKILLS, setSKILLS] = useState("");
-  const [EXPERIANCES, setEXPERIANCES] = useState("");
-  const [CONTACTS, setCONTACTS] = useState("");
-  const [newSkills, setnewSkills] = useState([]);
-  const [newEXPERIANCES, setnewEXPERIANCES] = useState([]);
-  const [newCONTACTS, setnewCONTACTS] = useState([]);
+
   const myprofileCollectionRefrance = collection(db, "myprofile");
   const getmyprofile = async () => {
     const myprofileData = await getDocs(myprofileCollectionRefrance);
@@ -78,7 +46,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getmyprofile();
-  }, [refresh]);
+  }, []);
 
   useEffect(() => {
     Promise.all([
@@ -90,7 +58,7 @@ const UserProfile = () => {
     ]).catch((err) => {
       console.log(err);
     });
-  }, [refresh]);
+  }, []);
   useEffect(() => {
     Promise.all([
       fetch(
@@ -101,17 +69,9 @@ const UserProfile = () => {
     ]).catch((err) => {
       console.log(err);
     });
-    console.log(users);
+    // console.log(users[0]);
   }, []);
-  // myprofile.map((prof) => {
-  //   setnewSkills(prof.SKILLS.split(","));
-  //   setnewEXPERIANCES(prof.EXPERIANCES.split(","));
-  //   setnewCONTACTS(prof.CONTACTS.split(","));
-  // });
-  // setnewSkills(myprofile[0].SKILLS.split(","));
-  // console.log(newSkills);
-  // console.log(newEXPERIANCES);
-  // console.log(newCONTACTS);
+
   if (myNEWprofile) {
     myNEWprofile[0].fields.CONTACTS.stringValue.split(",").map((s) => {
       console.log(s);
@@ -119,12 +79,13 @@ const UserProfile = () => {
   } else {
     console.log("myNEWprofile[0].fields");
   }
-
-  // myprofile.map((pro) => {
-  //   console.log(pro.SKILLS.split(","));
-  //   // var nSkills = pro.SKILLS.split(",");
-  // });
-  return user ? (
+  // console.log(users[1]);
+  if (users) {
+    console.log(users[paramz.location.params]);
+  } else {
+    console.log("users[paramz.location.params]");
+  }
+  return user && users ? (
     <section className="profile">
       <div className="container ">
         <div className="profile-container mx-auto my-5">
@@ -133,14 +94,17 @@ const UserProfile = () => {
               <div className="img_container">
                 <img
                   className="profile-img "
-                  src={user.avatar || Img}
+                  src={
+                    users[paramz.location.params].fields.avatar.stringValue ||
+                    Img
+                  }
                   alt="avatar"
                 />
               </div>
             </div>
             <div className="col-6  mx-auto">
               <div className=" text-center  mx-auto">
-                <h2>{user.name}</h2>
+                <h2>{users[paramz.location.params].fields.name.stringValue}</h2>
 
                 <h4>Front End Dev</h4>
                 <small>
@@ -161,7 +125,7 @@ const UserProfile = () => {
 
                 <>
                   <ul className="text-center">
-                    {myNEWprofile[0].fields.SKILLS.stringValue
+                    {users[paramz.location.params].fields?.SKILLS?.stringValue
                       .split(",")
                       .map((s) => {
                         return <li>{s}</li>;
@@ -175,7 +139,9 @@ const UserProfile = () => {
                 <h3> EXPERIANCES</h3>
 
                 <ul className="text-center">
-                  {myNEWprofile[0].fields.EXPERIANCES.stringValue
+                  {users[
+                    paramz.location.params
+                  ].fields?.EXPERIANCES?.stringValue
                     .split(",")
                     .map((E) => {
                       return <li>{E}</li>;
@@ -194,7 +160,7 @@ const UserProfile = () => {
                 <h3> CONTACTS</h3>
 
                 <ul className="text-center">
-                  {myNEWprofile[0].fields.CONTACTS.stringValue
+                  {users[paramz.location.params].fields?.CONTACTS?.stringValue
                     .split(",")
                     .map((C) => {
                       return <li>{C}</li>;

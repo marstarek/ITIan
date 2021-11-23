@@ -68,31 +68,34 @@ export const Feed = () => {
   /* ------------------------------------handleSubmit-------------------------------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const id = `${curUser.uid}${new Date().getTime()}`;
-    let url;
-    if (img) {
-      const imgRef = ref(
-        storage,
-        `postsimages/${new Date().getTime()} - ${img.name}`
-      );
-      const snap = await uploadBytes(imgRef, img);
-      const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-      url = dlUrl;
+    if (PostText.trim() || img) {
+      const id = `${curUser.uid}${new Date().getTime()}`;
+      let url;
+      if (img) {
+        const imgRef = ref(
+          storage,
+          `postsimages/${new Date().getTime()} - ${img.name}`
+        );
+        const snap = await uploadBytes(imgRef, img);
+        const dlUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
+        url = dlUrl;
+      }
+      await addDoc(collection(db, "posts"), {
+        PostText,
+        from: id,
+        createdAt: Timestamp.fromDate(new Date()),
+        media: url || "",
+        like: 0,
+        islike: false,
+        ownerImg: curUser.avatar,
+        postOwnername: curUser.name,
+      });
+      const docSnap = await getDoc(doc(db, "posts", id));
+      setPostText("");
+      setrefresh(!refresh);
+    } else {
+      alert("please say something");
     }
-    await addDoc(collection(db, "posts"), {
-      PostText,
-      from: id,
-      createdAt: Timestamp.fromDate(new Date()),
-      media: url || "",
-      like: 0,
-      islike: false,
-      ownerImg: curUser.avatar,
-      postOwnername: curUser.name,
-    });
-    const docSnap = await getDoc(doc(db, "posts", id));
-    setPostText("");
-    console.log(docSnap);
-    setrefresh(!refresh);
   };
   /* -------------------------------------likeHandler------------------------------------- */
   const likeHandler = async (i) => {
@@ -118,17 +121,21 @@ export const Feed = () => {
 
   /* --------------------------------------commentsHandler------------------------------------ */
   const commentsHandler = async (i) => {
-    await addDoc(collection(db, "comments"), {
-      commentsText,
-      from: curUser.uid,
-      createdAt: Timestamp.fromDate(new Date()),
-      postID: posts[i].id,
-      commentOwnerImg: curUser.avatar,
-      commentOwnername: curUser.name,
-    });
-    setcommentsText("");
-    setrefresh(!refresh);
-    showComments(i);
+    if (commentsText) {
+      await addDoc(collection(db, "comments"), {
+        commentsText,
+        from: curUser.uid,
+        createdAt: Timestamp.fromDate(new Date()),
+        postID: posts[i].id,
+        commentOwnerImg: curUser.avatar,
+        commentOwnername: curUser.name,
+      });
+      setcommentsText("");
+      setrefresh(!refresh);
+      showComments(i);
+    } else {
+      alert("please say something");
+    }
   };
   /* --------------------------------------commentsHandler------------------------------------ */
   const showComments = (i) => {
@@ -174,6 +181,7 @@ export const Feed = () => {
                     placeholder="What's in your mind ?"
                     className="shareInput"
                     value={PostText}
+                    required
                     onChange={(e) => setPostText(e.target.value)}
                   />
                 </div>

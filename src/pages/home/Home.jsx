@@ -1,8 +1,10 @@
 import styles from "./home.module.css";
 // import { Topbar } from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidbar/Sidebar";
+import NewSidebar from "../../components/newSidbar/NewSidebar";
 import Feed from "../../components/feed/Feed";
 import RightBar from "../../components/rightbar/Rightbar";
+
 const Home = () => {
   return (
     <>
@@ -11,7 +13,7 @@ const Home = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-3">
-            <Sidebar />
+            <NewSidebar />
           </div>
           <div className="col-6">
             <Feed />

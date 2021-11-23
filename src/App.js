@@ -39,7 +39,11 @@ function App() {
             <PrivateRoute path="/Profile" component={Profile} />{" "}
             <PrivateRoute path="/AdminHome" component={AdminHome} />{" "}
             <PrivateRoute path="/Jobs" component={Jobs} />{" "}
-            <PrivateRoute path="/1" component={UserProfile} />{" "}
+            <PrivateRoute
+              path="/UserProfile"
+              component={UserProfile}
+              render={(params) => <UserProfile {...params} />}
+            />
             <PrivateRoute path="/AdminLogin" component={AdminLogin} />{" "}
             <PrivateRoute path="/AdminUsers" component={AdminUsers} />{" "}
             <PrivateRoute path="/AdminTracks" component={AdminTracks} />{" "}

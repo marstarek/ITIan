@@ -99,15 +99,31 @@ const Profile = () => {
   useEffect(() => {
     getmyprofile();
   }, [refresh]);
-
   const saveChangs = async (e) => {
-    console.log(myprofile);
-    await updateDoc(doc(db, "myprofile", myprofile[0].id), {
-      SKILLS: SKILLS,
-      EXPERIANCES: EXPERIANCES,
-      CONTACTS: CONTACTS,
-    });
-    setrefresh(!refresh);
+    if (SKILLS.trim()) {
+      await updateDoc(doc(db, "users", auth.currentUser.uid), {
+        SKILLS: SKILLS,
+      });
+      setrefresh(!refresh);
+    } else {
+      alert("enter your skills");
+    }
+    if (EXPERIANCES.trim()) {
+      await updateDoc(doc(db, "users", auth.currentUser.uid), {
+        EXPERIANCES: EXPERIANCES,
+      });
+      setrefresh(!refresh);
+    } else {
+      alert("enter your EXPERIANCES");
+    }
+    if (CONTACTS.trim()) {
+      await updateDoc(doc(db, "users", auth.currentUser.uid), {
+        CONTACTS: CONTACTS,
+      });
+      setrefresh(!refresh);
+    } else {
+      alert("enter your CONTACTS");
+    }
   };
   const [TO1, setTO1] = useState(true);
 
@@ -191,20 +207,14 @@ const Profile = () => {
           <div className="SKILLS-head  py-5 px-4 text-center row">
             <div className="col-lg-6 mt-2">
               <div className="skill-card">
-                <h3> Skills</h3>
+                <h3>SKILLS</h3>
                 {TO1 ? (
                   <>
-                    {myNEWprofile ? (
-                      <ul className="text-center">
-                        {myNEWprofile[0].fields.SKILLS.stringValue
-                          .split(",")
-                          .map((s) => {
-                            return <li>{s}</li>;
-                          })}
-                      </ul>
-                    ) : (
-                      <p>pleace waite</p>
-                    )}
+                    <ul className="text-center">
+                      {user.SKILLS.split(",").map((E) => {
+                        return <li>{E}</li>;
+                      })}
+                    </ul>
                   </>
                 ) : (
                   <>
@@ -235,17 +245,11 @@ const Profile = () => {
                 <h3> EXPERIANCES</h3>
                 {TO2 ? (
                   <>
-                    {myNEWprofile ? (
-                      <ul className="text-center">
-                        {myNEWprofile[0].fields.EXPERIANCES.stringValue
-                          .split(",")
-                          .map((E) => {
-                            return <li>{E}</li>;
-                          })}
-                      </ul>
-                    ) : (
-                      <p>pleace waite</p>
-                    )}
+                    <ul className="text-center">
+                      {user.EXPERIANCES.split(",").map((E) => {
+                        return <li>{E}</li>;
+                      })}
+                    </ul>
                   </>
                 ) : (
                   <>
@@ -282,17 +286,11 @@ const Profile = () => {
                 <h3> CONTACTS</h3>
                 {TO3 ? (
                   <>
-                    {myNEWprofile ? (
-                      <ul className="text-center">
-                        {myNEWprofile[0].fields.CONTACTS.stringValue
-                          .split(",")
-                          .map((C) => {
-                            return <li>{C}</li>;
-                          })}
-                      </ul>
-                    ) : (
-                      <p>pleace waite</p>
-                    )}
+                    <ul className="text-center">
+                      {user.CONTACTS.split(",").map((E) => {
+                        return <li>{E}</li>;
+                      })}
+                    </ul>
                   </>
                 ) : (
                   <>
