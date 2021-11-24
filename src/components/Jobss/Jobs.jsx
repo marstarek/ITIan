@@ -6,6 +6,9 @@ export default function Jobs() {
   return (
     <>
       <div className={`row gx-0`}>
+        <div className={`col-lg-5 pt-5`}>
+          <PostJob />
+        </div>
         <div className={`col-lg-7`}>
           <h3 className={`text-center pt-4 pb-2`}>
             Explore New Career Opportunities
@@ -15,9 +18,6 @@ export default function Jobs() {
               <Job key={J.id} job={J} />
             ))}
           </div>
-        </div>
-        <div className={`order-0 col-lg-5 pt-5`}>
-          <PostJob />
         </div>
       </div>
     </>

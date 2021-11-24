@@ -64,9 +64,6 @@ const Register = () => {
         avatar:
           "https://www.duke-nus.edu.sg/images/librariesprovider5/people/1-placeholder.png?sfvrsn=61a8955c_0",
         avatarPath: "",
-        SKILLS: "",
-        EXPERIANCES: "",
-        CONTACTS: "",
       });
       setData({
         name: "",
@@ -76,6 +73,7 @@ const Register = () => {
         loading: false,
       });
       history.push("/");
+      console.log(user);
     } catch (error) {
       setError(error.message);
       alert(error.message);
@@ -101,19 +99,43 @@ const Register = () => {
             {(formik) => {
               return (
                 <Form>
-                  <div className="form w-50 m-auto" style={{ padding: 20 }}>
-                    <FormikField label="name:" name="name" type="text" />
-                    <FormikField label="email" name="email" type="email" />
-                    <FormikField
-                      label="password"
-                      name="password"
-                      type="password"
-                    />
-                    <FormikField
-                      label="password confirmation"
-                      name="passwordConfirmation"
-                      type="password"
-                    />
+                  <div className="form w-75 m-auto" style={{ padding: 20 }}>
+                    <div className="mb-2">
+                      <FormikField
+                        label="name:"
+                        name="name"
+                        type="text"
+                        placeholder="Your name"
+                        as="input"
+                      />
+                    </div>
+                    <div className="mb-2">
+                      <FormikField
+                        label="email"
+                        name="email"
+                        type="email"
+                        placeholder="Your email"
+                        as="input"
+                      />
+                    </div>
+                    <div className="mb-2">
+                      <FormikField
+                        label="password"
+                        name="password"
+                        type="password"
+                        placeholder="Your password"
+                        as="input"
+                      />
+                    </div>
+                    <div className="mb-2">
+                      <FormikField
+                        label="password confirmation"
+                        name="passwordConfirmation"
+                        type="password"
+                        placeholder="Confirm password"
+                        as="input"
+                      />
+                    </div>
 
                     <Field name="itian">
                       {(formikField) => {
@@ -126,9 +148,7 @@ const Register = () => {
                                 style={{
                                   display: "block",
                                 }}
-                              >
-                                {" "}
-                              </label>
+                              ></label>
                               <FieldArray name="Itian">
                                 {({
                                   push,
@@ -141,7 +161,7 @@ const Register = () => {
                                     <div>
                                       <button
                                         type="button"
-                                        className={`my-3 ${styles.button} rounded-pill text-light px-5 py-2`}
+                                        className={`my-3 w-50 ${styles.button} rounded-pill text-light px-5 py-2`}
                                         onClick={() => {
                                           push();
                                           push();
@@ -151,7 +171,6 @@ const Register = () => {
                                       </button>
                                       {Itian.map((feild, i) => (
                                         <div key={i}>
-                                          {" "}
                                           {i === 0 && (
                                             <label
                                               htmlFor={`Itian[${i}]`}
@@ -160,10 +179,9 @@ const Register = () => {
                                                 display: "block",
                                               }}
                                             >
-                                              {" "}
                                               code
                                             </label>
-                                          )}{" "}
+                                          )}
                                           {i === 1 && (
                                             <label
                                               htmlFor={`Itian[${i}]`}
@@ -172,7 +190,6 @@ const Register = () => {
                                                 display: "block",
                                               }}
                                             >
-                                              {" "}
                                               name
                                             </label>
                                           )}
@@ -196,14 +213,13 @@ const Register = () => {
                     <button
                       style={{ display: "block" }}
                       type="submit"
-                      className={`  ${styles.button}  rounded-pill text-light`}
+                      className={`${styles.button}  rounded-pill text-light`}
                     >
                       submit
                     </button>
                   </div>
                   {error ? (
                     <p className=" text-danger text-center">
-                      {" "}
                       this email already in use
                     </p>
                   ) : null}
@@ -212,14 +228,13 @@ const Register = () => {
             }}
           </Formik>
           <p className="text-center">
-            Already a user ?{" "}
+            Already a user ?
             <Link to="/login" className="text-danger">
-              {" "}
-              Log In{" "}
-            </Link>{" "}
-          </p>{" "}
+              Log In
+            </Link>
+          </p>
         </div>
-      </div>{" "}
+      </div>
     </div>
   );
 };

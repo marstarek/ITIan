@@ -57,13 +57,15 @@ const Login = () => {
         loading: false,
       });
       history.push("/");
+      console.log(user);
     } catch (error) {
       setError(error.message);
     }
   };
 
+  console.log(user);
   return (
-    <div className={`container   bg-body   my-auto ${styles.login__container}`}>
+    <div className={`container ${styles.login__container}`}>
       <div className={`align-items-center d-flex ${styles.login__wrapper}`}>
         <figure className="col-6  d-flex justify-content-center align-items-center ">
           <figure className="w-50">
@@ -72,31 +74,41 @@ const Login = () => {
         </figure>
         <div className={`col-6 ${styles.form__wrapper} p-3 my-5  form`}>
           <h2>Login</h2>
-          <Formik initialValues={initialValues} onSubmit={onSubmit}>
-            {(formik) => {
-              return (
-                <Form>
-                  <div className="form w-50 m-auto" style={{ padding: 20 }}>
-                    <FormikField label="email" name="email" type="email" />
-                    <FormikField
-                      label="password"
-                      name="password"
-                      type="password"
-                    />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            <Form>
+              <div className="form w-75 m-auto" style={{ padding: 20 }}>
+                <div className="mb-2">
+                  <FormikField
+                    label="email"
+                    name="email"
+                    type="email"
+                    placeholder="Your email"
+                    as="input"
+                  />
+                </div>
+                <FormikField
+                  label="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  as="input"
+                />
 
-                    <button
-                      style={{ display: "block" }}
-                      className={`text-light  rounded-pill ${styles.button} my-4`}
-                    >
-                      login
-                    </button>
-                    {error ? (
-                      <p className=" text-danger">wrong email or password</p>
-                    ) : null}
-                  </div>
-                </Form>
-              );
-            }}
+                <button
+                  style={{ display: "block" }}
+                  className={`text-light  rounded-pill ${styles.button} my-4`}
+                >
+                  login
+                </button>
+                {error ? (
+                  <p className=" text-danger">wrong email or password</p>
+                ) : null}
+              </div>
+            </Form>
           </Formik>
           <p className="text-center">
             Not a user ?
