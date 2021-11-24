@@ -1,9 +1,7 @@
 import { Users } from "../../dummyData";
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BsFillFunnelFill,
-  BsLockFill,
-  BsGearFill,
   BsFillPersonFill,
   BsFillCameraFill,
   BsFillBadgeArFill,
@@ -11,11 +9,29 @@ import {
   BsTrashFill,
   BsTools,
 } from "react-icons/bs";
+import { db, auth } from "../../firebase-config";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 import Img from "../../image1.jpg";
 
 const AdminUsers = () => {
+  const [users, setUsers] = useState([]);
+  const usersCollectionRefrance = collection(db, "users");
+
+  const getUsers = async () => {
+    const usersData = await getDocs(usersCollectionRefrance);
+    setUsers(usersData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
+  console.log(users[0]);
+  const deleteuser = async (i) => {
+    const commentDoc = doc(db, "users", users[i].uid);
+    await deleteDoc(commentDoc);
+    getUsers();
+  };
   return (
     <>
       <div className="container-fluid bg-dark text-light ">
@@ -40,19 +56,6 @@ const AdminUsers = () => {
                 <table className="table table-bordered text-light">
                   <thead>
                     <tr>
-                      <th className="align-top text-light">
-                        <div className="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 text-light">
-                          <input
-                            type="checkbox"
-                            className="custom-control-input"
-                            id="all-items"
-                          />
-                          <label
-                            className="custom-control-label"
-                            for="all-items"
-                          ></label>
-                        </div>
-                      </th>
                       <th>Photo</th>
                       <th className="max-width">Name</th>
                       <th className="sortable">Date</th>
@@ -61,21 +64,8 @@ const AdminUsers = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Users.map((user) => (
-                      <tr key={user.id}>
-                        <td className="align-middle">
-                          <div className="custom-control custom-control-inline custom-checkbox custom-control-nameless m-0 align-top">
-                            <input
-                              type="checkbox"
-                              className="custom-control-input"
-                              id="item-1"
-                            />
-                            <label
-                              className="custom-control-label"
-                              for="item-1"
-                            ></label>
-                          </div>
-                        </td>
+                    {users.map((user, i) => (
+                      <tr key={i}>
                         <td className="align-middle text-center">
                           <div
                             className="bg-light d-inline-flex justify-content-center align-items-center align-top"
@@ -91,20 +81,20 @@ const AdminUsers = () => {
                                 height: "35px",
                                 "border-radius": " 3px",
                               }}
-                              src={user.profilePicture}
+                              src={user.avatar}
                               alt=""
                             />
                           </div>
                         </td>
                         <td className="text-nowrap align-middle">
-                          {user.username}
+                          {user.name}
                         </td>
                         <td className="text-nowrap align-middle">
-                          <span>09 Dec 2017</span>
+                          <span>{user.email}</span>
                         </td>
 
                         <td className="text-center align-middle">
-                          <sapn>{user.id}</sapn>
+                          <sapn>{user.uid}</sapn>
                         </td>
 
                         <td className="text-center align-middle">
@@ -121,7 +111,11 @@ const AdminUsers = () => {
                               className="btn btn-sm btn-outline-danger "
                               type="button"
                             >
-                              <BsTrashFill />
+                              <BsTrashFill
+                                onClick={() => {
+                                  deleteuser(i);
+                                }}
+                              />
                             </button>
                           </div>
                         </td>
@@ -215,14 +209,13 @@ const AdminUsers = () => {
               </Link>
             </li>
             <li class="page-item">
-              <a class="page-link" href="#">
-                Posts
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                programs
-              </a>
+              <Link
+                class="page-link bg-danger text-light"
+                to="/AdminPosts"
+                tabindex="-1"
+              >
+                Posts{" "}
+              </Link>
             </li>
           </ul>
         </div>

@@ -315,8 +315,11 @@ export const Feed = () => {
                           className="likeIcon text-danger"
                           // src="assets/like.png"
                           // alt=""
-                          onClick={() => {
-                            likeHandler(i);
+                          // onClick={() => {
+                          //   likeHandler(i);
+                          // }}
+                          onClick={async () => {
+                            await likeHandler(i);
                           }}
                         />
                         <span className="postLikeCounter">

@@ -335,3 +335,53 @@ export const jobs = [{
         jobTitle: "Entry Level · 1-4 Yrs of Exp · Agile · Computer Science · Docker · Information Technology (IT) · Js · Node.js · Redux · Scrum · Software Development · Web Development ",
     },
 ];
+//
+export const Tracks = [{
+        id: 1,
+        trackName: "UX UI",
+        desc: " The ICT Minister underlined that MCIT and its affiliated organizations provide lots of opportunities and training programs to hone the youth’s digital skills",
+        job_profiles: "UI Developer,Frontend Developer,JavaScript Developer",
+        trackduration: 9,
+        photo: "assets/news/COVER (4).jpg",
+    },
+    {
+        id: 2,
+        trackName: "AWS",
+        desc: " The ICT Minister underlined that MCIT and its affiliated organizations provide lots of opportunities and training programs to hone the youth’s digital skills",
+        job_profiles: "UI Developer,Frontend Developer,JavaScript Developer",
+        trackduration: 9,
+        photo: "assets/news/COVER (3).jpg",
+    },
+    {
+        id: 3,
+        trackName: "ERP",
+        desc: " The ICT Minister underlined that MCIT and its affiliated organizations provide lots of opportunities and training programs to hone the youth’s digital skills",
+        job_profiles: "UI Developer,Frontend Developer,JavaScript Developer",
+        trackduration: 3,
+        photo: "assets/news/COVER (2).jpg",
+    },
+    {
+        id: 4,
+        trackName: "Front End ",
+        desc: " The ICT Minister underlined that MCIT and its affiliated organizations provide lots of opportunities and training programs to hone the youth’s digital skills",
+        job_profiles: "UI Developer,Frontend Developer,JavaScript Developer",
+        trackduration: 3,
+        photo: "assets/news/COVER (1).jpeg",
+    },
+    {
+        id: 5,
+        trackName: "Back end with php",
+        desc: " The ICT Minister underlined that MCIT and its affiliated organizations provide lots of opportunities and training programs to hone the youth’s digital skills",
+        job_profiles: "UI Developer,Frontend Developer,JavaScript Developer",
+        trackduration: 9,
+        photo: "assets/news/COVER (1).jpg",
+    },
+    {
+        id: 6,
+        trackName: "Front End",
+        desc: " The ICT Minister underlined that MCIT and its affiliated organizations provide lots of opportunities and training programs to hone the youth’s digital skills",
+        job_profiles: "UI Developer,Frontend Developer,JavaScript Developer",
+        trackduration: 3,
+        photo: "assets/news/COVER (1).jpeg",
+    },
+];

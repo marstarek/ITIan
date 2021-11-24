@@ -1,6 +1,5 @@
 import { Tracks } from "../../dummyData";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import {
   BsFillFunnelFill,
   BsLockFill,
@@ -14,16 +13,32 @@ import {
   BsCardHeading,
   BsClipboardCheck,
 } from "react-icons/bs";
-import Img from "../../image1.jpg";
-import "./adminHome.css";
+import { db, auth } from "../../firebase-config";
+import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import Img from "../../image1.jpg";
+const AdminPosts = () => {
+  const [posts, setposts] = useState([]);
+  const postsCollectionRefrance = collection(db, "posts");
 
-const AdminUsers = () => {
+  const getposts = async () => {
+    const postsData = await getDocs(postsCollectionRefrance);
+    setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+  useEffect(() => {
+    getposts();
+  }, []);
+  const deleteposrs = async (i) => {
+    const postsdoc = doc(db, "posts", posts[i].id);
+    await deleteDoc(postsdoc);
+    getposts();
+  };
   const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="container-fluid bg-dark text-light ">
-        <h2 className="py-3 ">Tracks</h2>
+        <h2 className="py-3 ">Posts</h2>
 
         <div className="row text-light ">
           <div className="col-8  text-light ">
@@ -40,94 +55,105 @@ const AdminUsers = () => {
                 search <BsFillFunnelFill />
               </span>
             </div>
-
             <div className="row flex-nowrap g-0 text-light">
               <div className=" admincard  text-light ">
                 <table className="table table-bordered text-light">
                   <thead>
                     <tr>
-                      <th>Track Cover</th>
-                      <th className="max-width">Track Name</th>
-                      <th className="sortable">Track description</th>
-                      <th> Track ID</th>
-                      <th>duration</th>
+                      <th>post photo</th>
+                      <th className="max-width">post ownar</th>
+                      <th className="sortable">post contant</th>
+                      <th> post ID</th>
+                      <th>created at</th>
                       <th>option</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {Tracks.filter((track) => {
-                      if (query === "") {
-                        return track;
-                      } else if (
-                        track.trackName
-                          .toLowerCase()
-                          .includes(query.toLowerCase())
-                      ) {
-                        return track;
-                      }
-                    }).map((track, index) => (
-                      <tr key={track.id}>
-                        <td className="align-middle text-center">
-                          <div
-                            className="bg-light d-inline-flex justify-content-center align-items-center align-top"
-                            style={{
-                              width: " 35px",
-                              height: "35px",
-                              "border-radius": " 3px",
-                            }}
-                          >
-                            <img
+                    {posts
+                      .filter((post) => {
+                        if (query === "") {
+                          return post;
+                        } else if (
+                          post.PostText.toLowerCase().includes(
+                            query.toLowerCase()
+                          )
+                        ) {
+                          return post;
+                        }
+                      })
+                      .map((post, i) => (
+                        <tr key={post.id}>
+                          <td className="align-middle text-center">
+                            <div
+                              className="bg-light d-inline-flex justify-content-center align-items-center align-top"
                               style={{
                                 width: " 35px",
                                 height: "35px",
                                 "border-radius": " 3px",
                               }}
-                              src={track.photo}
-                              alt=""
-                            />
-                          </div>
-                        </td>
-                        <td className="text-nowrap align-middle">
-                          {track.trackName}
-                        </td>
-                        <td className="text-nowrap align-middle overflow-hidden w-25 text-nowrap">
-                          <div
-                            style={{
-                              width: "250px",
-                              overflow: "auto",
-                            }}
-                          >
-                            <p className="  text-light ">{track.desc} </p>
-                          </div>
-                        </td>
-
-                        <td className="text-center align-middle">
-                          <sapn>{track.id}</sapn>
-                        </td>
-                        <td className="text-center align-middle">
-                          <sapn>{track.trackduration}</sapn>
-                        </td>
-
-                        <td className="text-center align-middle">
-                          <div className="btn-group align-top">
-                            <button
-                              className="btn btn-sm btn-outline-danger "
-                              type="button"
-                              data-toggle="modal"
-                              data-target="#user-form-modal"
                             >
-                              <BsTools />
-                            </button>
-                            <button
-                              className="btn btn-sm btn-outline-danger "
-                              type="button"
+                              <img
+                                style={{
+                                  width: " 35px",
+                                  height: "35px",
+                                  "border-radius": " 3px",
+                                }}
+                                src={post.media}
+                                alt=""
+                              />
+                            </div>
+                          </td>
+                          <td className="text-nowrap align-middle">
+                            {post.postOwnername}
+                          </td>
+                          <td className=" align-middle  text-nowrap">
+                            <div
+                              style={{
+                                width: "250px",
+                                overflow: "auto",
+                              }}
                             >
-                              <BsTrashFill />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                              <p className="  text-light ">{post.PostText} </p>
+                            </div>
+                          </td>
+
+                          <td className="text-center align-middle">
+                            <sapn>{post.id}</sapn>
+                          </td>
+                          <td className="text-center align-middle">
+                            <sapn>
+                              {post.createdAt.toDate().toDateString()}
+                            </sapn>
+                          </td>
+
+                          <td className="text-center align-middle">
+                            <div className="btn-group align-top">
+                              <button
+                                className="btn btn-sm btn-outline-danger "
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#user-form-modal"
+                              >
+                                <BsTools />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-danger "
+                                type="button"
+                              >
+                                <BsTrashFill
+                                  onClick={async () => {
+                                    await deleteposrs(i);
+                                  }}
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+
+                    {/* {posts.map((post, i) => (
+                    
+                    ))}  */}
                   </tbody>
                 </table>
               </div>
@@ -206,7 +232,7 @@ const AdminUsers = () => {
                 Users{" "}
               </Link>
             </li>
-            <li class="page-item disabled">
+            <li class="page-item ">
               <Link
                 class="page-link bg-danger text-light"
                 to="/AdminTracks"
@@ -217,7 +243,7 @@ const AdminUsers = () => {
             </li>
             <li class="page-item">
               <Link
-                class="page-link bg-danger text-light"
+                class="page-link bg-danger text-light disabled "
                 to="/AdminPosts"
                 tabindex="-1"
               >
@@ -230,4 +256,4 @@ const AdminUsers = () => {
     </>
   );
 };
-export default AdminUsers;
+export default AdminPosts;

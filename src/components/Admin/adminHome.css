@@ -58,10 +58,8 @@
      flex-direction: column column;
      min-width: 15rem;
      border-radius: 0.75em;
-     box-shadow: rgb(185, 185, 185) 0px 3px 5px;
      transition: transform 270ms ease;
      position: relative;
-     padding: 1rem;
      margin-bottom: 8rem;
  }
  

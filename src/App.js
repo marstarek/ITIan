@@ -23,39 +23,75 @@ import UserProfile from "./components/userProfile/UserProfile";
 import AdminLogin from "./components/Admin/AdminLogin";
 import AdminUsers from "./components/Admin/AdminUsers";
 import AdminTracks from "./components/Admin/AdminTracks";
+import AdminPosts from "./components/Admin/AdminPosts";
 
 function App() {
-  return (
-    <>
-      <div className="App">
-        <Router>
-          <Navbar />
-          <Switch>
-            <PrivateRoute exact path="/" component={Home} />{" "}
-            <Route path="/login" component={Login} />{" "}
-            <Route path="/register" component={Register} />{" "}
-            <PrivateRoute path="/about" component={AboutTracks} />{" "}
-            <PrivateRoute path="/track" component={AboutTrack} />{" "}
-            <PrivateRoute path="/Profile" component={Profile} />{" "}
-            <PrivateRoute path="/AdminHome" component={AdminHome} />{" "}
-            <PrivateRoute path="/Jobs" component={Jobs} />{" "}
-            <PrivateRoute
-              path="/UserProfile"
-              component={UserProfile}
-              render={(params) => <UserProfile {...params} />}
+    return ( <
+        >
+        <
+        div className = "App" >
+        <
+        Router >
+        <
+        Navbar / >
+        <
+        Switch >
+        <
+        PrivateRoute exact path = "/"
+        component = { Home }
+        />{" "} <
+        Route path = "/login"
+        component = { Login }
+        />{" "} <
+        Route path = "/register"
+        component = { Register }
+        />{" "} <
+        PrivateRoute path = "/about"
+        component = { AboutTracks }
+        />{" "} <
+        PrivateRoute path = "/track"
+        component = { AboutTrack }
+        />{" "} <
+        PrivateRoute path = "/Profile"
+        component = { Profile }
+        />{" "} <
+        PrivateRoute path = "/AdminHome"
+        component = { AdminHome }
+        />{" "} <
+        PrivateRoute path = "/Jobs"
+        component = { Jobs }
+        />{" "} <
+        PrivateRoute path = "/UserProfile"
+        component = { UserProfile }
+        render = {
+            (params) => < UserProfile {...params }
+            />} /
+            >
+            <
+            PrivateRoute path = "/AdminLogin"
+            component = { AdminLogin }
+            />{" "} <
+            PrivateRoute path = "/AdminUsers"
+            component = { AdminUsers }
+            />{" "} <
+            PrivateRoute path = "/AdminTracks"
+            component = { AdminTracks }
+            />{" "} <
+            PrivateRoute path = "/AdminPosts"
+            component = { AdminPosts }
+            />{" "} <
+            PrivateRoute path = "/MyTrackPage"
+            component = { MyTrackPage }
+            />{" "} { /* <PrivateRoute path="/TestFeed" component={TestFeed} />{" "} */ } { " " } <
+            PrivateRoute path = "/MessagesPage"
+            component = { MessagesPage }
+            />{" "} <
+            /Switch>{" "} <
+            Footer / > { " " } <
+            /Router>{" "} <
+            /div>{" "} <
             />
-            <PrivateRoute path="/AdminLogin" component={AdminLogin} />{" "}
-            <PrivateRoute path="/AdminUsers" component={AdminUsers} />{" "}
-            <PrivateRoute path="/AdminTracks" component={AdminTracks} />{" "}
-            <PrivateRoute path="/MyTrackPage" component={MyTrackPage} />{" "}
-            {/* <PrivateRoute path="/TestFeed" component={TestFeed} />{" "} */}{" "}
-            <PrivateRoute path="/MessagesPage" component={MessagesPage} />{" "}
-          </Switch>{" "}
-          <Footer />{" "}
-        </Router>{" "}
-      </div>{" "}
-    </>
-  );
-}
+        );
+    }
 
-export default App;
+    export default App;
