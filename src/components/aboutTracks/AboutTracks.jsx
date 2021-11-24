@@ -11,7 +11,7 @@ export const AboutTracks = () => {
           <Carousel.Item className="CarouselItem">
             <img
               className="d-block w-100 img-fluid "
-              src="assets/news/new (4).jpg"
+              src="assets/news/COVER (3).jpg"
               alt="First slide"
             />
             <Carousel.Caption>
