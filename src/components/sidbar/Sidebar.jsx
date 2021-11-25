@@ -53,7 +53,7 @@ export const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebarWrapper}>
-        <ul className={styles.sidebarList}>
+        {/* <ul className={styles.sidebarList}>
           <li className={styles.sidebarListItem}>
             <BsFillAwardFill className={styles.sidebarIcon} />
             <span className={styles.sidebarListItemText}>Chats</span>
@@ -82,7 +82,7 @@ export const Sidebar = () => {
             <BsFillChatDotsFill className={styles.sidebarIcon} />
             <span className={styles.sidebarListItemText}> Programs </span>
           </li>
-        </ul>
+        </ul> */}
         <button className={`${styles.sidebarButton} text-danger`}>
           <Link
             className={`${styles.sidebarButton} text-danger`}

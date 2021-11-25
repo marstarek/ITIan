@@ -203,7 +203,7 @@ export const Posts = [{
 ];
 export const Newz = [{
         id: 1,
-        desc: "The Minister of Communications and Information Technology Amr Talaat has witnessed t",
+        desc: "The Minister of Communications and Information Technology Amr Talaat has ",
         photo: "assets/news/new (1).jpg",
         date: "22/11/2021",
         userId: 1,
@@ -230,7 +230,7 @@ export const Newz = [{
     },
     {
         id: 4,
-        desc: "training program for recruits, with around 5,500 graduates in the previous ",
+        desc: "training program for recruits, with around 5,500 graduates ",
         photo: "assets/news/new (4).jpg",
         date: "27/11/2021",
         userId: 4,
@@ -239,7 +239,7 @@ export const Newz = [{
     },
     {
         id: 5,
-        desc: "he meeting, in addition, shed light on the job opportunities that the IT  ",
+        desc: "he meeting, in addition, shed light on the job opportunities ",
         photo: "assets/news/new (5).jpg",
         date: "27/11/2021",
         userId: 5,

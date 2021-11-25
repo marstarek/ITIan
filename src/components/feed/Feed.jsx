@@ -1,13 +1,5 @@
 import "./feed.css";
-import {
-  BsFillXCircleFill,
-  BsChatSquareTextFill,
-  BsChevronDoubleDown,
-  BsFillCursorFill,
-  BsFillHeartFill,
-} from "react-icons/bs";
-import { FaPaperPlane } from "react-icons/fa";
-import ShowMoreText from "react-show-more-text";
+
 import { db, storage, auth } from "../../firebase-config";
 import { useState, useEffect } from "react";
 import {
@@ -18,12 +10,11 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
-import { BsCardImage, BsTrashFill } from "react-icons/bs";
-// import { CurUserContext } from "../../context/curUserContext";
 import Img from "../../image1.jpg";
-import { useContext } from "react";
 import { Timestamp, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import Share from "../share/Share";
+import Post from "../post/Post";
 /* ------------------------------------imports-------------------------------------- */
 export const Feed = () => {
   const [posts, setposts] = useState([]);
@@ -122,6 +113,7 @@ export const Feed = () => {
     } else {
     }
     setrefresh(!refresh);
+    alert("this is not your  post you cant delete it");
   };
 
   /* --------------------------------------commentsHandler------------------------------------ */
@@ -174,248 +166,30 @@ export const Feed = () => {
       {curUser ? (
         <div className="feed">
           <div className="feedWrapper">
-            <div className="share">
-              <div className="shareWrapper">
-                <div className="shareTop">
-                  <img
-                    className="shareProfileImg"
-                    src={curUser.avatar || Img}
-                    alt=""
-                  />
-                  {/*  */}
-                  <input
-                    placeholder="What's in your mind ?"
-                    className="shareInput"
-                    value={PostText}
-                    required
-                    onChange={(e) => setPostText(e.target.value)}
-                  />
-                </div>
-                <hr className="shareHr" />
-                <div className="shareBottom">
-                  <div className="shareOption mx-1">
-                    <span className="shareOptionText"> Photo </span>
-                    <label htmlFor="img">
-                      <BsCardImage className="shareIcon text-danger" />
-                    </label>
-                    <input
-                      onChange={(e) => setImg(e.target.files[0])}
-                      type="file"
-                      id="img"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                    />
-                  </div>
-                  <div className="shareOption mx-1">
-                    <span className="shareOptionText"> Post </span>
-                    <label htmlFor="post">
-                      <FaPaperPlane
-                        id="post"
-                        onClick={handleSubmit}
-                        className="shareIcon text-danger "
-                      />
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Share
+              PostText={PostText}
+              handleSubmit={handleSubmit}
+              setPostText={setPostText}
+              setImg={setImg}
+              curUser={curUser}
+              Img={Img}
+            />
             {allPosts.map((postd, i) => {
               return (
-                <div className="post">
-                  <div className="postWrapper">
-                    <div className="postTop">
-                      <div className="postTopLeft">
-                        <img
-                          className="shareProfileImg postProfileImg"
-                          src={postd.fields.ownerImg?.stringValue || Img}
-                          alt=""
-                        />
-                        <figure>
-                          <sapn className="postUsername">
-                            {/* {Users.filter((u) => u.id === post.userId)[0].username} */}
-                            {postd.fields.postOwnername?.stringValue}
-                          </sapn>
-                          <br />
-                          <figcaption>
-                            <cite>
-                              <sapn className="postDate">
-                                {postd.fields.createdAt.timestampValue}
-                              </sapn>
-                            </cite>
-                          </figcaption>
-                        </figure>
-                      </div>
-                      <div className="postTopRight">
-                        <>
-                          <p class="nav-item dropdown">
-                            <a
-                              class="nav-link dropdown-toggle"
-                              id="navbarDropdown"
-                              role="button"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                              fs-3
-                              text-danger
-                            ></a>
-                            <ul
-                              class="dropdown-menu"
-                              aria-labelledby="navbarDropdown"
-                            >
-                              <li>
-                                <button
-                                  class="nav-link  btn btn-danger "
-                                  onClick={async () => {
-                                    await delatePost(i);
-                                  }}
-                                >
-                                  Delete
-                                </button>
-                              </li>
-                            </ul>
-                          </p>
-                        </>
-                      </div>
-                    </div>
-                    <div className="postCenter">
-                      <p className="postText px-2">
-                        <ShowMoreText
-                          /* Default options */
-
-                          lines={4}
-                          more="Show more"
-                          less="...Show less"
-                          anchorClass="oooeeer"
-                          // onClick={this.executeOnClick}
-                          expanded={false}
-                          width={0}
-                        >
-                          {postd.fields.PostText.stringValue}
-                        </ShowMoreText>
-                      </p>
-                      <img
-                        className="postImg"
-                        src={postd.fields.media.stringValue}
-                        alt=""
-                      />
-                    </div>
-                    <div className="postBottom">
-                      <div className="postBottomLeft">
-                        <span className="postCommentText">
-                          <BsChatSquareTextFill
-                            className="deleteIcon me-1  fs-4 text-danger"
-                            onClick={() => {
-                              showComments(i);
-                            }}
-                          />
-                          Comments
-                        </span>
-                      </div>
-                      <div className="postBottomRight">
-                        <BsFillHeartFill
-                          className="likeIcon text-danger"
-                          // src="assets/like.png"
-                          // alt=""
-                          // onClick={() => {
-                          //   likeHandler(i);
-                          // }}
-                          onClick={async () => {
-                            await likeHandler(i);
-                          }}
-                        />
-                        <span className="postLikeCounter">
-                          {postd.fields.like.integerValue
-                            ? postd.fields.like.integerValue
-                            : 1}
-                          Like It
-                        </span>
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="show-comments ">
-                      {comments ? (
-                        <div>
-                          {comments.map((comment, index) => {
-                            if (
-                              comment.fields.postID.stringValue === posts[i]?.id
-                            ) {
-                              return (
-                                <div
-                                  className={` D-non ${
-                                    I === i ? "d-flex" : "d-none "
-                                  } m-2 p-2  row g-0  justify-content-around   `}
-                                >
-                                  <div className="col-1 me-3">
-                                    <img
-                                      className="shareProfileImg postProfileImg mb-2"
-                                      src={
-                                        comment.fields.commentOwnerImg
-                                          .stringValue || Img
-                                      }
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div className="col-9 ">
-                                    <div className="row g-0">
-                                      <h6 className="postUsername">
-                                        {
-                                          comment.fields.commentOwnername
-                                            .stringValue
-                                        }
-                                      </h6>
-                                    </div>
-                                    <div className="row g-0">
-                                      <p style={{ "font-size": "0.7rem" }}>
-                                        {
-                                          comment.fields.createdAt
-                                            .timestampValue
-                                        }
-                                      </p>
-                                    </div>
-                                    <div className="commentfiled row p-1 m-0 ">
-                                      <p className="m-0 ">
-                                        {
-                                          comment.fields.commentsText
-                                            .stringValue
-                                        }
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div className="col-1">
-                                    <BsFillXCircleFill
-                                      className="fs-4 text-danger deleteIcon "
-                                      onClick={() => {
-                                        delatecomment(i, index);
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              );
-                            }
-                          })}
-                        </div>
-                      ) : (
-                        " "
-                      )}
-                    </div>
-                    <div className="postComment">
-                      <input
-                        placeholder="inputComment"
-                        className="inputComment"
-                        // onBlur={blur}
-                        // value={commentsText}
-                        onChange={(e) => setcommentsText(e.target.value)}
-                      />
-                      <button
-                        className="shareButton"
-                        onClick={() => {
-                          commentsHandler(i);
-                        }}
-                      >
-                        Comment
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <Post
+                  postd={postd}
+                  i={i}
+                  Img={Img}
+                  delatePost={delatePost}
+                  likeHandler={likeHandler}
+                  showComments={showComments}
+                  comments={comments}
+                  posts={posts}
+                  delatecomment={delatecomment}
+                  setcommentsText={setcommentsText}
+                  I={I}
+                  commentsHandler={commentsHandler}
+                />
               );
             })}
           </div>

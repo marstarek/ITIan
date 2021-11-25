@@ -51,6 +51,7 @@ const Navbar = () => {
             src="/assets/log2.png"
             alt="ITI Logo"
           />
+
           <div
             class="collapse navbar-collapse  justify-content-center  "
             id="navbarNav"
