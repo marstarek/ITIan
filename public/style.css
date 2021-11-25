@@ -12,3 +12,12 @@ body {
     margin: 0;
     padding: 0;
 }
+
+:root {
+    --color-1: #242526;
+    --color-2: white;
+    --color-3: #811e23;
+    --color-4: grey;
+    --color-5: #eb4034;
+    --color-6: #222831;
+}

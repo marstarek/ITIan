@@ -1,4 +1,3 @@
-import { Users } from "../../dummyData";
 import React, { useEffect, useState } from "react";
 import {
   BsFillFunnelFill,
@@ -9,7 +8,7 @@ import {
   BsTrashFill,
   BsTools,
 } from "react-icons/bs";
-import { db, auth } from "../../firebase-config";
+import { db } from "../../firebase-config";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
@@ -142,7 +141,6 @@ const AdminUsers = () => {
                     accept="image/*"
                     style={{ display: "none" }}
                     id="photo"
-                    id="actual-btn"
                   />
                   <button className="btn btn-danger mx-2 " for="actual-btn">
                     <BsFillCameraFill />

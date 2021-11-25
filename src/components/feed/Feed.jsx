@@ -17,6 +17,8 @@ import Share from "../share/Share";
 import Post from "../post/Post";
 /* ------------------------------------imports-------------------------------------- */
 export const Feed = () => {
+  const [query, setQuery] = useState("");
+
   const [posts, setposts] = useState([]);
   const [PostText, setPostText] = useState("");
   const [allPosts, setallPosts] = useState([]);
@@ -173,8 +175,41 @@ export const Feed = () => {
               setImg={setImg}
               curUser={curUser}
               Img={Img}
+              setQuery={setQuery}
+              query={query}
             />
-            {allPosts.map((postd, i) => {
+            {/*  */}
+            {allPosts
+              .filter((postd, i) => {
+                if (query === "") {
+                  return postd;
+                } else if (
+                  postd.fields.PostText.stringValue
+                    .toLowerCase()
+                    .includes(query.toLowerCase())
+                ) {
+                  return postd;
+                }
+              })
+              .map((postd, i) => (
+                <Post
+                  postd={postd}
+                  i={i}
+                  Img={Img}
+                  delatePost={delatePost}
+                  likeHandler={likeHandler}
+                  showComments={showComments}
+                  comments={comments}
+                  posts={posts}
+                  delatecomment={delatecomment}
+                  setcommentsText={setcommentsText}
+                  I={I}
+                  commentsHandler={commentsHandler}
+                />
+              ))}
+
+            {/*  */}
+            {/* {allPosts.map((postd, i) => {
               return (
                 <Post
                   postd={postd}
@@ -191,7 +226,7 @@ export const Feed = () => {
                   commentsHandler={commentsHandler}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
       ) : (

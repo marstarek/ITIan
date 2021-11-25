@@ -1,10 +1,54 @@
 import { Formik, Form } from "formik";
+
+import React, { useEffect, useState } from "react";
+
 import * as Yup from "yup";
 import FormikField from "../../shared/form/FormikField";
 import FormikErrorMessage from "../../shared/form/FormikErrorMessage";
+import { auth, db } from "../../firebase-config";
+import { getDoc, addDoc, doc, collection, getDocs } from "firebase/firestore";
+
 import styles from "./PostJob.module.css";
 
 const PostJob = () => {
+  const [Jobs, setJobs] = useState();
+  const [curUser, setcurUser] = useState();
+  const jobsCollectionRefrance = collection(db, "jobs");
+  useEffect(() => {
+    auth?.currentUser &&
+      getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
+        if (docSnap.exists()) {
+          setcurUser(docSnap.data());
+        }
+      });
+    getJob();
+  }, []);
+
+  const getJob = async () => {
+    const usersData = await getDocs(jobsCollectionRefrance);
+    setJobs(usersData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  /* ------------------------------------handleSubmit-------------------------------------- */
+  const postJobSubmit = async (values) => {
+    const id = `${curUser.uid}${new Date().getTime()}`;
+
+    await addDoc(collection(db, "jobs"), {
+      jobTitle: values.jobTitle,
+      location: values.location,
+      description: values.description,
+      name: curUser.name,
+      avatar: curUser.avatar,
+
+      ownerId: curUser.uid,
+      jobId: id,
+    });
+    const docSnap = await getDoc(doc(db, "jobs", id));
+
+    values.jobTitle = "";
+    values.location = "";
+    values.description = "";
+  };
   const initialValues = {
     jobTitle: "",
     location: "",
@@ -16,26 +60,24 @@ const PostJob = () => {
     location: Yup.string().required("Location is required"),
     description: Yup.string().required("Job description is required"),
   });
-
-  const onSubmit = (values) => {
-    // alert(
-    //   `Job is ${values.jobTitle} and Location is ${values.location} and ${values.description}`
-    // );
-    values.jobTitle = "";
-    values.location = "";
-    values.description = "";
-  };
-
+  console.log(Jobs);
   return (
     <div className={`w-50 mx-auto`}>
       <h4 className="text-center mb-3">Add a new job</h4>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={postJobSubmit}
       >
         <Form>
           <div>
+            {/* {Jobs ? (
+              <div>
+                {" "}
+                {Jobs[0].jobTitle}, {Jobs[0].location}, {Jobs[0].description},{" "}
+                {Jobs[0].name}, {Jobs[0].avatar}, {Jobs[0].jobId},
+              </div>
+            ) : null} */}
             <div className="form-control border-0">
               <FormikField
                 name="jobTitle"

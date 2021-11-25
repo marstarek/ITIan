@@ -8,7 +8,7 @@ const MyTrackPage = () => {
   return (
     <>
       <div className=" homeContain">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center g-0">
           <div className="col-6 mx-5  ">
             <Feed />
           </div>

@@ -10,8 +10,8 @@ const Home = () => {
     <>
       {/* <Topbar /> */}
 
-      <div className="container-fluid">
-        <div className="row">
+      <div className="container-fluid g-0">
+        <div className="row g-0">
           <div className="col-3">
             <NewSidebar />
           </div>
