@@ -4,7 +4,7 @@ label {
 
 input,
 textarea {
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     width: 100%;
     border: 1px solid #ccc;

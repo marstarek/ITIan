@@ -37,7 +37,7 @@ const PostJob = () => {
       jobTitle: values.jobTitle,
       location: values.location,
       description: values.description,
-      name: curUser.name,
+      postOwner: curUser.name,
       avatar: curUser.avatar,
 
       ownerId: curUser.uid,
@@ -71,13 +71,6 @@ const PostJob = () => {
       >
         <Form>
           <div>
-            {/* {Jobs ? (
-              <div>
-                {" "}
-                {Jobs[0].jobTitle}, {Jobs[0].location}, {Jobs[0].description},{" "}
-                {Jobs[0].name}, {Jobs[0].avatar}, {Jobs[0].jobId},
-              </div>
-            ) : null} */}
             <div className="form-control border-0">
               <FormikField
                 name="jobTitle"

@@ -1,38 +1,20 @@
-// import React from "react";
-// import Job from "../Job/Job";
-// import { jobs } from "../../dummyData";
-// import PostJob from "../postJob/PostJob";
-// export default function Jobs() {
-//   return (
-//     <>
-//       <div className={`row gx-0`}>
-//         <div className={`col-lg-5 pt-5`}>
-//           <PostJob />
-//         </div>
-//         <div className={`col-lg-7`}>
-//           <h3 className={`text-center pt-4 pb-2`}>
-//             Explore New Career Opportunities
-//           </h3>
-//           <div>
-//             {jobs.map((J) => (
-//               <Job key={J.id} job={J} />
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
 import { useState, useEffect } from "react";
 import Job from "../Job/Job";
-
 import PostJob from "../postJob/PostJob";
-import { db } from "../../firebase-config";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db, auth } from "../../firebase-config";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState();
+  const [curUser, setcurUser] = useState();
+  const [query, setQuery] = useState("");
 
   const jobsCollectionRefrance = collection(db, "jobs");
   const getJob = async () => {
@@ -41,6 +23,7 @@ export default function Jobs() {
   };
   useEffect(() => {
     getJob();
+    getCurrentUser();
   }, []);
   const deleteJob = async (i) => {
     const commentDoc = doc(db, "jobs", jobs[i].id);
@@ -48,25 +31,62 @@ export default function Jobs() {
 
     getJob();
   };
+  const getCurrentUser = () => {
+    auth?.currentUser &&
+      getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
+        if (docSnap.exists()) {
+          setcurUser(docSnap.data());
+        }
+      });
+  };
   return (
     <>
-      <div className={`row gx-0`}>
-        <div className={`col-lg-7`}>
+      <div className={`row gx-0 flex-row-reverse `}>
+        <div className={`order-0 col-lg-5 pt-4`}>
+          {" "}
+          <PostJob getJob={getJob} />
+        </div>
+        <div className={`col-lg-6`}>
           <h3 className={`text-center pt-4 pb-2`}>
             Explore New Career Opportunities
           </h3>
-          <div>
-            {jobs?.map((J, i) => (
-              <>
-                {" "}
-                <button onClick={() => deleteJob(i)}>del</button>
-                <Job key={J.id} job={J} deleteJob={deleteJob} />
-              </>
-            ))}
+
+          <div className="input-group mx-auto w-75 text-light ">
+            <input
+              className="form-control text-danger"
+              type="text"
+              name="Search"
+              placeholder="Search"
+              autocomplete="off"
+              onChange={(event) => setQuery(event.target.value)}
+            />{" "}
+            <span className="input-group-prepend input-group-text btn-danger  ">
+              search
+            </span>
           </div>
-        </div>
-        <div className={`order-0 col-lg-5 pt-5`}>
-          <PostJob />
+          <div>
+            {jobs
+              ?.filter((job, i) => {
+                if (query === "") {
+                  return job;
+                } else if (
+                  job.jobTitle.toLowerCase().includes(query.toLowerCase())
+                ) {
+                  return job;
+                }
+              })
+              .map((job, i) => (
+                <Job
+                  key={i}
+                  job={job}
+                  jobIndex={i}
+                  curUser={curUser}
+                  deleteJob={() => deleteJob(i)}
+                />
+              ))}
+
+            {/*  */}
+          </div>
         </div>
       </div>
     </>

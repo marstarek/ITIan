@@ -65,60 +65,53 @@ const Login = () => {
 
   console.log(user);
   return (
-    <div className={`container ${styles.login__container}`}>
-      <div className={`align-items-center d-flex ${styles.login__wrapper}`}>
-        <figure className="col-6  d-flex justify-content-center align-items-center ">
-          <figure className="w-50">
-            {/* <img src={logo} alt="" className="w-100 p-0 m-0" /> */}
-          </figure>
-        </figure>
-        <div className={`col-6 ${styles.form__wrapper} p-3 my-5  form`}>
-          <h2>Login</h2>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-          >
-            <Form>
-              <div className="form w-75 m-auto" style={{ padding: 20 }}>
-                <div className="mb-2">
-                  <FormikField
-                    label="email"
-                    name="email"
-                    type="email"
-                    placeholder="Your email"
-                    as="input"
-                  />
-                </div>
+    <div className={`align-items-center d-flex ${styles.login__wrapper}`}>
+      <div className={`col-6 ${styles.form__wrapper} p-3 my-5  form`}>
+        <h2>Login</h2>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          <Form>
+            <div className="form w-75 m-auto" style={{ padding: 20 }}>
+              <div className="mb-2">
                 <FormikField
-                  label="password"
-                  name="password"
-                  type="password"
-                  placeholder="Password"
+                  label="email"
+                  name="email"
+                  type="email"
+                  placeholder="Your email"
                   as="input"
                 />
-
-                <button
-                  style={{ display: "block" }}
-                  className={`text-light  rounded-pill ${styles.button} my-4`}
-                >
-                  login
-                </button>
-                {error ? (
-                  <p className=" text-danger">wrong email or password</p>
-                ) : null}
               </div>
-            </Form>
-          </Formik>
-          <p className="text-center">
-            Not a user ?
-            <Link to="/register" className="text-danger">
-              Sign Up
-            </Link>
-            <br />
-            <p> {user?.email}</p>
-          </p>
-        </div>
+              <FormikField
+                label="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                as="input"
+              />
+
+              <button
+                style={{ display: "block" }}
+                className={`  btn-sm fs-6  ${styles.button} my-4`}
+              >
+                login
+              </button>
+              {error ? (
+                <p className=" text-danger">wrong email or password</p>
+              ) : null}
+            </div>
+          </Form>
+        </Formik>
+        <p className="text-center">
+          Not a user ?
+          <Link to="/register" className="text-danger">
+            Sign Up
+          </Link>
+          <br />
+          <p> {user?.email}</p>
+        </p>
       </div>
     </div>
   );

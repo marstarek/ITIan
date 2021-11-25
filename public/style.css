@@ -21,3 +21,14 @@ body {
     --color-5: #eb4034;
     --color-6: #222831;
 }
+
+.button {
+    background: rgba(117, 13, 13, 0.81);
+    background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
+    width: 100%;
+    padding: 10px 20px;
+    border: 0;
+    outline: none;
+    box-shadow: -4px 6px 13px -1px rgba(0, 0, 0, 0.64);
+    color: white;
+}

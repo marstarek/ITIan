@@ -84,11 +84,11 @@ const Register = () => {
   return (
     <div className="container  ">
       <div className="row">
-        <figure className="col-6  d-flex justify-content-center ">
-          <figure className={`w-25 ${styles.register__logo}`}>
-            {/* <img src={logo} alt="" className="w-100" /> */}
+        <div className="col-6  d-flex justify-content-center ">
+          <figure className={`w-100 my-auto ${styles.register__logo}`}>
+            <img src="assets/z(5).jpg" alt="" className="w-100" />
           </figure>
-        </figure>
+        </div>
         <div className={`col-6 ${styles.form__wrapper} pb-5  my-5`}>
           <h2>Register</h2>
           <Formik
@@ -161,7 +161,7 @@ const Register = () => {
                                     <div>
                                       <button
                                         type="button"
-                                        className={`my-3 w-50 ${styles.button} rounded-pill text-light px-5 py-2`}
+                                        className={`my-3 w-50 btn-sm ${styles.button}  px-5 py-2`}
                                         onClick={() => {
                                           push();
                                           push();
@@ -213,7 +213,7 @@ const Register = () => {
                     <button
                       style={{ display: "block" }}
                       type="submit"
-                      className={`${styles.button}  rounded-pill text-light`}
+                      className={`btn-sm ${styles.button}`}
                     >
                       submit
                     </button>
