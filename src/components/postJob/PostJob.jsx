@@ -8,7 +8,7 @@ import FormikErrorMessage from "../../shared/form/FormikErrorMessage";
 import { auth, db } from "../../firebase-config";
 import { getDoc, addDoc, doc, collection, getDocs } from "firebase/firestore";
 
-import styles from "./PostJob.module.css";
+import "./PostJob.css";
 
 const PostJob = ({ getJob }) => {
   const [Jobs, setJobs] = useState();
@@ -55,7 +55,7 @@ const PostJob = ({ getJob }) => {
   });
   console.log(Jobs);
   return (
-    <div className={`w-50 mx-auto`}>
+    <div className="w-50 mx-auto">
       <h4 className="text-center mb-3">Add a new job</h4>
       <Formik
         initialValues={initialValues}
@@ -86,7 +86,7 @@ const PostJob = ({ getJob }) => {
               <FormikField
                 name="description"
                 placeholder="Description"
-                className={`w-100 ${styles.textarea}`}
+                className="w-100 textarea"
                 as="textarea"
               />
             </div>
@@ -94,7 +94,7 @@ const PostJob = ({ getJob }) => {
             <div className="text-center">
               <button
                 type="submit"
-                className={`${styles.B}text-white btn btn-danger rounded-pill mt-2`}
+                className="B text-white btn   mt-2"
                 onClick={getJob}
               >
                 Add a Job

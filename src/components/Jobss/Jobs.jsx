@@ -10,8 +10,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import Navbar from "../../shared/layout/navbar/Navbar";
-import styles from "./jobs.module.css";
-
+import "./jobs.css";
 export default function Jobs() {
   const [jobs, setJobs] = useState();
   const [curUser, setcurUser] = useState();
@@ -42,13 +41,13 @@ export default function Jobs() {
   };
   return (
     <>
-      <div className={`row gx-0 flex-row-reverse `}>
-        <div className={`order-0 col-lg-5 pt-4`}>
+      <div className="row gx-0 flex-row-reverse">
+        <div className="order-0 col-lg-5 pt-4">
           {" "}
           <PostJob getJob={getJob} />
         </div>
-        <div className={`col-lg-6`}>
-          <h3 className={`text-center pt-4 pb-2`}>
+        <div className="col-lg-6">
+          <h3 className="text-center pt-4 pb-2">
             Explore New Career Opportunities
           </h3>
 
@@ -61,9 +60,7 @@ export default function Jobs() {
               autocomplete="off"
               onChange={(event) => setQuery(event.target.value)}
             />{" "}
-            <span
-              className={`${styles.button}  input-group-prepend input-group-text btn-danger `}
-            >
+            <span className=" b input-group-prepend input-group-text  ">
               search
             </span>
           </div>
