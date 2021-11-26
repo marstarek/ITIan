@@ -28,40 +28,40 @@ const Navbar = () => {
 
   return (
     <>
-      <nav class="navBar navbar navbar-expand-lg navbar-dark ">
-        <div class="container-fluid">
+      <nav className="navBar navbar navbar-expand-lg navbar-dark ">
+        <div className="container-fluid">
           <img className="topbarImg" src="/assets/log2.png" alt="ITI Logo" />
 
           <div
-            class="collapse navbar-collapse  justify-content-center  "
+            className="collapse navbar-collapse  justify-content-center  "
             id="navbarNav"
           >
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link class="nav-link " to="/">
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link " to="/">
                   Home
                 </Link>
               </li>
 
-              <li class="nav-item">
-                <Link class="nav-link " to="/MyTrackPage">
+              <li className="nav-item">
+                <Link className="nav-link " to="/MyTrackPage">
                   Front End
                 </Link>
               </li>
 
-              <li class="nav-item">
-                <Link class="nav-link " to="/about">
+              <li className="nav-item">
+                <Link className="nav-link " to="/about">
                   Tracks
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link " to="/Jobs">
+              <li className="nav-item">
+                <Link className="nav-link " to="/Jobs">
                   Jobs
                 </Link>
               </li>
-              <li class="nav-item dropdown">
+              <li className="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   href="#"
                   id="navbarDropdown"
                   role="button"
@@ -70,20 +70,23 @@ const Navbar = () => {
                 >
                   Options
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <Link class="nav-link text-danger  " to="/Profile">
-                      <BsFillPersonFill class=" fs-4 " /> Profile
+                    <Link className="nav-link text-danger  " to="/Profile">
+                      <BsFillPersonFill className=" fs-4 " /> Profile
                     </Link>
                   </li>
                   <li>
-                    <Link class="nav-link text-danger " to="/AdminLogin">
-                      <BsServer class=" fs-4 my-auto" /> AdminHome
+                    <Link className="nav-link text-danger " to="/AdminLogin">
+                      <BsServer className=" fs-4 my-auto" /> AdminHome
                     </Link>
                   </li>
                   <li>
-                    <Link class="nav-link text-danger " onClick={handleSignout}>
-                      <BsBoxArrowRight class=" fs-4 my-auto" />
+                    <Link
+                      className="nav-link text-danger "
+                      onClick={handleSignout}
+                    >
+                      <BsBoxArrowRight className=" fs-4 my-auto" />
                       Sign Out
                     </Link>
                   </li>
@@ -110,8 +113,8 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <div class="spinner-border fs-2 text-light" role="status">
-                  <span class="sr-only"></span>
+                <div className="spinner-border fs-2 text-light" role="status">
+                  <span className="sr-only"></span>
                 </div>
                 {/* <p>...Loading</p> */}
               </>

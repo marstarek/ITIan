@@ -16,7 +16,7 @@ const AboutTrack = () => {
         </div>{" "}
       </div>{" "}
       {/* <!-- About track  --> */}{" "}
-      <section class="AboutTrack mb-5 ">
+      <section className="AboutTrack mb-5 ">
         <div className="container">
           <div className="AboutTrack_items row">
             <div className="AboutTrack_left col-6">
@@ -157,7 +157,7 @@ const AboutTrack = () => {
       {/* BEFORE YOU APPLY
        */}
       {/*  */}
-      <section class="before-apply py-5  my-5 ">
+      <section className="before-apply py-5  my-5 ">
         <div className="container">
           <div className="AboutTrack_items row">
             <div className="AboutTrack_left col-6">

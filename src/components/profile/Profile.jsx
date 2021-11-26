@@ -1,8 +1,9 @@
 import "./profile.css";
 import Img from "../../image1.jpg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { storage, db, auth } from "../../firebase-config";
 import { BsTrashFill } from "react-icons/bs";
+
 import {
   collection,
   getDocs,
@@ -19,13 +20,21 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { useHistory } from "react-router-dom";
-import { async } from "@firebase/util";
-
+import { updatePassword } from "firebase/auth";
 const Profile = () => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
+  const [changepassuser, setchangepassuser] = useState();
   const history = useHistory("");
   let [refresh, setrefresh] = useState(false);
+  const passwordRef = useRef();
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setchangepassuser(user);
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
@@ -66,8 +75,6 @@ const Profile = () => {
     try {
       const confirm = window.confirm("Delete avatar?");
       if (confirm) {
-        // await deleteObject(ref(storage, user.avatarPath));
-
         await updateDoc(doc(db, "users", auth.currentUser.uid), {
           avatar:
             "https://www.duke-nus.edu.sg/images/librariesprovider5/people/1-placeholder.png?sfvrsn=61a8955c_0",
@@ -88,6 +95,8 @@ const Profile = () => {
   const [newSkills, setnewSkills] = useState([]);
   const [newEXPERIANCES, setnewEXPERIANCES] = useState([]);
   const [newCONTACTS, setnewCONTACTS] = useState([]);
+  const [error, setError] = useState("");
+
   const myprofileCollectionRefrance = collection(db, "myprofile");
   const getmyprofile = async () => {
     const myprofileData = await getDocs(myprofileCollectionRefrance);
@@ -151,7 +160,18 @@ const Profile = () => {
       console.log(err);
     });
   }, [refresh]);
-
+  const changepassword = async () => {
+    if (passwordRef.current.value) {
+      await updatePassword(changepassuser, passwordRef.current.value).then(
+        () => {
+          history.push("/login").catch(() => {
+            setError("Failed to update account");
+          });
+        }
+      );
+    }
+    // console.log(passwordRef.current.value)
+  };
   return user ? (
     <section className="profile">
       <div className="container ">
@@ -315,48 +335,59 @@ const Profile = () => {
             <div className="col-lg-6 align-bottom mt-4">
               <div className="skill-card">
                 <h3> Change Password</h3>
-                <div className="row">
-                  <div className="col">
-                    <div className="form-group">
-                      <label>Current Password</label>
-                      <input
-                        className="form-control"
-                        type="password"
-                        placeholder="••••••"
-                      />
+                <div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="form-group">
+                        <label>Current Password</label>
+                        <input
+                          className="form-control"
+                          type="password"
+                          placeholder="••••••"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="form-group">
+                        <label>New Password</label>
+                        <input
+                          className="form-control"
+                          type="password"
+                          placeholder="••••••"
+                          ref={passwordRef}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col">
+                      <div className="form-group">
+                        <label>
+                          Confirm{" "}
+                          <span className="d-none d-xl-inline">Password</span>
+                        </label>
+                        <input
+                          className="form-control"
+                          type="password"
+                          placeholder="••••••"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="form-group">
-                      <label>New Password</label>
-                      <input
-                        className="form-control"
-                        type="password"
-                        placeholder="••••••"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="form-group">
-                      <label>
-                        Confirm{" "}
-                        <span className="d-none d-xl-inline">Password</span>
-                      </label>
-                      <input
-                        className="form-control"
-                        type="password"
-                        placeholder="••••••"
-                      />
-                    </div>
-                  </div>
-                </div>
+                <button
+                  type="button"
+                  className="btn btn-danger shareButton  btn-sm fs-6 m-4 "
+                  onClick={changepassword}
+                >
+                  change password
+                </button>
               </div>
             </div>
           </div>
+
           <button
             type="button"
             className="btn btn-danger shareButton  btn-sm fs-6 m-4 "

@@ -45,7 +45,6 @@ const AdminUsers = () => {
                 type="text"
                 name="Search"
                 placeholder="Search"
-                autocomplete="off"
                 onChange={(event) => setQuery(event.target.value)}
               />{" "}
               <span className="input-group-prepend input-group-text btn-danger active btn ">
@@ -182,7 +181,6 @@ const AdminUsers = () => {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    autocomplete="off"
                   />
                 </div>
                 <div className="input-group">
@@ -203,24 +201,27 @@ const AdminUsers = () => {
           </div>
         </div>
         <div className="row ">
-          <ul class="pagination pagination-sm mx-auto justify-content-center bg-dark">
-            <li class="page-item disabled bg-danger">
+          <ul className="pagination pagination-sm mx-auto justify-content-center bg-dark">
+            <li className="page-item disabled bg-danger">
               <Link
-                class="page-link bg-danger text-light"
+                className="page-link bg-danger text-light"
                 to="/AdminUsers"
                 tabindex="-1"
               >
                 Users{" "}
               </Link>
             </li>
-            <li class="page-item">
-              <Link class="page-link bg-danger text-light" to="/AdminTracks">
+            <li className="page-item">
+              <Link
+                className="page-link bg-danger text-light"
+                to="/AdminTracks"
+              >
                 Track{" "}
               </Link>
             </li>
-            <li class="page-item">
+            <li className="page-item">
               <Link
-                class="page-link bg-danger text-light"
+                className="page-link bg-danger text-light"
                 to="/AdminPosts"
                 tabindex="-1"
               >

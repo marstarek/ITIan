@@ -21,7 +21,6 @@ const AdminLogin = () => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                autocomplete="off"
               />
             </div>
             <div className="input-group">

@@ -32,7 +32,6 @@ export const Share = ({
             <BsFillFunnelFill className="shareIcon text-danger " />
             <input
               placeholder="filter your Wall ... "
-              autocomplete="off"
               onChange={(event) => setQuery(event.target.value)}
               className="shareInput"
             />

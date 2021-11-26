@@ -193,6 +193,7 @@ export const Feed = () => {
               })
               .map((postd, i) => (
                 <Post
+                  key={postd.id}
                   postd={postd}
                   i={i}
                   Img={Img}
@@ -204,6 +205,7 @@ export const Feed = () => {
                   delatecomment={delatecomment}
                   setcommentsText={setcommentsText}
                   I={I}
+                  curUser={curUser}
                   commentsHandler={commentsHandler}
                 />
               ))}
@@ -220,8 +222,8 @@ export const Feed = () => {
                 transform: "translate(-50%, -50%)",
               }}
             >
-              <div class="spinner-border my-5 mx-5" role="status">
-                <span class="visually-hidden"> Loading... </span>
+              <div className="spinner-border my-5 mx-5" role="status">
+                <span className="visually-hidden"> Loading... </span>
               </div>
             </h2>
           </div>

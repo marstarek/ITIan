@@ -51,13 +51,12 @@ export default function Jobs() {
             Explore New Career Opportunities
           </h3>
 
-          <div className="input-group mx-auto w-75 text-light ">
+          <div className="input-group mx-auto w-75  text-light ">
             <input
               className="form-control text-danger"
               type="text"
               name="Search"
               placeholder="Search"
-              autocomplete="off"
               onChange={(event) => setQuery(event.target.value)}
             />{" "}
             <span className=" b input-group-prepend input-group-text  ">

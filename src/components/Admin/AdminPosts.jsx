@@ -48,7 +48,6 @@ const AdminPosts = () => {
                 type="text"
                 name="Search"
                 placeholder="Search"
-                autocomplete="off"
                 onChange={(event) => setQuery(event.target.value)}
               />{" "}
               <span className="input-group-prepend input-group-text btn-danger active btn ">
@@ -216,7 +215,6 @@ const AdminPosts = () => {
                     type="text "
                     name="des"
                     placeholder="track description"
-                    autocomplete="off"
                   ></textarea>
                 </div>
 
@@ -226,24 +224,24 @@ const AdminPosts = () => {
           </div>
         </div>
         <div className="row ">
-          <ul class="pagination pagination-sm mx-auto justify-content-center bg-dark">
-            <li class="page-item  ">
-              <Link class="page-link bg-danger text-light" to="/AdminUsers">
+          <ul className="pagination pagination-sm mx-auto justify-content-center bg-dark">
+            <li className="page-item  ">
+              <Link className="page-link bg-danger text-light" to="/AdminUsers">
                 Users{" "}
               </Link>
             </li>
-            <li class="page-item ">
+            <li className="page-item ">
               <Link
-                class="page-link bg-danger text-light"
+                className="page-link bg-danger text-light"
                 to="/AdminTracks"
                 tabindex="-1"
               >
                 Track{" "}
               </Link>
             </li>
-            <li class="page-item">
+            <li className="page-item">
               <Link
-                class="page-link bg-danger text-light disabled "
+                className="page-link bg-danger text-light disabled "
                 to="/AdminPosts"
                 tabindex="-1"
               >

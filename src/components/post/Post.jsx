@@ -23,7 +23,9 @@ export const Post = ({
   setcommentsText,
   I,
   commentsHandler,
+  curUser,
 }) => {
+  console.log(comments);
   return (
     <div className="post">
       <div className="postWrapper">
@@ -50,46 +52,51 @@ export const Post = ({
           </div>
           <div className="postTopRight">
             <>
-              <p class="nav-item dropdown">
+              <div className="nav-item dropdown">
                 <a
-                  class="nav-link dropdown-toggle fs-3
+                  className="nav-link dropdown-toggle fs-3
                     text-danger"
                   id="navbarDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 ></a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <BsTrashFill
-                      className=" deleteIcon  fs-3 text-danger "
-                      onClick={async () => {
-                        await delatePost(i);
-                      }}
-                    />
-                    Delete Post
+                    {postd.fields.from?.stringValue.includes(curUser.uid) && (
+                      <span>
+                        <BsTrashFill
+                          className=" deleteIcon  fs-4 text-danger "
+                          onClick={async () => {
+                            await delatePost(i);
+                          }}
+                        />{" "}
+                        Delete Post
+                      </span>
+                    )}
                   </li>
                 </ul>
-              </p>
+              </div>
             </>
           </div>
         </div>
         <div className="postCenter">
-          <p className="postText px-2">
+          <div className="postText px-2">
             <ShowMoreText
               /* Default options */
 
               lines={4}
               more="Show more"
               less="...Show less"
-              anchorClass="oooeeer"
+              anchor
+              className="oooeeer"
               // onClick={this.executeOnClick}
               expanded={false}
               width={0}
             >
               {postd.fields.PostText.stringValue}
             </ShowMoreText>
-          </p>
+          </div>
           <img
             className="postImg"
             src={postd.fields.media.stringValue}
@@ -162,12 +169,16 @@ export const Post = ({
                         </div>
                       </div>
                       <div className="col-1">
-                        <BsFillXCircleFill
-                          className="fs-4 text-danger deleteIcon "
-                          onClick={() => {
-                            delatecomment(i, index);
-                          }}
-                        />
+                        {comment.fields.from?.stringValue.includes(
+                          curUser.uid
+                        ) && (
+                          <BsFillXCircleFill
+                            className="fs-4 text-danger deleteIcon "
+                            onClick={() => {
+                              delatecomment(i, index);
+                            }}
+                          />
+                        )}
                       </div>
                     </div>
                   );

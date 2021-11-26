@@ -25,7 +25,7 @@ export const AdminHome = () => {
               type="text"
               name="universityname"
               placeholder="University Name"
-              autocomplete="off"
+               
               required
             />
           </div>
@@ -91,7 +91,7 @@ export const AdminHome = () => {
                   <FaGraduationCap className="fs-3" />
 
                   <div className="mt-2">
-                    <Link class="text-light fs-1" to="/AdminUsers">
+                    <Link className="text-light fs-1" to="/AdminUsers">
                       Users{" "}
                     </Link>
                   </div>
@@ -102,7 +102,7 @@ export const AdminHome = () => {
                 <div className="box p-5 mb-1 bg-danger rounded">
                   <FaLaptopCode className="fs-3" />
                   <div className="mt-2">
-                    <Link class="text-light fs-1" to="/AdminTracks">
+                    <Link className="text-light fs-1" to="/AdminTracks">
                       Tracks{" "}
                     </Link>
                   </div>
@@ -113,7 +113,7 @@ export const AdminHome = () => {
                 <div className="box p-5 mb-1 bg-dark rounded">
                   <FaCommentAlt className="fs-4" />
                   <div className="mt-2">
-                    <Link class="text-light fs-1" to="/AdminPosts">
+                    <Link className="text-light fs-1" to="/AdminPosts">
                       Posts{" "}
                     </Link>
                   </div>
@@ -124,7 +124,7 @@ export const AdminHome = () => {
                 <div className="box p-5 mb-1 bg-info rounded">
                   <FaClipboardList className="fs-4" />
                   <div className="mt-2">
-                    <Link class="text-light fs-1" to="/AdminUsers">
+                    <Link  className="text-light fs-1" to="/AdminUsers">
                       programs{" "}
                     </Link>
                   </div>
