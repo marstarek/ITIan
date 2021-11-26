@@ -102,10 +102,10 @@ const AdminUsers = () => {
                         </td>
 
                         <td className="text-center align-middle">
-                          <sapn>{track.id}</sapn>
+                          <span>{track.id}</span>
                         </td>
                         <td className="text-center align-middle">
-                          <sapn>{track.trackduration}</sapn>
+                          <span>{track.trackduration}</span>
                         </td>
 
                         <td className="text-center align-middle">

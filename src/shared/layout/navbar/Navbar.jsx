@@ -1,30 +1,14 @@
 import { Link } from "react-router-dom";
-import styles from "./navbar.module.css";
-// import { CurUserContext } from "../../../context/curUserContext";
+import "./navbar.css";
 import { auth, db } from "../../../firebase-config";
-import { useContext } from "react";
 import { signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
-
 import { updateDoc, doc, getDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import Img from "../../../image1.jpg";
-import {
-  BsFillFunnelFill,
-  BsLockFill,
-  BsGearFill,
-  BsFillPersonFill,
-  BsFillCameraFill,
-  BsFillBadgeArFill,
-  BsFillUnlockFill,
-  BsTrashFill,
-  BsTools,
-  BsBoxArrowRight,
-  BsServer,
-} from "react-icons/bs";
+import { BsFillPersonFill, BsBoxArrowRight, BsServer } from "react-icons/bs";
 const Navbar = () => {
   const history = useHistory();
-  // const { curUser } = useContext(CurUserContext);
   const handleSignout = async () => {
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       isOnline: false,
@@ -44,13 +28,9 @@ const Navbar = () => {
 
   return (
     <>
-      <nav class="navBar navbar navbar-expand-lg navbar-dark bg-danger">
+      <nav class="navBar navbar navbar-expand-lg navbar-dark ">
         <div class="container-fluid">
-          <img
-            className={styles.topbarImg}
-            src="/assets/log2.png"
-            alt="ITI Logo"
-          />
+          <img className="topbarImg" src="/assets/log2.png" alt="ITI Logo" />
 
           <div
             class="collapse navbar-collapse  justify-content-center  "
@@ -118,14 +98,17 @@ const Navbar = () => {
           <div>
             {curUser ? (
               <>
-                <div className={styles.profile}>
-                  <Link className="text-light fs-5" to="/Profile">
+                <div className="profile">
+                  <Link
+                    className="text-light fs-5 text-capitalize"
+                    to="/Profile"
+                  >
                     {curUser.name}
                   </Link>
                   <img
                     src={curUser.avatar || Img}
                     alt=""
-                    className={styles.topbarImg}
+                    className="topbarImg"
                   />
                 </div>
               </>

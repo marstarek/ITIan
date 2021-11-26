@@ -207,26 +207,6 @@ export const Feed = () => {
                   commentsHandler={commentsHandler}
                 />
               ))}
-
-            {/*  */}
-            {/* {allPosts.map((postd, i) => {
-              return (
-                <Post
-                  postd={postd}
-                  i={i}
-                  Img={Img}
-                  delatePost={delatePost}
-                  likeHandler={likeHandler}
-                  showComments={showComments}
-                  comments={comments}
-                  posts={posts}
-                  delatecomment={delatecomment}
-                  setcommentsText={setcommentsText}
-                  I={I}
-                  commentsHandler={commentsHandler}
-                />
-              );
-            })} */}
           </div>
         </div>
       ) : (

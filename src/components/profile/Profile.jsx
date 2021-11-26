@@ -66,7 +66,7 @@ const Profile = () => {
     try {
       const confirm = window.confirm("Delete avatar?");
       if (confirm) {
-        await deleteObject(ref(storage, user.avatarPath));
+        // await deleteObject(ref(storage, user.avatarPath));
 
         await updateDoc(doc(db, "users", auth.currentUser.uid), {
           avatar:
@@ -180,14 +180,17 @@ const Profile = () => {
                   id="actual-btn"
                 />
 
-                <label className="btn btn-danger rounded-pill" for="actual-btn">
+                <label
+                  className="btn btn-danger shareButton  btn-sm fs-6"
+                  for="actual-btn"
+                >
                   change photo
                 </label>
               </div>
             </div>
             <div className="col-lg-6  mx-auto">
               <div className=" text-center  mx-auto">
-                <h2>{user.name}</h2>
+                <h2 className=" text-capitalize">{user.name}</h2>
                 <p>{user.email}</p>
                 <h4>Front End Dev</h4>
                 <small>
@@ -204,7 +207,7 @@ const Profile = () => {
                 {TO1 ? (
                   <>
                     <ul className="text-center">
-                      {user.SKILLS.split(",").map((E) => {
+                      {user?.SKILLS?.split(",").map((E) => {
                         return <li>{E}</li>;
                       })}
                     </ul>
@@ -226,7 +229,7 @@ const Profile = () => {
                 )}
                 <button
                   type="button"
-                  className="btn btn-danger rounded-pill"
+                  className="btn btn-danger shareButton  btn-sm fs-6"
                   onClick={toggle1}
                 >
                   Edite Skills
@@ -239,7 +242,7 @@ const Profile = () => {
                 {TO2 ? (
                   <>
                     <ul className="text-center">
-                      {user.EXPERIANCES.split(",").map((E) => {
+                      {user?.EXPERIANCES?.split(",").map((E) => {
                         return <li>{E}</li>;
                       })}
                     </ul>
@@ -261,7 +264,7 @@ const Profile = () => {
                 )}
                 <button
                   type="button"
-                  className="btn btn-danger rounded-pill"
+                  className="btn btn-danger shareButton  btn-sm fs-6"
                   onClick={toggle2}
                 >
                   Edite EXPERIANCES
@@ -280,7 +283,7 @@ const Profile = () => {
                 {TO3 ? (
                   <>
                     <ul className="text-center">
-                      {user.CONTACTS.split(",").map((E) => {
+                      {user?.CONTACTS?.split(",").map((E) => {
                         return <li>{E}</li>;
                       })}
                     </ul>
@@ -302,7 +305,7 @@ const Profile = () => {
                 )}
                 <button
                   type="button"
-                  className="btn btn-danger rounded-pill"
+                  className="btn btn-danger shareButton  btn-sm fs-6"
                   onClick={toggle3}
                 >
                   Edite CONTACTS
@@ -356,7 +359,7 @@ const Profile = () => {
           </div>
           <button
             type="button"
-            className="btn btn-danger rounded-pill m-4 "
+            className="btn btn-danger shareButton  btn-sm fs-6 m-4 "
             onClick={saveChangs}
           >
             save changes

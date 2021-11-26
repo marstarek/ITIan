@@ -10,7 +10,7 @@ import { getDoc, addDoc, doc, collection, getDocs } from "firebase/firestore";
 
 import styles from "./PostJob.module.css";
 
-const PostJob = () => {
+const PostJob = ({ getJob }) => {
   const [Jobs, setJobs] = useState();
   const [curUser, setcurUser] = useState();
   const jobsCollectionRefrance = collection(db, "jobs");
@@ -21,13 +21,7 @@ const PostJob = () => {
           setcurUser(docSnap.data());
         }
       });
-    getJob();
   }, []);
-
-  const getJob = async () => {
-    const usersData = await getDocs(jobsCollectionRefrance);
-    setJobs(usersData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
 
   /* ------------------------------------handleSubmit-------------------------------------- */
   const postJobSubmit = async (values) => {
@@ -39,7 +33,6 @@ const PostJob = () => {
       description: values.description,
       postOwner: curUser.name,
       avatar: curUser.avatar,
-
       ownerId: curUser.uid,
       jobId: id,
     });
@@ -102,6 +95,7 @@ const PostJob = () => {
               <button
                 type="submit"
                 className={`text-white btn btn-danger rounded-pill mt-2`}
+                onClick={getJob}
               >
                 Add a Job
               </button>

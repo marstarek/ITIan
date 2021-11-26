@@ -10,14 +10,16 @@ import {
   signOut,
 } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
-// import logo from "../../../public/assets/images/iti_logo.jfif";
 import styles from "./Login.module.css";
 const validationSchema = yup.object({
   email: yup
     .string()
     .email("Please enter a valid email address")
     .required("Email field is required"),
-  password: yup.string().required("Password field is required"),
+  password: yup
+    .string()
+    .required("Password field is required")
+    .min(6, "Must be exactly 6 digits"),
 });
 
 const Login = () => {
@@ -110,7 +112,6 @@ const Login = () => {
             Sign Up
           </Link>
           <br />
-          <p> {user?.email}</p>
         </p>
       </div>
     </div>

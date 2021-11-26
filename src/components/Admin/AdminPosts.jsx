@@ -118,12 +118,12 @@ const AdminPosts = () => {
                           </td>
 
                           <td className="text-center align-middle">
-                            <sapn>{post.id}</sapn>
+                            <span>{post.id}</span>
                           </td>
                           <td className="text-center align-middle">
-                            <sapn>
+                            <span>
                               {post.createdAt.toDate().toDateString()}
-                            </sapn>
+                            </span>
                           </td>
 
                           <td className="text-center align-middle">

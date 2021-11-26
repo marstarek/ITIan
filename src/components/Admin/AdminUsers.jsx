@@ -17,6 +17,7 @@ import Img from "../../image1.jpg";
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const usersCollectionRefrance = collection(db, "users");
+  const [query, setQuery] = useState("");
 
   const getUsers = async () => {
     const usersData = await getDocs(usersCollectionRefrance);
@@ -45,6 +46,7 @@ const AdminUsers = () => {
                 name="Search"
                 placeholder="Search"
                 autocomplete="off"
+                onChange={(event) => setQuery(event.target.value)}
               />{" "}
               <span className="input-group-prepend input-group-text btn-danger active btn ">
                 search <BsFillFunnelFill />
@@ -63,63 +65,73 @@ const AdminUsers = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user, i) => (
-                      <tr key={i}>
-                        <td className="align-middle text-center">
-                          <div
-                            className="bg-light d-inline-flex justify-content-center align-items-center align-top"
-                            style={{
-                              width: " 35px",
-                              height: "35px",
-                              "border-radius": " 3px",
-                            }}
-                          >
-                            <img
+                    {users
+                      .filter((user, i) => {
+                        if (query === "") {
+                          return user;
+                        } else if (
+                          user.name.toLowerCase().includes(query.toLowerCase())
+                        ) {
+                          return user;
+                        }
+                      })
+                      .map((user, i) => (
+                        <tr key={i}>
+                          <td className="align-middle text-center">
+                            <div
+                              className="bg-light d-inline-flex justify-content-center align-items-center align-top"
                               style={{
                                 width: " 35px",
                                 height: "35px",
                                 "border-radius": " 3px",
                               }}
-                              src={user.avatar}
-                              alt=""
-                            />
-                          </div>
-                        </td>
-                        <td className="text-nowrap align-middle">
-                          {user.name}
-                        </td>
-                        <td className="text-nowrap align-middle">
-                          <span>{user.email}</span>
-                        </td>
-
-                        <td className="text-center align-middle">
-                          <sapn>{user.uid}</sapn>
-                        </td>
-
-                        <td className="text-center align-middle">
-                          <div className="btn-group align-top">
-                            <button
-                              className="btn btn-sm btn-outline-danger "
-                              type="button"
-                              data-toggle="modal"
-                              data-target="#user-form-modal"
                             >
-                              <BsTools />
-                            </button>
-                            <button
-                              className="btn btn-sm btn-outline-danger "
-                              type="button"
-                            >
-                              <BsTrashFill
-                                onClick={() => {
-                                  deleteuser(i);
+                              <img
+                                style={{
+                                  width: " 35px",
+                                  height: "35px",
+                                  "border-radius": " 3px",
                                 }}
+                                src={user.avatar}
+                                alt=""
                               />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                            </div>
+                          </td>
+                          <td className="text-nowrap align-middle">
+                            {user.name}
+                          </td>
+                          <td className="text-nowrap align-middle">
+                            <span>{user.email}</span>
+                          </td>
+
+                          <td className="text-center align-middle">
+                            <span>{user.uid}</span>
+                          </td>
+
+                          <td className="text-center align-middle">
+                            <div className="btn-group align-top">
+                              <button
+                                className="btn btn-sm btn-outline-danger "
+                                type="button"
+                                data-toggle="modal"
+                                data-target="#user-form-modal"
+                              >
+                                <BsTools />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-danger "
+                                type="button"
+                              >
+                                <BsTrashFill
+                                  onClick={() => {
+                                    deleteuser(i);
+                                  }}
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

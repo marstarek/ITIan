@@ -17,7 +17,10 @@ const validationSchema = yup.object({
     .string()
     .email("Please enter a valid email address")
     .required("Email field is required"),
-  password: yup.string().required("Password field is required"),
+  password: yup
+    .string()
+    .required("Password field is required")
+    .min(6, "Must be exactly 6 digits"),
   passwordConfirmation: yup.string().when("password", {
     is: (val) => (val && val.length > 0 ? true : false),
     then: yup

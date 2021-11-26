@@ -33,7 +33,7 @@ export default function Job({ job, deleteJob, i, curUser }) {
         </div>
       </div>
       <div>
-        <button className={`${styles.delete} me-1 btn btn-danger`}>
+        <button className={`${styles.delete} me-1 btn btn-danger`} type="file">
           Apply
         </button>
         {curUser.uid === job.ownerId && (

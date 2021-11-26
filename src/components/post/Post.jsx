@@ -35,15 +35,15 @@ export const Post = ({
               alt=""
             />
             <figure>
-              <sapn className="postUsername">
+              <span className="postUsername">
                 {postd.fields.postOwnername?.stringValue}
-              </sapn>
+              </span>
               <br />
               <figcaption>
                 <cite>
-                  <sapn className="postDate">
+                  <span className="postDate">
                     {postd.fields.createdAt.timestampValue}
-                  </sapn>
+                  </span>
                 </cite>
               </figcaption>
             </figure>
@@ -185,7 +185,8 @@ export const Post = ({
             onChange={(e) => setcommentsText(e.target.value)}
           />
           <button
-            className="shareButton"
+            className="shareButton  btn-sm fs-6
+            "
             onClick={() => {
               commentsHandler(i);
             }}
