@@ -61,11 +61,19 @@ export const MyTrackPageSidebar = () => {
         <div>
           <img src="assets/news/about (1).png" alt="" className="w-100 my-2" />
         </div>
-        <button className="sidebarButton text-danger">
-          <Link className="sidebarButton text-danger" to="/MessagesPage">
-            Open Chat
-          </Link>
-        </button>
+        <ul className="sidebarList text-center justify-content-center">
+          <li className="sidebarListItem justify-content-center">
+            <BsFillChatDotsFill className="sidebarIcon" />
+            <span className="sidebarListItemText">
+              <Link
+                className={`$"sidebarButton"} text-dark`}
+                to="/MessagesPage"
+              >
+                Open Yuor Chats
+              </Link>
+            </span>
+          </li>
+        </ul>
         <hr className="sidebarHr" />
         {users.map((user) => (
           <Online key={user.uid} user={user} />

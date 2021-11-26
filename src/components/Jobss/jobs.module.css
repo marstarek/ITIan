@@ -1,6 +1,7 @@
-.profile__pic{
-border-radius: 50%;
+.profile__pic {
+    border-radius: 50%;
 }
-.input__CV{
+
+.input__CV {
     display: none;
 }

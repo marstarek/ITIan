@@ -1,5 +1,13 @@
 import styles from "./job.module.css";
-
+import {
+  BsFillXCircleFill,
+  BsChatSquareTextFill,
+  BsChevronDoubleDown,
+  BsFillCursorFill,
+  BsFillHeartFill,
+  BsCardImage,
+  BsTrashFill,
+} from "react-icons/bs";
 export default function Job({ job, deleteJob, i, curUser }) {
   return (
     <div
@@ -33,15 +41,16 @@ export default function Job({ job, deleteJob, i, curUser }) {
         </div>
       </div>
       <div>
-        <button className={`${styles.delete} me-1 btn btn-danger`} type="file">
+        <button className={`${styles.delete} me-1 btn `} type="file">
           Apply
         </button>
+
         {curUser.uid === job.ownerId && (
           <button
-            className={`${styles.delete} btn btn-danger`}
+            className={`${styles.delete} me-1 btn `}
             onClick={() => deleteJob(i)}
           >
-            X
+            <BsTrashFill />
           </button>
         )}
       </div>

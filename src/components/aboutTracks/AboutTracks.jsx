@@ -11,54 +11,56 @@ export const AboutTracks = () => {
           <Carousel.Item className="CarouselItem">
             <img
               className="d-block w-100 img-fluid "
-              src="assets/news/COVER (3).jpg"
+              src="assets/news/iti3.jpg"
               alt="First slide"
             />
             <Carousel.Caption>
-              <h1> First slide label </h1>{" "}
-              <h2>
-                Nulla vitae elit libero, a pharetra augue mollis interdum.{" "}
-              </h2>{" "}
+              <p className={`text-light  d-none d-lg-block  fs-3`}>
+                We conduct regular focus groups with industry leaders to better
+                understand existing and future market demand, and provide
+                training
+              </p>{" "}
             </Carousel.Caption>{" "}
           </Carousel.Item>{" "}
           <Carousel.Item className="CarouselItem">
             <img
               className="d-block w-100 img-fluid "
-              src="assets/news/p5.jpg"
+              src="assets/news/iti2.jpg"
               alt="Second slide"
             />
             <Carousel.Caption>
-              <h1> Second slide label </h1>{" "}
-              <h2>
-                {" "}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
-              </h2>{" "}
+              <p className={`text-light d-none d-lg-block  fs-3`}>
+                Our programs provide more than 32 ICT disciplines that cover a
+                wide technological spectrum including for example but not
+                limited
+              </p>{" "}
             </Carousel.Caption>{" "}
           </Carousel.Item>{" "}
           <Carousel.Item className="CarouselItem">
             <img
               className="d-block w-100 img-fluid"
-              src="assets/news/new (1).jpg"
+              src="assets/news/itivally (1).jpg"
               alt="Third slide"
             />
             <Carousel.Caption>
-              <h1> Third slide label </h1>{" "}
-              <h2>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.{" "}
-              </h2>{" "}
+              <p className={`text-light d-none d-lg-block  fs-3`}>
+                Our programs provide more than 32 ICT disciplines that cover a
+                wide technological spectrum including for example but not
+                limited
+              </p>{" "}
             </Carousel.Caption>{" "}
           </Carousel.Item>{" "}
         </Carousel>{" "}
       </div>{" "}
       {/* cards */}{" "}
-      <div class="containerr w-75 text-center mx-auto">
-        <div class="flex mx-auto">
+      <div className="containerr w-75 text-center mx-auto">
+        <div className="flex mx-auto">
           <Cards
             text={
               "Praesent commodo cursus magna, vel scelerisque nisl consecteturPraesent commodo cursus magna, vel scelerisque nisl consectetur"
             }
             photo={"assets/news/about (2).jpg"}
-            title={"front end"}
+            title={"Front End"}
           />{" "}
           <Cards
             text={
@@ -79,7 +81,35 @@ export const AboutTracks = () => {
               "Praesent commodo cursus magna, vel scelerisque nisl consecteturPraesent commodo cursus magna, vel scelerisque nisl consectetur"
             }
             photo={"assets/news/about (1).png"}
-            title={"front end"}
+            title={"Front End"}
+          />{" "}
+          <Cards
+            text={
+              "Praesent commodo cursus magna, vel scelerisque nisl consecteturPraesent commodo cursus magna, vel scelerisque nisl consectetur"
+            }
+            photo={"assets/news/about (1).png"}
+            title={"Front End"}
+          />{" "}
+          <Cards
+            text={
+              "Praesent commodo cursus magna, vel scelerisque nisl consecteturPraesent commodo cursus magna, vel scelerisque nisl consectetur"
+            }
+            photo={"assets/news/about (1).png"}
+            title={"Front End"}
+          />{" "}
+          <Cards
+            text={
+              "Praesent commodo cursus magna, vel scelerisque nisl consecteturPraesent commodo cursus magna, vel scelerisque nisl consectetur"
+            }
+            photo={"assets/news/about (1).png"}
+            title={"Front End"}
+          />{" "}
+          <Cards
+            text={
+              "Praesent commodo cursus magna, vel scelerisque nisl consecteturPraesent commodo cursus magna, vel scelerisque nisl consectetur"
+            }
+            photo={"assets/news/about (1).png"}
+            title={"Front End"}
           />{" "}
         </div>{" "}
       </div>{" "}

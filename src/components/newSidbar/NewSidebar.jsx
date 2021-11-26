@@ -1,35 +1,9 @@
 import styles from "./sidebar.module.css";
-import {
-  BsFillAwardFill,
-  BsFillArrowDownCircleFill,
-  BsFillArchiveFill,
-  BsFillBagPlusFill,
-  BsFillBookmarkCheckFill,
-  BsFillCalendarPlusFill,
-  BsFillChatDotsFill,
-} from "react-icons/bs";
-import { Users } from "../../dummyData";
+import { BsFillChatDotsFill } from "react-icons/bs";
 import { Link, useHistory } from "react-router-dom";
-
-import Online from "../online/Online";
-import { db, auth, storage } from "../../firebase-config";
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  addDoc,
-  Timestamp,
-  orderBy,
-  setDoc,
-  doc,
-  getDoc,
-  updateDoc,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { db, auth } from "../../firebase-config";
+import { collection, query, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Img from "../../image1.jpg";
 
 export const NewSidebar = () => {
@@ -63,42 +37,18 @@ export const NewSidebar = () => {
       <div className={styles.sidebarWrapper}>
         <ul className={styles.sidebarList}>
           <li className={styles.sidebarListItem}>
-            <BsFillAwardFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>Chats</span>
-          </li>
-          <li className={styles.sidebarListItem}>
-            <BsFillArrowDownCircleFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>Tracks</span>
-          </li>
-          <li className={styles.sidebarListItem}>
-            <BsFillArchiveFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>About ITI</span>
-          </li>
-          <li className={styles.sidebarListItem}>
-            <BsFillBagPlusFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>Questions</span>
-          </li>
-          <li className={styles.sidebarListItem}>
-            <BsFillBookmarkCheckFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>Jobs</span>
-          </li>
-          <li className={styles.sidebarListItem}>
-            <BsFillCalendarPlusFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>Events</span>
-          </li>
-          <li className={styles.sidebarListItem}>
             <BsFillChatDotsFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}> Programs </span>
+            <span className={styles.sidebarListItemText}>
+              <Link
+                className={`${styles.sidebarButton} text-dark`}
+                to="/MessagesPage"
+              >
+                Open Yuor Chats
+              </Link>
+            </span>
           </li>
         </ul>
-        <button className={`${styles.sidebarButton} text-danger`}>
-          <Link
-            className={`${styles.sidebarButton} text-danger`}
-            to="/MessagesPage"
-          >
-            Open Chat
-          </Link>
-        </button>
+        <h5 className="text-center">Friends</h5>
         <hr className={styles.sidebarHr} />
         {users.map((user, i) => (
           <div key={user.uid} className={styles.user_wrapper}>

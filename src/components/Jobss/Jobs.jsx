@@ -10,6 +10,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import Navbar from "../../shared/layout/navbar/Navbar";
+import styles from "./jobs.module.css";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState();
@@ -60,7 +61,9 @@ export default function Jobs() {
               autocomplete="off"
               onChange={(event) => setQuery(event.target.value)}
             />{" "}
-            <span className="input-group-prepend input-group-text btn-danger  ">
+            <span
+              className={`${styles.button}  input-group-prepend input-group-text btn-danger `}
+            >
               search
             </span>
           </div>

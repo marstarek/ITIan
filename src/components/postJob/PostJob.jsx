@@ -94,7 +94,7 @@ const PostJob = ({ getJob }) => {
             <div className="text-center">
               <button
                 type="submit"
-                className={`text-white btn btn-danger rounded-pill mt-2`}
+                className={`${styles.Button}text-white btn btn-danger rounded-pill mt-2`}
                 onClick={getJob}
               >
                 Add a Job

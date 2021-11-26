@@ -1,69 +1,72 @@
 .card {
-    text-align: center;
-    display: flex;
-    flex-direction: column column;
-    min-width: 15rem;
-    max-width: calc(12.5rem + 13vw);
-    background: #fff;
-    border-radius: 0.75em;
-    overflow: hidden;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    transition: transform 270ms ease;
-    position: relative;
-    padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column column;
+  min-width: 15rem;
+  max-width: calc(12.5rem + 13vw);
+  background: #fff;
+  border-radius: 0.75em;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: transform 270ms ease;
+  position: relative;
+  padding: 1rem;
 }
 
 .card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .card img {
-    width: 100%;
+  width: 100%;
 }
 
 .imgo {
-    display: block;
-    max-height: 50%;
-    aspect-ratio: 1;
-    margin-bottom: 1em;
-    width: 100%;
+  display: block;
+  max-height: 50%;
+  aspect-ratio: 1;
+  margin-bottom: 1em;
+  width: 100%;
 }
 
 .card-body {
-    height: 200px;
-    padding: 1em 0;
+  height: 240px;
+  padding: 1em 0;
 }
 
 .card-text {
-    color: #222831;
-    text-align: center;
-    margin: 1em auto;
-    padding-inline: 0.5em;
-    max-height: 6rem;
-    overflow: hidden;
+  color: #222831;
+  text-align: center;
+  margin: 1em auto;
+  padding-inline: 0.5em;
+  max-height: 6rem;
+  overflow: hidden;
 }
-
+.btnD:hover {
+  color: rgb(231, 213, 213);
+}
 .btnD {
-    background: #901b20;
-    background: linear-gradient(128deg, #901b20 0%, #ff4444 80%);
-    border: none;
-    padding: 1rem;
-    border-radius: 50px;
-    color: #fff;
-    font-weight: bold;
+  background: rgba(117, 13, 13, 0.81);
+  background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
+  width: 100%;
+  padding: 10px 20px;
+  border: 0;
+  outline: none;
+  box-shadow: -4px 6px 13px -1px rgba(0, 0, 0, 0.64);
+  color: white;
 }
 
-.card-link+.card-link {
-    margin: 0;
+.card-link + .card-link {
+  margin: 0;
 }
 
 .link {
-    color: #901b20;
-    font-size: 19px;
-    text-decoration: none;
+  color: #901b20;
+  font-size: 19px;
+  text-decoration: none;
 }
 
 .course-card-body {
-    height: auto;
-    padding: 1em 0;
+  height: auto;
+  padding: 1em 0;
 }
