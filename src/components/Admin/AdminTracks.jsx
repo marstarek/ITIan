@@ -222,6 +222,15 @@ const AdminUsers = () => {
                 Posts{" "}
               </Link>
             </li>
+            <li className="page-item">
+              <Link
+                className="page-link bg-danger text-light  "
+                to="/AdminJobs"
+                tabindex="-1"
+              >
+                Jobs{" "}
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

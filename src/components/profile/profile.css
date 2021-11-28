@@ -1,45 +1,46 @@
 .profile-head {
-    padding-left: 10%;
-    padding-right: 10%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .profile-img {
-    width: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    margin: 0px 10px 0px 180px;
-    border: 6px solid #ffffff;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 6px solid #ffffff;
 }
 
 .profile-container {
-    background-color: rgb(214, 208, 208);
-    border-radius: 1rem;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: rgb(214, 208, 208);
+  border-radius: 1rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .skill-card {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  height: 400px;
+  overflow-y: scroll;
 }
 
 .deleteIcon {
-    cursor: pointer;
+  cursor: pointer;
 }
-
 .shareButton {
-    border: none;
-    padding: 7px;
-    border-radius: 5px;
-    background-color: #30475E;
-    font-weight: 500;
-    cursor: pointer;
-    background: rgba(117, 13, 13, 0.81);
-    background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
-    border: 0;
-    outline: none;
-    box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
-    color: white;
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: #30475e;
+  font-weight: 500;
+  cursor: pointer;
+  background: rgba(117, 13, 13, 0.81);
+  background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
+  border: 0;
+  outline: none;
+  box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px,
+    rgb(0 0 0 / 30%) 0px 1px 3px -1px;
+  color: white;
 }
+/*  */

@@ -1,5 +1,4 @@
 import "./feed.css";
-
 import { db, storage, auth } from "../../firebase-config";
 import { useState, useEffect } from "react";
 import {
@@ -29,14 +28,12 @@ export const Feed = () => {
   const [refresh, setrefresh] = useState(false);
   const [I, setI] = useState();
   /* ------------------------------------- END Stats------------------------------------- */
-  // const { curUser } = useContext(CurUserContext);
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
     const postsData = await getDocs(postsCollectionRefrance);
     setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
   const [curUser, setcurUser] = useState();
-
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
     getposts();

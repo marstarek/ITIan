@@ -1,42 +1,36 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BsFillFunnelFill,
-  BsFillPersonFill,
-  BsFillCameraFill,
   BsFillBadgeArFill,
-  BsFillUnlockFill,
   BsTrashFill,
   BsTools,
+  BsCardHeading,
+  BsClipboardCheck,
 } from "react-icons/bs";
-
 import { db } from "../../firebase-config";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-
-import Img from "../../image1.jpg";
-
-const AdminUsers = () => {
-  const [users, setUsers] = useState([]);
-  const usersCollectionRefrance = collection(db, "users");
+const AdminJobs = () => {
+  const [jobs, setJobs] = useState();
   const [query, setQuery] = useState("");
-
-  const getUsers = async () => {
-    const usersData = await getDocs(usersCollectionRefrance);
-    setUsers(usersData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  const jobsCollectionRefrance = collection(db, "jobs");
+  const getJob = async () => {
+    const usersData = await getDocs(jobsCollectionRefrance);
+    setJobs(usersData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
   useEffect(() => {
-    getUsers();
+    getJob();
   }, []);
-  console.log(users[0]);
-  const deleteuser = async (i) => {
-    const commentDoc = doc(db, "users", users[i].uid);
-    await deleteDoc(commentDoc);
-    getUsers();
+  const deleteJob = async (i) => {
+    const jobDoc = doc(db, "jobs", jobs[i].id);
+    await deleteDoc(jobDoc);
+    getJob();
   };
+
   return (
     <>
       <div className="container-fluid bg-dark text-light ">
-        <h2 className="py-3 ">Users</h2>
+        <h2 className="py-3 ">Jobs</h2>
 
         <div className="row text-light ">
           <div className="col-8  text-light ">
@@ -57,55 +51,53 @@ const AdminUsers = () => {
                 <table className="table table-bordered text-light">
                   <thead>
                     <tr>
-                      <th>Photo</th>
-                      <th className="max-width">Name</th>
-                      <th className="sortable">Date</th>
-                      <th> ID</th>
+                      <th>job Title</th>
+                      <th className="max-width">job ownar</th>
+                      <th className="sortable">description</th>
+                      <th> Job ID</th>
+                      <th>Job location</th>
                       <th>option</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {users
-                      .filter((user, i) => {
+                    {jobs
+                      ?.filter((job, i) => {
                         if (query === "") {
-                          return user;
+                          return job;
                         } else if (
-                          user.name.toLowerCase().includes(query.toLowerCase())
+                          job.jobTitle
+                            .toLowerCase()
+                            .includes(query.toLowerCase())
                         ) {
-                          return user;
+                          return job;
                         }
                       })
-                      .map((user, i) => (
-                        <tr key={i}>
+                      .map((job, i) => (
+                        <tr key={job.id}>
                           <td className="align-middle text-center">
+                            {job.jobTitle}
+                          </td>
+                          <td className="text-nowrap align-middle">
+                            {job.postOwner}
+                          </td>
+                          <td className=" align-middle  text-nowrap">
                             <div
-                              className="bg-light d-inline-flex justify-content-center align-items-center align-top"
                               style={{
-                                width: " 35px",
-                                height: "35px",
-                                "border-radius": " 3px",
+                                width: "250px",
+                                overflow: "auto",
                               }}
                             >
-                              <img
-                                style={{
-                                  width: " 35px",
-                                  height: "35px",
-                                  "border-radius": " 3px",
-                                }}
-                                src={user.avatar}
-                                alt=""
-                              />
+                              <p className="  text-light ">
+                                {job.description}{" "}
+                              </p>
                             </div>
-                          </td>
-                          <td className="text-nowrap align-middle">
-                            {user.name}
-                          </td>
-                          <td className="text-nowrap align-middle">
-                            <span>{user.email}</span>
                           </td>
 
                           <td className="text-center align-middle">
-                            <span>{user.uid}</span>
+                            <span>{job.id}</span>
+                          </td>
+                          <td className="text-center align-middle">
+                            <span>{job?.location}</span>
                           </td>
 
                           <td className="text-center align-middle">
@@ -113,10 +105,18 @@ const AdminUsers = () => {
                               <button
                                 className="btn btn-sm btn-outline-danger "
                                 type="button"
+                                data-toggle="modal"
+                                data-target="#user-form-modal"
+                              >
+                                <BsTools />
+                              </button>
+                              <button
+                                className="btn btn-sm btn-outline-danger "
+                                type="button"
                               >
                                 <BsTrashFill
-                                  onClick={() => {
-                                    deleteuser(i);
+                                  onClick={async () => {
+                                    await deleteJob(i);
                                   }}
                                 />
                               </button>
@@ -133,27 +133,6 @@ const AdminUsers = () => {
             {" "}
             <div className=" mx-auto ">
               <form className="login text-center mx-auto ">
-                {/*  */}
-                <div className="img_container mx-auto">
-                  <img
-                    className="profile-img mx-auto  "
-                    src={Img}
-                    alt="avatar"
-                  />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    id="photo"
-                  />
-                  <button className="btn btn-danger mx-2 " for="actual-btn">
-                    <BsFillCameraFill />
-                    Add Photo
-                  </button>
-                </div>
-
-                {/*  */}
-                <hr className="login-hr" />
                 <div className="input-group">
                   <span className="input-group-prepend input-group-text btn-danger active ">
                     <BsFillBadgeArFill />
@@ -162,30 +141,41 @@ const AdminUsers = () => {
                     className="form-control bg-dark text-light"
                     type="text"
                     name="name"
-                    placeholder="username"
-                  />
-                </div>
-                <div className="input-group">
-                  <span className="input-group-prepend input-group-text btn-danger active">
-                    <BsFillPersonFill />
-                  </span>
-                  <input
-                    className="form-control bg-dark text-light"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
+                    placeholder="Job tittle"
                   />
                 </div>
                 <div className="input-group">
                   <span className="input-group-prepend input-group-text btn-danger active ">
-                    <BsFillUnlockFill />
+                    <BsClipboardCheck />
                   </span>
                   <input
                     className="form-control bg-dark text-light"
                     type="text"
-                    name="password"
-                    placeholder="Password"
+                    name="job ownar"
+                    placeholder="job ownar"
                   />
+                </div>
+                <div className="input-group">
+                  <span className="input-group-prepend input-group-text btn-danger active ">
+                    <BsClipboardCheck />
+                  </span>
+                  <input
+                    className="form-control bg-dark text-light"
+                    type="text"
+                    name="Job location"
+                    placeholder="Job location"
+                  />
+                </div>
+                <div className="input-group">
+                  <span className="input-group-prepend input-group-text btn-danger active">
+                    <BsCardHeading />
+                  </span>
+                  <textarea
+                    className="form-control bg-dark text-light py-5"
+                    type="text "
+                    name="des"
+                    placeholder="Job description"
+                  ></textarea>
                 </div>
 
                 <button className=" btn btn-danger ">Add</button>
@@ -195,26 +185,23 @@ const AdminUsers = () => {
         </div>
         <div className="row ">
           <ul className="pagination pagination-sm mx-auto justify-content-center bg-dark">
-            <li className="page-item disabled bg-danger">
-              <Link
-                className="page-link bg-danger text-light"
-                to="/AdminUsers"
-                tabindex="-1"
-              >
+            <li className="page-item  ">
+              <Link className="page-link bg-danger text-light" to="/AdminUsers">
                 Users{" "}
               </Link>
             </li>
-            <li className="page-item">
+            <li className="page-item ">
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminTracks"
+                tabindex="-1"
               >
                 Track{" "}
               </Link>
             </li>
             <li className="page-item">
               <Link
-                className="page-link bg-danger text-light"
+                className="page-link bg-danger text-light  "
                 to="/AdminPosts"
                 tabindex="-1"
               >
@@ -223,7 +210,7 @@ const AdminUsers = () => {
             </li>
             <li className="page-item">
               <Link
-                className="page-link bg-danger text-light  "
+                className="page-link bg-danger text-light disabled "
                 to="/AdminJobs"
                 tabindex="-1"
               >
@@ -236,4 +223,4 @@ const AdminUsers = () => {
     </>
   );
 };
-export default AdminUsers;
+export default AdminJobs;

@@ -25,7 +25,7 @@ export const Post = ({
   commentsHandler,
   curUser,
 }) => {
-  console.log(comments);
+  console.log(curUser.rule);
   return (
     <div className="post">
       <div className="postWrapper">
@@ -63,7 +63,8 @@ export const Post = ({
                 ></a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    {postd.fields.from?.stringValue.includes(curUser.uid) && (
+                    {(curUser.rule === "admin" ||
+                      postd.fields.from?.stringValue.includes(curUser.uid)) && (
                       <span>
                         <BsTrashFill
                           className=" deleteIcon  fs-4 text-danger "
@@ -81,22 +82,19 @@ export const Post = ({
           </div>
         </div>
         <div className="postCenter">
-          <div className="postText px-2">
+          <bdi className="postText px-2">
             <ShowMoreText
-              /* Default options */
-
               lines={4}
               more="Show more"
               less="...Show less"
               anchor
               className="oooeeer"
-              // onClick={this.executeOnClick}
               expanded={false}
               width={0}
             >
               {postd.fields.PostText.stringValue}
             </ShowMoreText>
-          </div>
+          </bdi>
           <img
             className="postImg"
             src={postd.fields.media.stringValue}
@@ -169,9 +167,10 @@ export const Post = ({
                         </div>
                       </div>
                       <div className="col-1">
-                        {comment.fields.from?.stringValue.includes(
-                          curUser.uid
-                        ) && (
+                        {(curUser.rule === "admin" ||
+                          comment.fields.from?.stringValue.includes(
+                            curUser.uid
+                          )) && (
                           <BsFillXCircleFill
                             className="fs-4 text-danger deleteIcon "
                             onClick={() => {

@@ -1,14 +1,18 @@
 import "./userprofile.css";
 import Img from "../../image1.jpg";
 import { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+
 import { storage, db, auth } from "../../firebase-config";
 import NewSidebar from "../newSidbar/NewSidebar";
 import { BsTrashFill } from "react-icons/bs";
+
 import {
   collection,
   getDocs,
   doc,
   getDoc,
+  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import {
@@ -18,10 +22,9 @@ import {
   deleteObject,
 } from "firebase/storage";
 
-const UserProfile = (paramz) => {
+const UserProfile = (paramz, { user1, selectUser, chat }) => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
-
   let [refresh, setrefresh] = useState(false);
   const [users, setUsers] = useState();
   useEffect(() => {
@@ -31,6 +34,16 @@ const UserProfile = (paramz) => {
         // console.log(user);
       }
     });
+  }, []);
+  /* ---------------------------------msg----------------------------------------- */
+  const [data, setData] = useState("");
+  const user2 = user?.uid;
+  useEffect(() => {
+    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+    let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
+      setData(doc.data());
+    });
+    return () => unsub();
   }, []);
   /* -------------------------------------------------------------------------- */
   const [myprofile, setmyprofile] = useState([]);
@@ -70,7 +83,14 @@ const UserProfile = (paramz) => {
       console.log(err);
     });
   }, []);
-
+  const history = useHistory();
+  function nav(x) {
+    history.push({
+      pathname: "/MessagesPage",
+      params: x,
+    });
+  }
+  // console.log(users[paramz.location.params].fields.uid.stringValue);
   return user && users ? (
     <section className="profile">
       <div className="container ">
@@ -141,10 +161,8 @@ const UserProfile = (paramz) => {
           <div className="SKILLS-head  py-5 px-4 text-center   row">
             <div className="col-6">
               <label for="CONTACTS"></label>
-
               <div className="skill-card">
                 <h3> CONTACTS</h3>
-
                 <ul className="text-center">
                   {users[paramz.location.params].fields?.CONTACTS?.stringValue
                     .split(",")

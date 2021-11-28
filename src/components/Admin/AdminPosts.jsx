@@ -130,14 +130,6 @@ const AdminPosts = () => {
                               <button
                                 className="btn btn-sm btn-outline-danger "
                                 type="button"
-                                data-toggle="modal"
-                                data-target="#user-form-modal"
-                              >
-                                <BsTools />
-                              </button>
-                              <button
-                                className="btn btn-sm btn-outline-danger "
-                                type="button"
                               >
                                 <BsTrashFill
                                   onClick={async () => {
@@ -149,10 +141,6 @@ const AdminPosts = () => {
                           </td>
                         </tr>
                       ))}
-
-                    {/* {posts.map((post, i) => (
-                    
-                    ))}  */}
                   </tbody>
                 </table>
               </div>
@@ -246,6 +234,15 @@ const AdminPosts = () => {
                 tabindex="-1"
               >
                 Posts{" "}
+              </Link>
+            </li>
+            <li className="page-item">
+              <Link
+                className="page-link bg-danger text-light  "
+                to="/AdminJobs"
+                tabindex="-1"
+              >
+                Jobs{" "}
               </Link>
             </li>
           </ul>

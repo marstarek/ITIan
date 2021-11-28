@@ -1,13 +1,5 @@
 import styles from "./job.module.css";
-import {
-  BsFillXCircleFill,
-  BsChatSquareTextFill,
-  BsChevronDoubleDown,
-  BsFillCursorFill,
-  BsFillHeartFill,
-  BsCardImage,
-  BsTrashFill,
-} from "react-icons/bs";
+import { BsTrashFill } from "react-icons/bs";
 export default function Job({ job, deleteJob, i, curUser }) {
   return (
     <div
@@ -23,7 +15,6 @@ export default function Job({ job, deleteJob, i, curUser }) {
             {" "}
             {job.postOwner}{" "}
           </p>
-
           <div>
             <small className={`text-start  fs-6 fw-bold job-location`}>
               <span className={`text-capitalize text-danger`}>Job tittle:</span>{" "}
@@ -35,17 +26,19 @@ export default function Job({ job, deleteJob, i, curUser }) {
               {job.location}
             </small>
           </div>
-          <pre className={`text-capitalize job-description pt-2 px-4`}>
+          <p className={`text-capitalize job-description pt-2 px-4`}>
             {job.description}
-          </pre>
+          </p>
         </div>
       </div>
       <div>
-        <button className={`${styles.delete} me-1 btn `} type="file">
-          Apply
-        </button>
+        {(curUser?.rule !== "admin" || curUser?.uid !== job.ownerId) && (
+          <button className={`${styles.delete} me-1 btn `} type="file">
+            Apply
+          </button>
+        )}
 
-        {curUser.uid === job.ownerId && (
+        {(curUser?.rule === "admin" || curUser?.uid === job.ownerId) && (
           <button
             className={`${styles.delete} me-1 btn `}
             onClick={() => deleteJob(i)}
