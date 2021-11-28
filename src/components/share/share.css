@@ -50,6 +50,7 @@
 .shareIcon {
     font-size: 1.5rem;
     cursor: pointer;
+    color: rgb(144, 27, 32);
 }
 
 .shareOptionText {

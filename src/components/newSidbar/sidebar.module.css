@@ -69,8 +69,15 @@
 
 .user_wrapper {
     margin-bottom: 10px;
-    padding: 10px;
+    /* padding: 10px; */
     cursor: pointer;
+    transition: all ease-in-out .8s;
+}
+
+.user_wrapper :hover {
+    background-color: rgb(196, 194, 194);
+    color: white;
+    border-radius: 50px 0px 0px 50px;
 }
 
 .user_detail h4 {
@@ -121,4 +128,17 @@
     color: white;
     padding: 2px 4px;
     border-radius: 10px;
+}
+
+.shareIcon {
+    font-size: 3.5rem;
+    cursor: pointer;
+    position: fixed;
+    bottom: 10%;
+    right: 2%;
+    padding: 4px;
+    border-radius: 50px 50px 50px 5px;
+    color: #ffffff;
+    background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

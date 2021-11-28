@@ -128,7 +128,6 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
             <div className="col-6">
               <div className="skill-card">
                 <h3> Skills</h3>
-
                 <>
                   <ul className="text-center">
                     {users[paramz.location.params].fields?.SKILLS?.stringValue

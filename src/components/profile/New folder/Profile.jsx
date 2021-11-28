@@ -107,7 +107,7 @@ const Profile = () => {
 
   useEffect(() => {
     getmyprofile();
-  }, [refresh]);
+  }, []);
   const saveChangs = async (e) => {
     if (SKILLS.trim()) {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
@@ -159,7 +159,7 @@ const Profile = () => {
     ]).catch((err) => {
       console.log(err);
     });
-  }, [refresh]);
+  }, []);
   const changepassword = async () => {
     if (passwordRef.current.value) {
       await updatePassword(changepassuser, passwordRef.current.value).then(

@@ -4,16 +4,8 @@
     font-weight: 700;
 }
 
-.avatar {
-    width: 230px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
 .jobpostwrapper {
     box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.38);
-    -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.38);
-    -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.38);
 }
 
 .delete {

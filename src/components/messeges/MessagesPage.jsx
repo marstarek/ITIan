@@ -12,29 +12,23 @@ import {
   doc,
   getDoc,
   updateDoc,
-  QuerySnapshot,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-// import User from "../User";
 import Online from "../online/Online";
 import "./messages.css";
 import MessageForm from "./MessageForm";
 import Message from "./Message";
-
 export const MessagesPage = () => {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
   const [text, setText] = useState("");
   const [img, setImg] = useState("");
   const [msgs, setMsgs] = useState([]);
-
+  const [Query, setQuery] = useState("");
   const user1 = auth.currentUser.uid;
-
   useEffect(() => {
     const usersRef = collection(db, "users");
-    // create query object
     const q = query(usersRef, where("uid", "not-in", [user1]));
-    // execute query
     const unsub = onSnapshot(q, (querySnapshot) => {
       let users = [];
       querySnapshot.forEach((doc) => {
@@ -44,7 +38,6 @@ export const MessagesPage = () => {
     });
     return () => unsub();
   }, []);
-
   const selectUser = async (user) => {
     setChat(user);
 
@@ -61,23 +54,15 @@ export const MessagesPage = () => {
       });
       setMsgs(msgs);
     });
-
-    // get last message b/w logged in user and selected user
     const docSnap = await getDoc(doc(db, "lastMsg", id));
-    // if last message exists and message is from selected user
     if (docSnap.data() && docSnap.data().from !== user1) {
-      // update last message doc, set unread to false
       await updateDoc(doc(db, "lastMsg", id), { unread: false });
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const user2 = chat.uid;
-
     const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
-
     let url;
     if (img) {
       const imgRef = ref(
@@ -111,15 +96,31 @@ export const MessagesPage = () => {
   return (
     <div className="messages_home_container">
       <div className="users_container">
-        {users.map((user) => (
-          <Online
-            key={user.uid}
-            user={user}
-            selectUser={selectUser}
-            user1={user1}
-            chat={chat}
-          />
-        ))}
+        <input
+          className="form-control bg-light text-dark "
+          type="text"
+          name="Search"
+          placeholder="Search"
+          autoComplete="off"
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        {users
+          .filter((user, i) => {
+            if (Query === "") {
+              return user;
+            } else if (user?.name.toLowerCase().includes(Query.toLowerCase())) {
+              return user;
+            }
+          })
+          .map((user, i) => (
+            <Online
+              key={user.uid}
+              user={user}
+              selectUser={selectUser}
+              user1={user1}
+              chat={chat}
+            />
+          ))}
       </div>
       <div className="messages_container">
         {chat ? (

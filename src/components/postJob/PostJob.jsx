@@ -56,7 +56,7 @@ const PostJob = ({ getJob }) => {
   console.log(Jobs);
   return (
     <div className="w-50 mx-auto">
-      <h4 className="text-center mb-3">Add a new job</h4>
+      <h3 className="text-center ">Add a new job</h3>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -64,16 +64,16 @@ const PostJob = ({ getJob }) => {
       >
         <Form>
           <div>
-            <div className="form-control border-0">
+            <div className="form-control border-0 mb-2">
               <FormikField
                 name="jobTitle"
                 type="text"
-                className="w-100"
+                className="w-100 "
                 placeholder="Job Title"
                 as="input"
               />
             </div>
-            <div className="form-control border-0">
+            <div className="form-control border-0 mb-2">
               <FormikField
                 name="location"
                 type="text"
@@ -82,7 +82,7 @@ const PostJob = ({ getJob }) => {
                 as="input"
               />
             </div>
-            <div className="form-control border-0">
+            <div className="form-control border-0 mb-2">
               <FormikField
                 name="description"
                 placeholder="Description"

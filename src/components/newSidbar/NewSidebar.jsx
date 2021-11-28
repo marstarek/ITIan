@@ -1,5 +1,8 @@
 import styles from "./sidebar.module.css";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { BsFillChatTextFill, BsChatFill } from "react-icons/bs";
+import { RiChat1Fill } from "react-icons/ri";
+import { FaUserFriends } from "react-icons/fa";
+
 import { Link, useHistory } from "react-router-dom";
 import { db, auth } from "../../firebase-config";
 import { collection, query, onSnapshot } from "firebase/firestore";
@@ -46,26 +49,28 @@ export const NewSidebar = () => {
       <div className={styles.sidebarWrapper}>
         <ul className={styles.sidebarList}>
           <li className={styles.sidebarListItem}>
-            <BsFillChatDotsFill className={styles.sidebarIcon} />
-            <span className={styles.sidebarListItemText}>
-              <Link
-                className={`${styles.sidebarButton} text-dark`}
-                to="/MessagesPage"
-              >
-                Open Yuor Chats
-              </Link>
-            </span>
+            <Link
+              className={`${styles.sidebarButton} text-dark`}
+              to="/MessagesPage"
+            >
+              <BsFillChatTextFill className={styles.shareIcon} />
+            </Link>
           </li>
         </ul>
-        <h5 className="text-center">Friends</h5>
+
+        <h5 className="text-center">
+          {" "}
+          <FaUserFriends /> Friends
+        </h5>
         <hr className={styles.sidebarHr} />
         <input
-          className="form-control bg-dark text-light"
+          className="form-control  border-0 mb-3  border-bottom text-dark"
           type="text"
           name="Search"
           placeholder="Search"
           onChange={(event) => setQuery(event.target.value)}
-        />{" "}
+        />
+
         {users
           .filter((user, i) => {
             if (Query === "") {

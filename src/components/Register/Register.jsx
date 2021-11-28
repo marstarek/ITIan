@@ -70,6 +70,7 @@ const Register = () => {
         SKILLS: "",
         EXPERIANCES: "",
         CONTACTS: "",
+        rule: "user",
       });
       setData({
         name: "",

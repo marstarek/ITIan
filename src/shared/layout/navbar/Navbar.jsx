@@ -28,7 +28,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navBar navbar navbar-expand-lg navbar-dark ">
+      <nav className="navBar navbar navbar-expand-lg navbar-dark sticky-top  ">
         <div className="container-fluid">
           <img className="topbarImg" src="/assets/log2.png" alt="ITI Logo" />
 

@@ -51,9 +51,9 @@ export default function Jobs() {
             Explore New Career Opportunities
           </h3>
 
-          <div className="input-group mx-auto w-75  text-light ">
+          <div className="input-group mx-auto w-75  text-light mb-4 ">
             <input
-              className="form-control text-danger"
+              className="form-control text-danger py-2  "
               type="text"
               name="Search"
               placeholder="Search"

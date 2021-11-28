@@ -172,28 +172,7 @@ const AdminPosts = () => {
 
                 {/*  */}
                 <hr className="login-hr" />
-                <div className="input-group">
-                  <span className="input-group-prepend input-group-text btn-danger active ">
-                    <BsFillBadgeArFill />
-                  </span>
-                  <input
-                    className="form-control bg-dark text-light"
-                    type="text"
-                    name="name"
-                    placeholder="Track Name"
-                  />
-                </div>
-                <div className="input-group">
-                  <span className="input-group-prepend input-group-text btn-danger active ">
-                    <BsClipboardCheck />
-                  </span>
-                  <input
-                    className="form-control bg-dark text-light"
-                    type="text"
-                    name="id"
-                    placeholder="track id"
-                  />
-                </div>
+
                 <div className="input-group">
                   <span className="input-group-prepend input-group-text btn-danger active">
                     <BsCardHeading />
@@ -202,7 +181,7 @@ const AdminPosts = () => {
                     className="form-control bg-dark text-light py-5"
                     type="text "
                     name="des"
-                    placeholder="track description"
+                    placeholder="post description"
                   ></textarea>
                 </div>
 
