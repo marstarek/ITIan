@@ -6,6 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { storage, db, auth } from "../../firebase-config";
 import NewSidebar from "../newSidbar/NewSidebar";
 import { BsTrashFill } from "react-icons/bs";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 import {
   collection,
@@ -92,89 +93,94 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   }
   // console.log(users[paramz.location.params].fields.uid.stringValue);
   return user && users ? (
-    <section className="profile">
-      <div className="container ">
-        <div className="profile-container mx-auto my-5">
-          <div className="profile-head mt-5 px-2 py-5 align-items-center g-0 row">
-            <div className="col-6 mx-auto">
-              <div className="img_container">
-                <img
-                  className="profile-img "
-                  src={
-                    users[paramz.location.params].fields.avatar.stringValue ||
-                    Img
-                  }
-                  alt="avatar"
-                />
+    <>
+      <Navbar />
+      <section className="profile">
+        <div className="container ">
+          <div className="profile-container mx-auto my-5">
+            <div className="profile-head mt-5 px-2 py-5 align-items-center g-0 row">
+              <div className="col-6 mx-auto">
+                <div className="img_container">
+                  <img
+                    className="profile-img "
+                    src={
+                      users[paramz.location.params].fields.avatar.stringValue ||
+                      Img
+                    }
+                    alt="avatar"
+                  />
+                </div>
+              </div>
+              <div className="col-6  mx-auto">
+                <div className=" text-center  mx-auto">
+                  <h2>
+                    {users[paramz.location.params].fields.name.stringValue}
+                  </h2>
+
+                  <h4>Front End Dev</h4>
+                  <small>
+                    Joined on: {user.createdAt.toDate().toDateString()}
+                  </small>
+
+                  <button className="btn btn-danger rounded-pill px-3  d-block my-1 mx-auto">
+                    Follow
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="col-6  mx-auto">
-              <div className=" text-center  mx-auto">
-                <h2>{users[paramz.location.params].fields.name.stringValue}</h2>
-
-                <h4>Front End Dev</h4>
-                <small>
-                  Joined on: {user.createdAt.toDate().toDateString()}
-                </small>
-
-                <button className="btn btn-danger rounded-pill px-3  d-block my-1 mx-auto">
-                  Follow
-                </button>
+            {/* ADD SKILLS */}
+            <div className="SKILLS-head  py-5 px-4 text-center   row">
+              <div className="col-6">
+                <div className="skill-card">
+                  <h3> Skills</h3>
+                  <>
+                    <ul className="text-center">
+                      {users[paramz.location.params].fields?.SKILLS?.stringValue
+                        .split(",")
+                        .map((s, i) => {
+                          return <li key={i}>{s}</li>;
+                        })}
+                    </ul>
+                  </>
+                </div>
               </div>
-            </div>
-          </div>
-          {/* ADD SKILLS */}
-          <div className="SKILLS-head  py-5 px-4 text-center   row">
-            <div className="col-6">
-              <div className="skill-card">
-                <h3> Skills</h3>
-                <>
+              <div className="col-6 align-bottom">
+                <div className="skill-card">
+                  <h3> EXPERIANCES</h3>
+
                   <ul className="text-center">
-                    {users[paramz.location.params].fields?.SKILLS?.stringValue
+                    {users[
+                      paramz.location.params
+                    ].fields?.EXPERIANCES?.stringValue
                       .split(",")
-                      .map((s) => {
-                        return <li>{s}</li>;
+                      .map((E, i) => {
+                        return <li key={i}>{E}</li>;
                       })}
                   </ul>
-                </>
+                </div>
               </div>
             </div>
-            <div className="col-6 align-bottom">
-              <div className="skill-card">
-                <h3> EXPERIANCES</h3>
+            {/* edite password */}
 
-                <ul className="text-center">
-                  {users[
-                    paramz.location.params
-                  ].fields?.EXPERIANCES?.stringValue
-                    .split(",")
-                    .map((E) => {
-                      return <li>{E}</li>;
-                    })}
-                </ul>
-              </div>
-            </div>
-          </div>
-          {/* edite password */}
-
-          <div className="SKILLS-head  py-5 px-4 text-center   row">
-            <div className="col-6">
-              <label for="CONTACTS"></label>
-              <div className="skill-card">
-                <h3> CONTACTS</h3>
-                <ul className="text-center">
-                  {users[paramz.location.params].fields?.CONTACTS?.stringValue
-                    .split(",")
-                    .map((C) => {
-                      return <li>{C}</li>;
-                    })}
-                </ul>
+            <div className="SKILLS-head  py-5 px-4 text-center   row">
+              <div className="col-6">
+                <label htmlFor="CONTACTS"></label>
+                <div className="skill-card">
+                  <h3> CONTACTS</h3>
+                  <ul className="text-center">
+                    {users[paramz.location.params].fields?.CONTACTS?.stringValue
+                      .split(",")
+                      .map((C, i) => {
+                        return <li key={i}>{C}</li>;
+                      })}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>{" "}
+    </>
   ) : null;
 };
 

@@ -17,6 +17,8 @@ import {
   Line,
 } from "recharts";
 import Chart from "./chart/Chart";
+import Navbar from "../../shared/layout/navbar/Navbar";
+
 export const AdminHome = () => {
   const data = [
     {
@@ -70,7 +72,8 @@ export const AdminHome = () => {
   ];
   return (
     <>
-      <div classNameName=" admin-container ">
+      <Navbar />
+      <div className=" admin-container ">
         <div className="container text-center dashboard text-light">
           <h2>Dashboard</h2>
           <div className="content text-light">

@@ -5,10 +5,11 @@ import Accordion from "react-bootstrap/Accordion";
 import Dropdown from "react-bootstrap/Dropdown";
 import CoursCard from "../../shared/card/CoursCard";
 import ShowMoreText from "react-show-more-text";
-
+import Navbar from "../../shared/layout/navbar/Navbar";
 const AboutTrack = () => {
   return (
     <>
+      <Navbar />
       <div className="trackheader row m-0">
         <div className="col-6 ms-5 my-auto ">
           <h1> Front End Developmant </h1>{" "}

@@ -18,6 +18,8 @@ import Online from "../online/Online";
 import "./messages.css";
 import MessageForm from "./MessageForm";
 import Message from "./Message";
+import Navbar from "../../shared/layout/navbar/Navbar";
+
 export const MessagesPage = () => {
   const [users, setUsers] = useState([]);
   const [chat, setChat] = useState("");
@@ -94,59 +96,65 @@ export const MessagesPage = () => {
     setText("");
   };
   return (
-    <div className="messages_home_container">
-      <div className="users_container">
-        <input
-          className="form-control bg-light text-dark "
-          type="text"
-          name="Search"
-          placeholder="Search"
-          autoComplete="off"
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        {users
-          .filter((user, i) => {
-            if (Query === "") {
-              return user;
-            } else if (user?.name.toLowerCase().includes(Query.toLowerCase())) {
-              return user;
-            }
-          })
-          .map((user, i) => (
-            <Online
-              key={user.uid}
-              user={user}
-              selectUser={selectUser}
-              user1={user1}
-              chat={chat}
-            />
-          ))}
+    <>
+      <Navbar />
+
+      <div className="messages_home_container">
+        <div className="users_container">
+          <input
+            className="form-control bg-light text-dark "
+            type="text"
+            name="Search"
+            placeholder="Search"
+            autoComplete="off"
+            onChange={(event) => setQuery(event.target.value)}
+          />
+          {users
+            .filter((user, i) => {
+              if (Query === "") {
+                return user;
+              } else if (
+                user?.name.toLowerCase().includes(Query.toLowerCase())
+              ) {
+                return user;
+              }
+            })
+            .map((user, i) => (
+              <Online
+                key={user.uid}
+                user={user}
+                selectUser={selectUser}
+                user1={user1}
+                chat={chat}
+              />
+            ))}
+        </div>
+        <div className="messages_container">
+          {chat ? (
+            <>
+              <div className="messages_user">
+                <h3>{chat.name}</h3>
+              </div>
+              <div className="messages">
+                {msgs.length
+                  ? msgs.map((msg, i) => (
+                      <Message key={i} msg={msg} user1={user1} />
+                    ))
+                  : null}
+              </div>
+              <MessageForm
+                handleSubmit={handleSubmit}
+                text={text}
+                setText={setText}
+                setImg={setImg}
+              />
+            </>
+          ) : (
+            <h3 className="no_conv">Select a user to start conversation</h3>
+          )}
+        </div>
       </div>
-      <div className="messages_container">
-        {chat ? (
-          <>
-            <div className="messages_user">
-              <h3>{chat.name}</h3>
-            </div>
-            <div className="messages">
-              {msgs.length
-                ? msgs.map((msg, i) => (
-                    <Message key={i} msg={msg} user1={user1} />
-                  ))
-                : null}
-            </div>
-            <MessageForm
-              handleSubmit={handleSubmit}
-              text={text}
-              setText={setText}
-              setImg={setImg}
-            />
-          </>
-        ) : (
-          <h3 className="no_conv">Select a user to start conversation</h3>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 export default MessagesPage;

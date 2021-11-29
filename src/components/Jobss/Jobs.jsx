@@ -15,7 +15,6 @@ export default function Jobs() {
   const [jobs, setJobs] = useState();
   const [curUser, setcurUser] = useState();
   const [query, setQuery] = useState("");
-
   const jobsCollectionRefrance = collection(db, "jobs");
   const getJob = async () => {
     const usersData = await getDocs(jobsCollectionRefrance);
@@ -28,7 +27,6 @@ export default function Jobs() {
   const deleteJob = async (i) => {
     const commentDoc = doc(db, "jobs", jobs[i].id);
     await deleteDoc(commentDoc);
-
     getJob();
   };
   const getCurrentUser = () => {
@@ -41,6 +39,7 @@ export default function Jobs() {
   };
   return (
     <>
+      <Navbar />
       <div className="row gx-0 flex-row-reverse">
         <div className="order-0 col-lg-5 pt-4">
           {" "}

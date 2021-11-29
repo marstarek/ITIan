@@ -14,7 +14,6 @@ import AdminHome from "../src/components/Admin/AdminHome";
 import MessagesPage from "../src/components/messeges/MessagesPage";
 import PrivateRoute from "./context/PrivateRouth";
 import Footer from "../src/shared/layout/footer/Footer";
-import Navbar from "../src/shared/layout/navbar/Navbar";
 import MyTrackPage from "./components/myTrackPage/MyTrackPage";
 import UserProfile from "./components/userProfile/UserProfile";
 import AdminLogin from "./components/Admin/AdminLogin";
@@ -29,7 +28,6 @@ function App() {
     <>
       <div className="App">
         <Router>
-          <Navbar />
           <Switch>
             <PrivateRoute exact path="/" component={Home} />{" "}
             <Route path="/login" component={Login} />{" "}
@@ -52,8 +50,6 @@ function App() {
             <PrivateRoute path="/AdminJobs" component={AdminJobs} />{" "}
             <PrivateRoute path="/MyTrackPage" component={MyTrackPage} />{" "}
             <PrivateRoute path="/AdminNews" component={AdminNews} />{" "}
-            {/* <PrivateRoute path="/TestFeed" component={TestFeed} /> */}{" "}
-            {/* <PrivateRoute path="/MessagesPage" component={MessagesPage} />{" "} */}{" "}
           </Switch>{" "}
           <Footer />
         </Router>{" "}

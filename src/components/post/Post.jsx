@@ -135,6 +135,7 @@ export const Post = ({
                 if (comment.fields.postID.stringValue === posts[i]?.id) {
                   return (
                     <div
+                      key={index}
                       className={` D-non ${
                         I === i ? "d-flex" : "d-none "
                       } m-2 p-2  row g-0  justify-content-around   `}

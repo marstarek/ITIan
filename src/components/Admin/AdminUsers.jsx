@@ -12,6 +12,7 @@ import {
 import { db } from "../../firebase-config";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 import Img from "../../image1.jpg";
 
@@ -27,14 +28,18 @@ const AdminUsers = () => {
   useEffect(() => {
     getUsers();
   }, []);
-  console.log(users[0]);
   const deleteuser = async (i) => {
-    const commentDoc = doc(db, "users", users[i].uid);
-    await deleteDoc(commentDoc);
-    getUsers();
+    try {
+      const commentDoc = doc(db, "users", users[i].uid);
+      await deleteDoc(commentDoc);
+      getUsers();
+    } catch (err) {
+      alert(err);
+    }
   };
   return (
     <>
+      <Navbar />
       <div className="container-fluid bg-dark text-light ">
         <h2 className="py-3 ">Users</h2>
 
@@ -146,7 +151,7 @@ const AdminUsers = () => {
                     style={{ display: "none" }}
                     id="photo"
                   />
-                  <button className="btn btn-danger mx-2 " for="actual-btn">
+                  <button className="btn btn-danger mx-2 " htmlFor="actual-btn">
                     <BsFillCameraFill />
                     Add Photo
                   </button>
@@ -199,7 +204,7 @@ const AdminUsers = () => {
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminUsers"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Users{" "}
               </Link>
@@ -216,7 +221,7 @@ const AdminUsers = () => {
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminPosts"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Posts{" "}
               </Link>
@@ -225,7 +230,7 @@ const AdminUsers = () => {
               <Link
                 className="page-link bg-danger text-light  "
                 to="/AdminJobs"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Jobs{" "}
               </Link>

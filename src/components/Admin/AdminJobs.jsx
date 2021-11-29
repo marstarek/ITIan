@@ -7,6 +7,8 @@ import {
   BsCardHeading,
   BsClipboardCheck,
 } from "react-icons/bs";
+import Navbar from "../../shared/layout/navbar/Navbar";
+
 import { db } from "../../firebase-config";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -22,13 +24,18 @@ const AdminJobs = () => {
     getJob();
   }, []);
   const deleteJob = async (i) => {
-    const jobDoc = doc(db, "jobs", jobs[i].id);
-    await deleteDoc(jobDoc);
-    getJob();
+    try {
+      const jobDoc = doc(db, "jobs", jobs[i].id);
+      await deleteDoc(jobDoc);
+      getJob();
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
     <>
+      <Navbar />
       <div className="container-fluid bg-dark text-light ">
         <h2 className="py-3 ">Jobs</h2>
 
@@ -194,7 +201,7 @@ const AdminJobs = () => {
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminTracks"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Track{" "}
               </Link>
@@ -203,7 +210,7 @@ const AdminJobs = () => {
               <Link
                 className="page-link bg-danger text-light  "
                 to="/AdminPosts"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Posts{" "}
               </Link>
@@ -212,7 +219,7 @@ const AdminJobs = () => {
               <Link
                 className="page-link bg-danger text-light disabled "
                 to="/AdminJobs"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Jobs{" "}
               </Link>

@@ -17,11 +17,13 @@ import {
 import Img from "../../image1.jpg";
 import "./adminHome.css";
 import { Link } from "react-router-dom";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 const AdminUsers = () => {
   const [query, setQuery] = useState("");
   return (
     <>
+      <Navbar />
       <div className="container-fluid bg-dark text-light ">
         <h2 className="py-3 ">Tracks</h2>
 
@@ -150,7 +152,7 @@ const AdminUsers = () => {
                     id="photo"
                     id="actual-btn"
                   />
-                  <button className="btn btn-danger mx-2 " for="actual-btn">
+                  <button className="btn btn-danger mx-2 " htmlFor="actual-btn">
                     <BsFillCameraFill />
                     Add Photo
                   </button>
@@ -208,7 +210,7 @@ const AdminUsers = () => {
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminTracks"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Track{" "}
               </Link>
@@ -217,7 +219,7 @@ const AdminUsers = () => {
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminPosts"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Posts{" "}
               </Link>
@@ -226,7 +228,7 @@ const AdminUsers = () => {
               <Link
                 className="page-link bg-danger text-light  "
                 to="/AdminJobs"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Jobs{" "}
               </Link>

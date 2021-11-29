@@ -2,10 +2,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./aboutTracks.css";
 import Carousel from "react-bootstrap/Carousel";
 import Cards from "../../shared/card/Cards";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 export const AboutTracks = () => {
   return (
     <>
+      <Navbar />
       <div className="slider   ">
         <Carousel className="Carousel  w-100 g-0 ">
           <Carousel.Item className="CarouselItem">

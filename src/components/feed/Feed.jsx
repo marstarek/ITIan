@@ -14,6 +14,8 @@ import { Timestamp, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Share from "../share/Share";
 import Post from "../post/Post";
+import Navbar from "../../shared/layout/navbar/Navbar";
+
 /* ------------------------------------imports-------------------------------------- */
 export const Feed = () => {
   const [query, setQuery] = useState("");
@@ -89,6 +91,7 @@ export const Feed = () => {
       });
       const docSnap = await getDoc(doc(db, "posts", id));
       setPostText("");
+      setImg("");
       setrefresh(!refresh);
     } else {
       alert("please say something");
@@ -105,14 +108,17 @@ export const Feed = () => {
   /* ---------------------------------delatePost---------------------------------------- */
 
   const delatePost = async (i) => {
-    if (posts[i].from.includes(curUser.uid)) {
-      const postDoc = doc(db, "posts", posts[i].id);
-      await deleteDoc(postDoc);
+    try {
+      if (posts[i].from.includes(curUser.uid)) {
+        const postDoc = doc(db, "posts", posts[i].id);
+        await deleteDoc(postDoc);
+        setrefresh(!refresh);
+      } else {
+      }
       setrefresh(!refresh);
-    } else {
+    } catch (err) {
+      alert(err);
     }
-    setrefresh(!refresh);
-    alert("this is not your  post you cant delete it");
   };
 
   /* --------------------------------------commentsHandler------------------------------------ */
@@ -148,16 +154,17 @@ export const Feed = () => {
   };
   /* ---------------------------------delete comment------------------------------------ */
   const delatecomment = async (i, index) => {
-    showComments(i);
-
-    if (newcomments[index].from.includes(curUser.uid)) {
-      const commentDoc = doc(db, "comments", newcomments[index].id);
-      await deleteDoc(commentDoc);
+    try {
+      showComments(i);
+      if (newcomments[index].from.includes(curUser.uid)) {
+        const commentDoc = doc(db, "comments", newcomments[index].id);
+        await deleteDoc(commentDoc);
+        setrefresh(!refresh);
+      }
       setrefresh(!refresh);
-    } else {
-      alert("you cant delete");
+    } catch (err) {
+      alert(err);
     }
-    setrefresh(!refresh);
   };
 
   return (

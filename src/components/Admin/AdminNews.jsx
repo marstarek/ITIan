@@ -16,6 +16,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 import { Link } from "react-router-dom";
 
@@ -80,14 +81,19 @@ const AdminNews = () => {
   };
 
   const deleteposrs = async (i) => {
-    const newsdoc = doc(db, "news", news[i].id);
-    await deleteDoc(newsdoc);
-    getNews();
+    try {
+      const newsdoc = doc(db, "news", news[i].id);
+      await deleteDoc(newsdoc);
+      getNews();
+    } catch (err) {
+      alert(err);
+    }
   };
   const [query, setQuery] = useState("");
 
   return (
     <>
+      <Navbar />
       <div className="container-fluid bg-dark text-light ">
         <h2 className="py-3 ">News</h2>
 
@@ -212,10 +218,6 @@ const AdminNews = () => {
                   {error && (
                     <div className="bg-danger rounded p-1 m-3">{error}</div>
                   )}
-                  {/* <button className='btn btn-danger mx-2 ' for='actual-btn'>
-                    <BsFillCameraFill />
-                    Add Photo
-                  </button> */}
                 </div>
 
                 {/*  */}
@@ -283,7 +285,7 @@ const AdminNews = () => {
               <Link
                 className="page-link bg-danger text-light"
                 to="/AdminTracks"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Track{" "}
               </Link>
@@ -292,7 +294,7 @@ const AdminNews = () => {
               <Link
                 className="page-link bg-danger text-light disabled "
                 to="/AdminPosts"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 news{" "}
               </Link>
@@ -301,7 +303,7 @@ const AdminNews = () => {
               <Link
                 className="page-link bg-danger text-light  "
                 to="/AdminJobs"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 Jobs{" "}
               </Link>

@@ -14,12 +14,12 @@ const Footer = () => {
       <div className="navBar    container-fluid   sticky-bottom text-light ">
         <footer className=" text-light  d-flex flex-wrap justify-content-between align-items-center py-4   ">
           <div className="col-md-4 d-flex align-items-center">
-            <ul calssName="lh-1">
+            <ul className="lh-1">
               <li className="fs-3 fw-bold lh-2">Contact Us</li>
               <li className=" ">
                 <div className="py-2">
                   <svg className="bi" width="24" height="24">
-                    <BsMapFill calssName="fs-1  me-5" />{" "}
+                    <BsMapFill className="fs-1  me-5" />{" "}
                   </svg>
 
                   <span>
@@ -31,15 +31,15 @@ const Footer = () => {
               <li className=" ">
                 <div className="py-2">
                   <svg className="bi" width="24" height="24">
-                    <BsTelephoneFill calssName="fs-1 me-5" />
+                    <BsTelephoneFill className="fs-1 me-5" />
                   </svg>
-                  <span calssName="">&nbsp;(+202) 353-55656</span>
+                  <span className="">&nbsp;(+202) 353-55656</span>
                 </div>
               </li>
               <li className=" ">
                 <div className="py-2">
                   <svg className="bi" width="24" height="24">
-                    <BsMailbox2 calssName="fs-1  me-5" />
+                    <BsMailbox2 className="fs-1  me-5" />
                   </svg>
                   <span>&nbsp;ITIinfo@iti.gov.eg</span>
                 </div>
