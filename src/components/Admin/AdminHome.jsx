@@ -5,7 +5,69 @@ import {
   FaGraduationCap,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import CountUp from "react-countup";
+import {
+  LineChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  Line,
+} from "recharts";
+import Chart from "./chart/Chart";
 export const AdminHome = () => {
+  const data = [
+    {
+      month: "Jan",
+      "active users": 4000,
+    },
+    {
+      month: "Feb",
+      "active users": 3000,
+    },
+    {
+      month: "Mar",
+      "active users": 2000,
+    },
+    {
+      month: "Apr",
+      "active users": 2780,
+    },
+    {
+      month: "May",
+      "active users": 1890,
+    },
+    {
+      month: "Jun",
+      "active users": 2390,
+    },
+    {
+      month: "Jul",
+      "active users": 3490,
+    },
+    {
+      month: "Aug",
+      "active users": 4200,
+    },
+    {
+      month: "Sep",
+      "active users": 4800,
+    },
+    {
+      month: "Oct",
+      "active users": 4000,
+    },
+    {
+      month: "Nov",
+      "active users": 3000,
+    },
+    {
+      month: "Dec",
+      "active users": 5000,
+    },
+  ];
   return (
     <>
       <div classNameName=" admin-container ">
@@ -16,51 +78,87 @@ export const AdminHome = () => {
               <div className="col-md-3">
                 <div className="box p-5 mb-1 bg-secondary rounded">
                   <FaGraduationCap className="fs-3" />
-
+                  <h3 className="mt-2 h1">
+                    <CountUp
+                      delay={0}
+                      start={0}
+                      end={500}
+                      duration={3}
+                      useEasing
+                    />
+                  </h3>
                   <div className="mt-2">
-                    <Link className="text-light fs-1" to="/AdminUsers">
-                      Users{" "}
+                    <Link className="text-light fs-5" to="/AdminUsers">
+                      Users
                     </Link>
                   </div>
-                  <h3>500 user </h3>
                 </div>
               </div>
               <div className="col-md-3">
                 <div className="box p-5 mb-1 bg-danger rounded">
                   <FaLaptopCode className="fs-3" />
+                  <h3 className="mt-2 h1">
+                    <CountUp
+                      delay={0}
+                      start={0}
+                      end={43}
+                      duration={3}
+                      useEasing
+                    />
+                  </h3>
                   <div className="mt-2">
-                    <Link className="text-light fs-1" to="/AdminTracks">
-                      Tracks{" "}
+                    <Link className="text-light fs-5" to="/AdminTracks">
+                      Tracks
                     </Link>
                   </div>
-                  <h3> 43 Track </h3>
                 </div>
               </div>
               <div className="col-md-3">
                 <div className="box p-5 mb-1 bg-dark rounded">
                   <FaCommentAlt className="fs-4" />
+                  <h3 className="mt-2 h1">
+                    <CountUp
+                      delay={0}
+                      start={0}
+                      end={700}
+                      duration={3}
+                      useEasing
+                    />
+                  </h3>
                   <div className="mt-2">
-                    <Link className="text-light fs-1" to="/AdminPosts">
-                      Posts{" "}
+                    <Link className="text-light fs-5" to="/AdminPosts">
+                      Posts
                     </Link>
                   </div>
-                  <h3>700 Post</h3>
                 </div>
               </div>
               <div className="col-md-3">
                 <div className="box p-5 mb-1 bg-info rounded">
                   <FaClipboardList className="fs-4" />
+                  <h3 className="mt-2 h1">
+                    <CountUp
+                      delay={0}
+                      start={0}
+                      end={300}
+                      duration={3}
+                      useEasing
+                    />
+                  </h3>
                   <div className="mt-2">
-                    <Link className="text-light fs-1" to="/AdminJobs">
-                      Jobs{" "}
+                    <Link className="text-light fs-5" to="/AdminJobs">
+                      Posted Jobs
                     </Link>
                   </div>
-                  <h3>Jobs </h3>
                 </div>
               </div>
             </div>
             <div>
-              <img src="assets/chart.png" alt="" />
+              <Chart
+                title="User Analytics"
+                data={data}
+                dataKey="active users"
+                grid
+              />
             </div>
           </div>
         </div>

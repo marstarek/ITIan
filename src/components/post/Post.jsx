@@ -25,7 +25,6 @@ export const Post = ({
   commentsHandler,
   curUser,
 }) => {
-  console.log(curUser.rule);
   return (
     <div className="post">
       <div className="postWrapper">

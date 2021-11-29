@@ -21,6 +21,7 @@ import AdminLogin from "./components/Admin/AdminLogin";
 import AdminUsers from "./components/Admin/AdminUsers";
 import AdminTracks from "./components/Admin/AdminTracks";
 import AdminPosts from "./components/Admin/AdminPosts";
+import AdminNews from "./components/Admin/AdminNews";
 import AdminJobs from "./components/Admin/AdminJobs";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
             <PrivateRoute path="/AdminPosts" component={AdminPosts} />{" "}
             <PrivateRoute path="/AdminJobs" component={AdminJobs} />{" "}
             <PrivateRoute path="/MyTrackPage" component={MyTrackPage} />{" "}
+            <PrivateRoute path="/AdminNews" component={AdminNews} />{" "}
             {/* <PrivateRoute path="/TestFeed" component={TestFeed} /> */}{" "}
             {/* <PrivateRoute path="/MessagesPage" component={MessagesPage} />{" "} */}{" "}
           </Switch>{" "}

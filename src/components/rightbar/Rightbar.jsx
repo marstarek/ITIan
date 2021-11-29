@@ -1,7 +1,21 @@
 import "./rightbar.css";
-import { Newz } from "../../dummyData";
+import { db } from "../../firebase-config";
+
+import { useState, useEffect } from "react";
+
 import News from "../news/News";
+import { collection, getDocs } from "firebase/firestore";
 export const RightBar = () => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    getNews();
+  }, []);
+  const newsRefrance = collection(db, "news");
+  const getNews = async () => {
+    const newsData = await getDocs(newsRefrance);
+    setNews(newsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
@@ -11,8 +25,8 @@ export const RightBar = () => {
         </div>
         <hr />
         <ul className="rightbarNewsList">
-          {Newz.map((n) => (
-            <News key={n.id} news={n} />
+          {news.map((newsPost, i) => (
+            <News key={i} news={newsPost} />
           ))}
         </ul>
       </div>

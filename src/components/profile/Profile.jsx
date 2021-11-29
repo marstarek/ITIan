@@ -171,6 +171,9 @@ const Profile = () => {
 
   const toggle4 = async () => {
     setError("");
+    if (currentPasswordRef?.current?.value?.length < 5) {
+      setError("password at least 6 digits");
+    }
     if (TO4 && currentPasswordRef?.current?.value?.length > 5) {
       try {
         const user = await signInWithEmailAndPassword(
@@ -183,18 +186,20 @@ const Profile = () => {
         });
         setTO4(!TO4);
       } catch (error) {
-        setError(error.message);
+        setError("wrong password");
       }
     }
     if (
       !TO4 &&
       confirmPasswordRef?.current?.value?.length > 5 &&
       newPasswordRef?.current?.value?.length > 5 &&
-      confirmPasswordRef?.current?.value?.length > 5 ===
-        newPasswordRef?.current?.value?.length > 5
+      confirmPasswordRef.current.value === newPasswordRef.current.value
     ) {
       setTO4(!TO4);
       changepassword();
+    }
+    if (confirmPasswordRef?.current?.value !== newPasswordRef?.current?.value) {
+      setError("password does not matchs");
     }
   };
   //////
@@ -213,198 +218,193 @@ const Profile = () => {
     if (newPasswordRef?.current?.value?.length > 5) {
       try {
         await updatePassword(userr, newPasswordRef.current.value);
-        if (!error) {
-          setError("password changed successfully");
-        }
+
+        setError("password changed successfully");
       } catch (error) {
-        setError("weak network please refresh and try again");
+        setError(error.message);
       }
-    } else {
-      setError("password at least 6 digits");
     }
     // "weak network please refresh and try again
     // console.log(passwordRef.current.value)
   };
 
   return user ? (
-    <section className="profile">
-      <div className="container ">
-        <div className="profile-container mx-auto my-5">
-          <div className="profile-head mt-5 px-2 py-5 align-items-center g-0 row">
-            <div className="col-lg-6 mx-auto">
-              <div className="img_container d-flex flex-column justify-content-center align-items-center">
+    <section className='profile'>
+      <div className='container '>
+        <div className='profile-container mx-auto my-5'>
+          <div className='profile-head mt-5 px-2 py-5 align-items-center g-0 row'>
+            <div className='col-lg-6 mx-auto'>
+            <div className='img_container d-flex flex-column justify-content-center  ms-0 ms-lg-5  '>
+
                 <img
-                  className="profile-img"
+                  className='profile-img'
                   src={user.avatar || Img}
-                  alt="avatar"
+                  alt='avatar'
                 />
 
                 <input
-                  type="file"
-                  accept="image/*"
+                  type='file'
+                  accept='image/*'
                   style={{ display: "none" }}
-                  id="actual-btn"
+                  id='actual-btn'
                   onChange={(e) => setImg(e.target.files[0])}
-                  id="actual-btn"
+                  id='actual-btn'
                 />
 
-                <div className="d-flex justify-content-center algin-items-center mt-5">
+<div className='d-flex justify-content-center algin-items-center me-0 me-lg-5  mt-5'>
+
                   {user.avatar ? (
                     <BsTrashFill
-                      className=" deleteIcon fs-2 m-1 text-danger "
+                      className=' deleteIcon fs-2 m-1 text-danger '
                       onClick={deleteImage}
                     />
                   ) : null}
                   <label
-                    className="btn btn-danger rounded-pill"
-                    for="actual-btn"
-                  >
+                    className='btn btn-danger rounded-pill'
+                    for='actual-btn'>
                     change photo
                   </label>
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 tex mx-auto">
-              <div className="text-sm-center text-lg-start">
-                <h2 className={`text-sm-center text-lg-start text-capitalize`}>
+            <div className='col-lg-6 tex mx-auto'>
+              <div className='text-sm-center text-lg-start'>
+                <h2
+                  className={`text-sm-center text-lg-start text-capitalize mt-5`}>
                   {user.name}
                 </h2>
-                <p className="">{user.email}</p>
-                <h4 className="">Front End Dev</h4>
-                <small className="">
+                <p className=''>{user.email}</p>
+                <h4 className=''>Front End Dev</h4>
+                <small className=''>
                   Joined on: {user.createdAt.toDate().toDateString()}
                 </small>
               </div>
             </div>
           </div>
           {/* ADD SKILLS */}
-          <div className="SKILLS-head  pt-5 px-4 text-center row">
-            <div className="col-lg-6 mt-lg-0">
-              <div className="skill-card">
+          <div className='SKILLS-head  pt-5 px-4 text-center row'>
+            <div className='col-lg-6 mt-lg-0'>
+              <div className='skill-card'>
                 <h3>SKILLS</h3>
                 {TO1 ? (
                   <>
-                    <ul className="text-center">
-                      {user?.SKILLS?.split(",").map((E) => {
+                    <ul className='text-center'>
+                      {user?.SKILLS?.split(" ").map((E) => {
                         return <li>{E}</li>;
                       })}
                     </ul>
                   </>
                 ) : (
                   <>
-                    <label htmlFor="skills"></label>
+                    <label htmlFor='skills'></label>
 
                     <textarea
-                      id="skills"
-                      name="skills"
-                      rows="4"
-                      cols="50"
-                      placeholder="split every skill by comma"
+                      id='skills'
+                      name='skills'
+                      rows='4'
+                      cols='50'
+                      placeholder='split every skill by comma'
                       defaultValue={[...user.SKILLS].join("")}
-                      onChange={(e) => setSKILLS(e.target.value)}
-                    ></textarea>
+                      onChange={(e) => setSKILLS(e.target.value)}></textarea>
                   </>
                 )}
                 <button
-                  type="button"
-                  className="mt-2 shareButton"
-                  onClick={toggle1}
-                >
+                  type='button'
+                  className='mt-2 shareButton'
+                  onClick={toggle1}>
                   Edit Skills
                 </button>
               </div>
             </div>
-            <div className="col-lg-6 align-bottom mt-5 mt-lg-0">
-              <div className="skill-card">
+            <div className='col-lg-6 align-bottom mt-5 mt-lg-0'>
+              <div className='skill-card'>
                 <h3> EXPERIANCES</h3>
                 {TO2 ? (
                   <>
-                    <ul className="text-center">
-                      {user?.EXPERIANCES?.split(",").map((E) => {
+                    <ul className='text-center'>
+                      {user?.EXPERIANCES?.split(" ").map((E) => {
                         return <li>{E}</li>;
                       })}
                     </ul>
                   </>
                 ) : (
                   <>
-                    <label htmlFor="EXPERIANCES"></label>
+                    <label htmlFor='EXPERIANCES'></label>
 
                     <textarea
-                      id="EXPERIANCES"
-                      name="EXPERIANCES"
-                      rows="4"
-                      cols="50"
-                      placeholder="Write youe Experiance"
+                      id='EXPERIANCES'
+                      name='EXPERIANCES'
+                      rows='4'
+                      cols='50'
+                      placeholder='Write youe Experiance'
                       defaultValue={[...user.EXPERIANCES].join("")}
-                      onChange={(e) => setEXPERIANCES(e.target.value)}
-                    ></textarea>
+                      onChange={(e) =>
+                        setEXPERIANCES(e.target.value)
+                      }></textarea>
                   </>
                 )}
                 <button
-                  type="button"
-                  className="mt-2 shareButton"
-                  onClick={toggle2}
-                >
+                  type='button'
+                  className='mt-2 shareButton'
+                  onClick={toggle2}>
                   Edit Experiance
                 </button>
               </div>
             </div>
           </div>
-          <div className="SKILLS-head px-4 text-center row pb-5">
-            <div className="col-lg-6 mt-5">
-              <div className="skill-card">
+          <div className='SKILLS-head px-4 text-center row pb-5'>
+            <div className='col-lg-6 mt-5'>
+              <div className='skill-card'>
                 <h3> CONTACTS</h3>
                 {TO3 ? (
                   <>
-                    <ul className="text-center">
-                      {user?.CONTACTS?.split(",").map((E) => {
+                    <ul className='text-center'>
+                      {user?.CONTACTS?.split(" ").map((E) => {
                         return <li>{E}</li>;
                       })}
                     </ul>
                   </>
                 ) : (
                   <>
-                    <label htmlFor="CONTACTS"></label>
+                    <label htmlFor='CONTACTS'></label>
 
                     <textarea
-                      id="CONTACTS"
-                      name="CONTACTS"
-                      rows="4"
-                      cols="50"
-                      placeholder="split every CONTACTS by space"
+                      id='CONTACTS'
+                      name='CONTACTS'
+                      rows='4'
+                      cols='50'
+                      placeholder='split every CONTACTS by space'
                       defaultValue={[...user.CONTACTS].join("")}
-                      onChange={(e) => setCONTACTS(e.target.value)}
-                    ></textarea>
+                      onChange={(e) => setCONTACTS(e.target.value)}></textarea>
                   </>
                 )}
                 <button
-                  type="button"
-                  className="mt-2 shareButton"
-                  onClick={toggle3}
-                >
+                  type='button'
+                  className='mt-2 shareButton'
+                  onClick={toggle3}>
                   Edit contacts
                 </button>
               </div>
             </div>
-            <div className="set-password col-lg-6 mt-5">
-              <div className="skill-card">
+            <div className='set-password col-lg-6 mt-5'>
+              <div className='skill-card'>
                 <h3> Change Password</h3>
                 {error && (
-                  <div className="bg-danger rounded p-2 m-3 text-light">
+                  <div className='bg-danger rounded p-2 m-3 text-light'>
                     {error}
                   </div>
                 )}
 
                 {TO4 ? (
                   <>
-                    <div className="row">
-                      <div className="col">
-                        <div className="form-group">
+                    <div className='row'>
+                      <div className='col'>
+                        <div className='form-group'>
                           <label>Current Password</label>
                           <input
-                            className="form-control"
-                            type="password"
-                            placeholder="••••••"
+                            className='form-control'
+                            type='password'
+                            placeholder='••••••'
                             ref={currentPasswordRef}
                           />
                         </div>
@@ -414,14 +414,14 @@ const Profile = () => {
                 ) : (
                   <>
                     <div>
-                      <div className="row">
-                        <div className="col">
-                          <div className="form-group">
+                      <div className='row'>
+                        <div className='col'>
+                          <div className='form-group'>
                             <label>New Password</label>
                             <input
-                              className="form-control"
-                              type="password"
-                              placeholder="555"
+                              className='form-control'
+                              type='password'
+                              placeholder='555'
                               ref={newPasswordRef}
                               required
                               minLength={6}
@@ -429,19 +429,19 @@ const Profile = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="row">
-                        <div className="col">
-                          <div className="form-group">
+                      <div className='row'>
+                        <div className='col'>
+                          <div className='form-group'>
                             <label>
                               Confirm{" "}
-                              <span className="d-none d-xl-inline">
+                              <span className='d-none d-xl-inline'>
                                 Password
                               </span>
                             </label>
                             <input
-                              className="form-control"
-                              type="password"
-                              placeholder="••••••"
+                              className='form-control'
+                              type='password'
+                              placeholder='••••••'
                               ref={confirmPasswordRef}
                             />
                           </div>
@@ -452,10 +452,9 @@ const Profile = () => {
                 )}
 
                 <button
-                  type="button"
-                  className="mt-5 shareButton"
-                  onClick={toggle4}
-                >
+                  type='button'
+                  className='mt-5 shareButton'
+                  onClick={toggle4}>
                   Change password
                 </button>
               </div>
