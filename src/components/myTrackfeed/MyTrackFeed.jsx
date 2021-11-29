@@ -14,6 +14,7 @@ import { Timestamp, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Share from "../share/Share";
 import Post from "../post/Post";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 /* ------------------------------------imports-------------------------------------- */
 export const Feed = () => {
@@ -184,14 +185,23 @@ export const Feed = () => {
             {/*  */}
             {allPosts
               .filter((postd, i) => {
-                if (query === "") {
-                  return postd;
-                } else if (
+                if (
                   postd.fields.PostText.stringValue
+                    .toLowerCase()
+                    .includes("#front-end")
+                ) {
+                  return postd;
+                }
+              })
+              .filter((postz, i) => {
+                if (query === "") {
+                  return postz;
+                } else if (
+                  postz.fields.PostText.stringValue
                     .toLowerCase()
                     .includes(query.toLowerCase())
                 ) {
-                  return postd;
+                  return postz;
                 }
               })
               .map((postd, i) => (

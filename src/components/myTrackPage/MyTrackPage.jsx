@@ -1,10 +1,9 @@
 import "./myTrackPage.css";
-import MyTrackPageSidebar from "../myTrackPageSidebar/MyTrackPageSidebar";
 import Online from "../online/Online";
 import Sidebar from "../sidbar/Sidebar";
-import Feed from "../../components/feed/Feed";
+import MyTrackFeed from "../../components/myTrackfeed/MyTrackFeed";
 import Navbar from "../../shared/layout/navbar/Navbar";
-import NewSidebar from "../newSidbar/NewSidebar";
+import MyTrackSidebar from "../myTrackSidbar/MyTrackSidebar";
 
 const MyTrackPage = () => {
   return (
@@ -13,10 +12,10 @@ const MyTrackPage = () => {
       <div className=" homeContain">
         <div className="row justify-content-center g-0">
           <div className="col-4 g-0 d-none  d-md-block ">
-            <NewSidebar />
+            <MyTrackSidebar />
           </div>{" "}
           <div className="col-7  ">
-            <Feed />
+            <MyTrackFeed />
           </div>
         </div>
       </div>
