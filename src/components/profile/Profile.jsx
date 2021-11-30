@@ -238,12 +238,15 @@ const Profile = () => {
           <div className="profile-container mx-auto my-5">
             <div className="profile-head mt-5 px-2 py-5 align-items-center g-0 row">
               <div className="col-lg-6 mx-auto">
-                <div className="img_container d-flex flex-column justify-content-center  ms-0 ms-lg-5  ">
-                  <img
-                    className="profile-img"
-                    src={user.avatar || Img}
-                    alt="avatar"
-                  />
+                <div className="profile_img_container d-flex justify-content-start flex-column   ">
+                  <figure className="d-flex">
+                    {" "}
+                    <img
+                      className="profile-img  m-0"
+                      src={user.avatar || Img}
+                      alt="avatar"
+                    />
+                  </figure>
 
                   <input
                     type="file"
@@ -254,7 +257,7 @@ const Profile = () => {
                     id="actual-btn"
                   />
 
-                  <div className="d-flex justify-content-center algin-items-center me-0 me-lg-5  mt-5">
+                  <div className="">
                     {user.avatar ? (
                       <BsTrashFill
                         className=" deleteIcon fs-2 m-1 text-danger "
