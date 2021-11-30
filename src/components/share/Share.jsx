@@ -13,7 +13,7 @@ export const Share = ({
   setQuery,
 }) => {
   return (
-    <div className="share">
+    <div className="share shadow">
       <div className="shareWrapper">
         <div className="shareTop">
           <img className="shareProfileImg" src={curUser.avatar || Img} alt="" />

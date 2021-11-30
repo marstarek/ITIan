@@ -1,6 +1,5 @@
 import "./myTrackPage.css";
 import Online from "../online/Online";
-import Sidebar from "../sidbar/Sidebar";
 import MyTrackFeed from "../../components/myTrackfeed/MyTrackFeed";
 import Navbar from "../../shared/layout/navbar/Navbar";
 import MyTrackSidebar from "../myTrackSidbar/MyTrackSidebar";

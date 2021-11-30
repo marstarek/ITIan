@@ -12,7 +12,11 @@ import styles from "./register.module.css";
 import { setDoc, doc, Timestamp } from "firebase/firestore";
 // import logo from "../../imgs/1.png";
 const validationSchema = yup.object({
-  name: yup.string().required("name field is required"),
+  name: yup
+    .string()
+    .required("name field is required")
+    .matches(/^[aA-zZ]/, "Only alphabets are allowed for this field ")
+    .required(),
   email: yup
     .string()
     .email("Please enter a valid email address")
@@ -20,7 +24,11 @@ const validationSchema = yup.object({
   password: yup
     .string()
     .required("Password field is required")
-    .min(6, "Must be exactly 6 digits"),
+    .min(8)
+    .matches(
+      /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+      "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+    ),
   passwordConfirmation: yup.string().when("password", {
     is: (val) => (val && val.length > 0 ? true : false),
     then: yup
@@ -71,6 +79,7 @@ const Register = () => {
         EXPERIANCES: "",
         CONTACTS: "",
         rule: "user",
+        track: values.Itian[0],
       });
       setData({
         name: "",
@@ -91,12 +100,17 @@ const Register = () => {
   return (
     <div className="container  ">
       <div className="row">
-        <div className="col-6  d-flex justify-content-center ">
-          <figure className={`w-100 my-auto ${styles.register__logo}`}>
-            <img src="assets/z(5).jpg" alt="" className="w-100" />
+        <div className="col-12 col-lg-6  d-flex justify-content-center ">
+          <figure className={`w-50 d-none d-lg-block  `}>
+            <img
+              src="https://www.iti.gov.eg/assets/images/iti-logo.png"
+              alt=""
+              className="w-100"
+            />
+            <p className={`${styles.ITI_Community}`}>ITI Community</p>
           </figure>
         </div>
-        <div className={`col-6 ${styles.form__wrapper} pb-5  my-5`}>
+        <div className={`col-12 col-lg-6 ${styles.form__wrapper} pb-5  my-5`}>
           <h2>Register</h2>
           <Formik
             initialValues={initialValues}
@@ -151,7 +165,7 @@ const Register = () => {
                             <div>
                               <label
                                 htmlFor="Itian"
-                                className="form-label  "
+                                className={`form-label `}
                                 style={{
                                   display: "block",
                                 }}
@@ -181,27 +195,29 @@ const Register = () => {
                                           {i === 0 && (
                                             <label
                                               htmlFor={`Itian[${i}]`}
-                                              className="form-label  "
+                                              name={`track`}
+                                              className="form-label  ${styles.a}  "
                                               style={{
                                                 display: "block",
                                               }}
                                             >
-                                              code
+                                              track
                                             </label>
                                           )}
                                           {i === 1 && (
                                             <label
                                               htmlFor={`Itian[${i}]`}
+                                              name={`code`}
                                               className="form-label  "
                                               style={{
                                                 display: "block",
                                               }}
                                             >
-                                              name
+                                              iti code
                                             </label>
                                           )}
                                           <Field
-                                            className={`${styles.input} rounded-pill mb-5`}
+                                            className={`${styles.input}  ${styles.a} `}
                                             name={`Itian[${i}]`}
                                           />
                                           {Itian.length > 2 &&
@@ -220,7 +236,7 @@ const Register = () => {
                     <button
                       style={{ display: "block" }}
                       type="submit"
-                      className={`btn-sm ${styles.button}`}
+                      className={`btn-sm mt-3 ${styles.button}`}
                     >
                       submit
                     </button>

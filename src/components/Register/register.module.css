@@ -9,6 +9,14 @@
     color: white;
 }
 
+.a {
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
 .login__wrapper {
     padding: 0;
     margin: 10rem 0;
@@ -21,12 +29,6 @@
     border-radius: 30px;
 }
 
-h2 {
-    font-size: 3rem;
-    text-align: center;
-    color: #bd2f2f;
-}
-
 .login__container {
     box-shadow: -4px 6px 13px -1px rgba(0, 0, 0, 0.64);
     -webkit-box-shadow: -4px 6px 13px -1px rgba(0, 0, 0, 0.64);
@@ -34,6 +36,7 @@ h2 {
     border-radius: 30px;
 }
 
-.register__logo {
-    margin-top: 30%;
+.ITI_Community {
+    color: #913a3a;
+    font-size: 3rem;
 }

@@ -14,6 +14,7 @@ import { Timestamp, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Share from "../share/Share";
 import Post from "../post/Post";
+import FirstPost from "../post copy/firstPost";
 
 /* ------------------------------------imports-------------------------------------- */
 export const Feed = () => {
@@ -28,6 +29,8 @@ export const Feed = () => {
   const [img, setImg] = useState("");
   const [refresh, setrefresh] = useState(false);
   const [I, setI] = useState();
+  const [firstPost, setfirstPost] = useState();
+  const [firstPostLike, setFirstPostLike] = useState(0);
   /* ------------------------------------- END Stats------------------------------------- */
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
@@ -89,6 +92,16 @@ export const Feed = () => {
         postOwnername: curUser.name,
       });
       const docSnap = await getDoc(doc(db, "posts", id));
+      setfirstPost({
+        PostText,
+        from: id,
+        createdAt: Timestamp.fromDate(new Date()),
+        media: url || "",
+        like: 0,
+        islike: false,
+        ownerImg: curUser.avatar,
+        postOwnername: curUser.name,
+      });
       setPostText("");
       setImg("");
       setrefresh(!refresh);
@@ -165,12 +178,19 @@ export const Feed = () => {
       alert(err);
     }
   };
-
+  const delateFirstPost = () => {
+    setfirstPost();
+  };
+  const firstPostLikeHandler = () => {
+    {
+      firstPostLike === 0 ? setFirstPostLike(1) : setFirstPostLike(0);
+    }
+  };
   return (
     <>
       {curUser ? (
-        <div className="feed">
-          <div className="feedWrapper">
+        <div className='feed'>
+          <div className='feedWrapper'>
             <Share
               PostText={PostText}
               handleSubmit={handleSubmit}
@@ -182,6 +202,23 @@ export const Feed = () => {
               query={query}
             />
             {/*  */}
+            {firstPost && (
+              <FirstPost
+                post={firstPost}
+                Img={Img}
+                deletePost={delateFirstPost}
+                likeHandler={firstPostLikeHandler}
+                showComments={showComments}
+                comments={comments}
+                posts={posts}
+                delatecomment={delatecomment}
+                setcommentsText={setcommentsText}
+                I={I}
+                curUser={curUser}
+                commentsHandler={commentsHandler}
+                likes={firstPostLike}
+              />
+            )}
             {allPosts
               .filter((postd, i) => {
                 if (query === "") {
@@ -223,10 +260,9 @@ export const Feed = () => {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
-              }}
-            >
-              <div className="spinner-border my-5 mx-5" role="status">
-                <span className="visually-hidden"> Loading... </span>
+              }}>
+              <div className='spinner-border my-5 mx-5' role='status'>
+                <span className='visually-hidden'> Loading... </span>
               </div>
             </h2>
           </div>

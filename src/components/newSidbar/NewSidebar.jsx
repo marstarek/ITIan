@@ -1,5 +1,5 @@
 import styles from "./sidebar.module.css";
-import { BsFillChatTextFill, BsChatFill } from "react-icons/bs";
+import { BsFillChatTextFill, BsChatFill, BsNewspaper } from "react-icons/bs";
 import { RiChat1Fill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 
@@ -46,28 +46,21 @@ export const NewSidebar = () => {
 
   return (
     <div className={styles.sidebar}>
-      <div className={styles.sidebarWrapper}>
-        <ul className={styles.sidebarList}>
-          <li className={styles.sidebarListItem}>
-            <Link
-              className={`${styles.sidebarButton} text-dark`}
-              to="/MessagesPage"
-            >
-              <BsFillChatTextFill className={styles.shareIcon} />
-            </Link>
-          </li>
-        </ul>
-
-        <h5 className="text-center">
+      <div className={`${styles.sidebarWrapper}  `}>
+        <h2 className="text-center ">
           {" "}
-          <FaUserFriends /> Friends
-        </h5>
-        <hr className={styles.sidebarHr} />
+          <FaUserFriends className=" fs-1 mb-1 me-2" />
+          Friends
+        </h2>
+        <hr
+          className={`${styles.sidebarHr} w-50 text-center  mx-auto shadow `}
+        />
         <input
-          className="form-control  border-0 mb-3  border-bottom text-dark"
+          className="  form-control  border-0 mb-3  border-bottom text-dark"
           type="text"
           name="Search"
-          placeholder="Search"
+          placeholder="Search...."
+          autoComplete="off"
           onChange={(event) => setQuery(event.target.value)}
         />
 

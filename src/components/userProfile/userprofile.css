@@ -1,34 +1,83 @@
-.profile-head {
-    padding-left: 10%;
-    padding-right: 10%;
+.header {
+    background-color: #222831;
 }
 
-.profile-img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+.card-profile-image img {
+    transition: all .15s ease;
+    border-radius: 5%;
+}
+
+.user-profile-img {
     object-fit: cover;
     cursor: pointer;
-    margin: 0px 10px 0px 180px;
-    border: 6px solid #ffffff;
+    border: 5px solid #943939;
 }
 
-.profile-container {
-    background-color: rgb(214, 208, 208);
-    border-radius: 1rem;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+.card-profile-image {
+    display: flex!important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
-.skill-card {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+.card-profile-image img:hover {
+    transform: scale(1.1)
 }
 
-.deleteIcon {
-    cursor: pointer;
+.firstsec {
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 
 /*  */
+
+.button-51 {
+    background-color: transparent;
+    border: 1px solid #943939;
+    box-sizing: border-box;
+    color: #ffffff;
+    font-family: "Avenir Next LT W01 Bold", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 16px 23px;
+    position: relative;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-51:hover,
+.button-51:active {
+    outline: 0;
+}
+
+.button-51:hover {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button-51:before {
+    background-color: #222831;
+    content: "";
+    height: calc(100% + 3px);
+    position: absolute;
+    right: -7px;
+    top: -9px;
+    transition: background-color 300ms ease-in;
+    width: 100%;
+    z-index: -1;
+}
+
+.button-51:hover:before {
+    background-color: #943939;
+}
+
+.userprofilecard {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

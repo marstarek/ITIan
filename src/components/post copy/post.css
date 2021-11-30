@@ -1,6 +1,8 @@
 .post {
     width: 100%;
     border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
     margin: 30px 0;
 }
 
@@ -49,13 +51,8 @@
 .likeIcon {
     width: 24px;
     height: 24px;
-    margin-right: 8px;
+    margin-right: 5px;
     cursor: pointer;
-    transition: all ease-in-out .9s;
-}
-
-.likeIcon :hover {
-    transform: scale(1.1);
 }
 
 .postLikeCounter {
@@ -116,13 +113,4 @@
     outline: none;
     box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px, rgb(0 0 0 / 30%) 0px 1px 3px -1px;
     color: white;
-    transition: all ease-in-out .5s;
-}
-
-.shareButton:hover {
-    transform: scale(1.1);
-}
-
-.icon {
-    color: rgba(117, 13, 13, 0.81);
 }

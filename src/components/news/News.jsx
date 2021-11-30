@@ -4,9 +4,9 @@ import ShowMoreText from "react-show-more-text";
 export const News = ({ news }) => {
   return (
     <>
-      <div className="rightbarNewsItem  ">
+      <div className="rightbarNewsItem shadow-sm  ">
         {news.media && <img src={news.media} className="rightbarImg" alt="" />}
-        <div>
+        <div className="w-75">
           <bdi className="postText ">
             <ShowMoreText
               lines={3}
@@ -22,7 +22,9 @@ export const News = ({ news }) => {
           </bdi>
 
           {/* <p className="NewsName text-dark ">{news.newsText}</p> */}
-          <p className=" event__date  text-dark m-0">{news.eventDate}</p>
+          <p className=" event__date  fw-bolder text-dark m-0">
+            {news.eventDate}
+          </p>
         </div>
       </div>
       {/* <p>{news.createdAt}</p> */}

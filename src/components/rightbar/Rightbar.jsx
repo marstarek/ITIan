@@ -1,5 +1,6 @@
 import "./rightbar.css";
 import { db } from "../../firebase-config";
+import { BsFillBookFill, BsChatFill, BsNewspaper } from "react-icons/bs";
 
 import { useState, useEffect } from "react";
 
@@ -19,11 +20,12 @@ export const RightBar = () => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        <div className="rightbarContainer">
-          <h2 className="rightbarImg">ITI News</h2>
-          <img className="rightbarImg" src="assets/iti.jpg" alt="" />
+        <div className="rightbarContainer justify-content-center">
+          <h2 className="subhead">
+            <BsFillBookFill className="fs-2 mb-1" /> ITI News
+          </h2>
         </div>
-        <hr />
+        <hr className="w-50 text-center  mx-auto shadow " />
         <ul className="rightbarNewsList">
           {news.map((newsPost, i) => (
             <News key={i} news={newsPost} />

@@ -10,6 +10,8 @@ import {
   getDoc,
 } from "firebase/firestore";
 import Navbar from "../../shared/layout/navbar/Navbar";
+import ChatIcon from "../../shared/ChatIcon/ChatIcon";
+
 import "./jobs.css";
 export default function Jobs() {
   const [jobs, setJobs] = useState();
@@ -87,6 +89,7 @@ export default function Jobs() {
           </div>
         </div>
       </div>
+      <ChatIcon />
     </>
   );
 }

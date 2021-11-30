@@ -1,10 +1,9 @@
 import styles from "./home.module.css";
-// import { Topbar } from "../../components/topbar/Topbar";
-import Sidebar from "../../components/sidbar/Sidebar";
 import NewSidebar from "../../components/newSidbar/NewSidebar";
 import Feed from "../../components/feed/Feed";
 import RightBar from "../../components/rightbar/Rightbar";
 import Navbar from "../../shared/layout/navbar/Navbar";
+import ChatIcon from "../../shared/ChatIcon/ChatIcon";
 
 const Home = () => {
   return (
@@ -23,6 +22,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <ChatIcon />
     </>
   );
 };

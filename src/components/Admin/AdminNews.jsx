@@ -278,7 +278,7 @@ const AdminNews = () => {
           <ul className="pagination pagination-sm mx-auto justify-content-center bg-dark">
             <li className="page-item  ">
               <Link className="page-link bg-danger text-light" to="/AdminUsers">
-                Users{" "}
+                Users
               </Link>
             </li>
             <li className="page-item ">
@@ -287,7 +287,7 @@ const AdminNews = () => {
                 to="/AdminTracks"
                 tabIndex="-1"
               >
-                Track{" "}
+                Track
               </Link>
             </li>
             <li className="page-item">
@@ -296,7 +296,7 @@ const AdminNews = () => {
                 to="/AdminPosts"
                 tabIndex="-1"
               >
-                news{" "}
+                news
               </Link>
             </li>
             <li className="page-item">
@@ -305,7 +305,16 @@ const AdminNews = () => {
                 to="/AdminJobs"
                 tabIndex="-1"
               >
-                Jobs{" "}
+                Posts
+              </Link>
+            </li>
+            <li className="page-item">
+              <Link
+                className="page-link bg-danger text-light  "
+                to="/AdminJobs"
+                tabIndex="-1"
+              >
+                Jobs
               </Link>
             </li>
           </ul>

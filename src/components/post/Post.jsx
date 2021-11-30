@@ -2,13 +2,9 @@ import "./post.css";
 import {
   BsFillXCircleFill,
   BsChatSquareTextFill,
-  BsChevronDoubleDown,
-  BsFillCursorFill,
   BsFillHeartFill,
-  BsCardImage,
   BsTrashFill,
 } from "react-icons/bs";
-import { FaPaperPlane } from "react-icons/fa";
 import ShowMoreText from "react-show-more-text";
 export const Post = ({
   postd,
@@ -26,7 +22,7 @@ export const Post = ({
   curUser,
 }) => {
   return (
-    <div className="post">
+    <div className="post shadow">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -36,7 +32,7 @@ export const Post = ({
               alt=""
             />
             <figure>
-              <span className="postUsername">
+              <span className="postUsername fw-bold">
                 {postd.fields.postOwnername?.stringValue}
               </span>
               <br />
@@ -81,13 +77,13 @@ export const Post = ({
           </div>
         </div>
         <div className="postCenter">
-          <bdi className="postText px-2">
+          <bdi className="postText px-4">
             <ShowMoreText
               lines={4}
               more="Show more"
               less="...Show less"
               anchor
-              className="oooeeer"
+              className="oooeeer px-3"
               expanded={false}
               width={0}
             >
@@ -119,7 +115,7 @@ export const Post = ({
                 await likeHandler(i);
               }}
             />
-            <span className="postLikeCounter">
+            <span className="postLikeCounter fw-bold">
               {postd.fields.like.integerValue
                 ? postd.fields.like.integerValue
                 : 1}

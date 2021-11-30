@@ -22,6 +22,7 @@ import AdminTracks from "./components/Admin/AdminTracks";
 import AdminPosts from "./components/Admin/AdminPosts";
 import AdminNews from "./components/Admin/AdminNews";
 import AdminJobs from "./components/Admin/AdminJobs";
+import ChatIcon from "./shared/ChatIcon/ChatIcon";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="/login" component={Login} />{" "}
             <Route path="/register" component={Register} />{" "}
             <PrivateRoute path="/about" component={AboutTracks} />{" "}
+            <PrivateRoute path="/ChatIcon" component={ChatIcon} />{" "}
             <PrivateRoute path="/track" component={AboutTrack} />{" "}
             <PrivateRoute path="/Profile" component={Profile} />{" "}
             <PrivateRoute path="/AdminHome" component={AdminHome} />{" "}

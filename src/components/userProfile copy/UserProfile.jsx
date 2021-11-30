@@ -1,6 +1,4 @@
 import "./userprofile.css";
-import Navbar from "../../shared/layout/navbar/Navbar";
-
 import Img from "../../image1.jpg";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -8,6 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 import { storage, db, auth } from "../../firebase-config";
 import NewSidebar from "../newSidbar/NewSidebar";
 import { BsTrashFill } from "react-icons/bs";
+import Navbar from "../../shared/layout/navbar/Navbar";
 
 import {
   collection,
@@ -23,6 +22,7 @@ import {
   uploadBytes,
   deleteObject,
 } from "firebase/storage";
+
 const UserProfile = (paramz, { user1, selectUser, chat }) => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
@@ -91,91 +91,97 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
       params: x,
     });
   }
-
+  // console.log(users[paramz.location.params].fields.uid.stringValue);
   return user && users ? (
     <>
       <Navbar />
-      <div class="main-content">
-        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center pb-5 ">
-          <div class="container d-flex align-items-center">
-            <div class="row firstsec">
-              <div class="col-7 ">
-                <h2 class="  text-white text-lg-start text-capitalize">
-                  {users[paramz.location.params].fields.name.stringValue}
-                </h2>
-                <h4 class="text-white  text-capitalize  ">Front End Dev</h4>
+      <section className="profile">
+        <div className="container ">
+          <div className="profile-container mx-auto my-5">
+            <div className="profile-head mt-5 px-2 py-5 align-items-center g-0 row">
+              <div className="col-6 mx-auto">
+                <div className="img_container">
+                  <img
+                    className="profile-img "
+                    src={
+                      users[paramz.location.params].fields.avatar.stringValue ||
+                      Img
+                    }
+                    alt="avatar"
+                  />
+                </div>
+              </div>
+              <div className="col-6  mx-auto">
+                <div className=" text-center  mx-auto">
+                  <h2>
+                    {users[paramz.location.params].fields.name.stringValue}
+                  </h2>
 
-                <ul className="text-left text-white mt-0 mb-5 py-1 lh-2">
-                  {users[paramz.location.params].fields?.CONTACTS?.stringValue
-                    .split(",")
-                    .map((C, i) => {
-                      return (
-                        <li className=" py-1  " key={i}>
-                          {C}
-                        </li>
-                      );
-                    })}
-                </ul>
-              </div>
-              <div class="card-profile-image col-4 d-flex ">
-                <img
-                  src={
-                    users[paramz.location.params].fields.avatar.stringValue ||
-                    Img
-                  }
-                  class=" w-100  user-profile-img "
-                />
-                <button className="button w-50 rounded px-3 mt-2 d-block my-1 mx-auto">
-                  Follow
-                </button>
+                  <h4>Front End Dev</h4>
+                  <small>
+                    Joined on: {user.createdAt.toDate().toDateString()}
+                  </small>
+
+                  <button className="btn btn-danger rounded-pill px-3  d-block my-1 mx-auto">
+                    Follow
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="       ">
-          <div className=" container py-5  text-center mx-auto    row">
-            <div className="col-7 align-bottom px-5">
-              <button class="button-51 mb-4" role="button">
-                <h2 class="   text-white text-lg-start text-capitalize">
-                  {" "}
-                  EXPERIANCES
-                </h2>
-              </button>
-              <div className="userprofilecard p-2">
-                <ul className="text-center p-2  ">
-                  {users[
-                    paramz.location.params
-                  ].fields?.EXPERIANCES?.stringValue
-                    .split(",")
-                    .map((E, i) => {
-                      return <li key={i}>{E}</li>;
-                    })}
-                </ul>
+            {/* ADD SKILLS */}
+            <div className="SKILLS-head  py-5 px-4 text-center   row">
+              <div className="col-6">
+                <div className="skill-card">
+                  <h3> Skills</h3>
+                  <>
+                    <ul className="text-center">
+                      {users[paramz.location.params].fields?.SKILLS?.stringValue
+                        .split(",")
+                        .map((s, i) => {
+                          return <li key={i}>{s}</li>;
+                        })}
+                    </ul>
+                  </>
+                </div>
               </div>
-            </div>
-            <div className="col-5">
-              <button class="button-51 mb-4" role="button">
-                <h2 class="   text-white text-lg-start text-capitalize">
-                  {" "}
-                  Skills
-                </h2>
-              </button>
-              <div className="userprofilecard p-2">
-                <>
-                  <ul className="text-center p-2">
-                    {users[paramz.location.params].fields?.SKILLS?.stringValue
+              <div className="col-6 align-bottom">
+                <div className="skill-card">
+                  <h3> EXPERIANCES</h3>
+
+                  <ul className="text-center">
+                    {users[
+                      paramz.location.params
+                    ].fields?.EXPERIANCES?.stringValue
                       .split(",")
-                      .map((s, i) => {
-                        return <li key={i}>{s}</li>;
+                      .map((E, i) => {
+                        return <li key={i}>{E}</li>;
                       })}
                   </ul>
-                </>
+                </div>
+              </div>
+            </div>
+            {/* edite password */}
+
+            <div className="SKILLS-head  py-5 px-4 text-center   row">
+              <div className="col-6">
+                <label htmlFor="CONTACTS"></label>
+                <div className="skill-card">
+                  <h3> CONTACTS</h3>
+                  <ul className="text-center">
+                    {users[paramz.location.params].fields?.CONTACTS?.stringValue
+                      .split(",")
+                      .map((C, i) => {
+                        return <li key={i}>{C}</li>;
+                      })}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>{" "}
     </>
   ) : null;
 };
+
 export default UserProfile;

@@ -3,12 +3,8 @@ import { useState } from "react";
 
 import {
   BsFillFunnelFill,
-  BsLockFill,
-  BsGearFill,
-  BsFillPersonFill,
   BsFillCameraFill,
   BsFillBadgeArFill,
-  BsFillUnlockFill,
   BsTrashFill,
   BsTools,
   BsCardHeading,
@@ -231,6 +227,15 @@ const AdminUsers = () => {
                 tabIndex="-1"
               >
                 Jobs{" "}
+              </Link>
+            </li>
+            <li className="page-item">
+              <Link
+                className="page-link bg-danger text-light  "
+                to="/AdminNews"
+                tabIndex="-1"
+              >
+                News
               </Link>
             </li>
           </ul>
