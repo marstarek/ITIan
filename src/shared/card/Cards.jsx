@@ -3,15 +3,15 @@ import "./cards.css";
 export const Cards = (props) => {
   return (
     <>
-      <div className='card'>
+      <div className='card p-0 col-3'>
         <img
           src={props.photo}
-          className='imgo card-img-top w-100 mx-auto'
+          className='imgo card-img-top w-100 mb-0 mx-auto'
           alt='...'
         />
         <div className='card-body'>
-          <h2 className='card-title '> {props.title} </h2>{" "}
-          <p className='card-text mb-5'> {props.text} </p>{" "}
+          <h2 className='card-title fs-3'> {props.title} </h2>{" "}
+          <p className='card-text mb-'> {props.text} </p>{" "}
           <Link className=' btnD rounded my-5' to='/track'>
             Go To Details
           </Link>{" "}

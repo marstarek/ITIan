@@ -4,30 +4,26 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 const CoursCard = (props) => {
   return (
-    <Card style={{ width: "15rem" }}>
-      <Card.Img variant="top" src={props.photo} className="imgo" />{" "}
+    <Card className="w-100 mb-sm-5 mb-lg-0 mx-sm-auto">
+      <Card.Img variant="top" src={props.photo} className="imgo" />
       <Card.Body className="course-card-body">
-        <Card.Title> {props.title} </Card.Title>{" "}
-        <Card.Text> {props.coursedesc} </Card.Text>{" "}
-      </Card.Body>{" "}
+        <Card.Title> {props.title} </Card.Title>
+        <Card.Text> {props.coursedesc} </Card.Text>
+      </Card.Body>
       <ListGroup className="list-group text-center">
         <Card.Link className="link" href={props.link1}>
-          {" "}
-          {props.coursname1}{" "}
+          {props.coursname1}
         </Card.Link>
         <Card.Link className="link" href={props.link1}>
-          {" "}
-          {props.coursname2}{" "}
-        </Card.Link>{" "}
+          {props.coursname2}
+        </Card.Link>
         <Card.Link className="link" href={props.link3}>
-          {" "}
-          {props.coursname3}{" "}
+          {props.coursname3}
         </Card.Link>
         <Card.Link className="link" href={props.link4}>
-          {" "}
-          {props.coursname4}{" "}
-        </Card.Link>{" "}
-      </ListGroup>{" "}
+          {props.coursname4}
+        </Card.Link>
+      </ListGroup>
     </Card>
   );
 };

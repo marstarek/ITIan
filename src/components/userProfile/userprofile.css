@@ -3,14 +3,16 @@
 }
 
 .card-profile-image img {
-    transition: all .15s ease;
-    border-radius: 5%;
+    transition: all .15s ease-in-out;
+    border-radius: 4%;
 }
 
 .user-profile-img {
     object-fit: cover;
     cursor: pointer;
-    border: 5px solid #943939;
+    background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
+    border: 5px solid transparent;
+    box-shadow: -4px 6px 13px -1px rgba(0, 0, 0, 0.64);
 }
 
 .card-profile-image {

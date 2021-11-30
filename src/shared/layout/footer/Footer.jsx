@@ -11,15 +11,15 @@ import {
 const Footer = () => {
   return (
     <>
-      <div className="navBar    container-fluid   sticky-bottom text-light ">
+      <div className="navBar container-fluid sticky-bottom text-light ">
         <footer className=" text-light  d-flex flex-wrap justify-content-between align-items-center py-4   ">
-          <div className="col-md-4 d-flex align-items-center">
-            <ul className="lh-1">
+          <div className="col-sm-12 col-md-8 d-flex align-items-center">
+            <ul className="h-1">
               <li className="fs-3 fw-bold lh-2">Contact Us</li>
               <li className=" ">
                 <div className="py-2">
                   <svg className="bi" width="24" height="24">
-                    <BsMapFill className="fs-1  me-5" />{" "}
+                    <BsMapFill className="fs-5 me-5" />{" "}
                   </svg>
 
                   <span>
@@ -31,7 +31,7 @@ const Footer = () => {
               <li className=" ">
                 <div className="py-2">
                   <svg className="bi" width="24" height="24">
-                    <BsTelephoneFill className="fs-1 me-5" />
+                    <BsTelephoneFill className="fs-5 me-5" />
                   </svg>
                   <span className="">&nbsp;(+202) 353-55656</span>
                 </div>
@@ -39,7 +39,7 @@ const Footer = () => {
               <li className=" ">
                 <div className="py-2">
                   <svg className="bi" width="24" height="24">
-                    <BsMailbox2 className="fs-1  me-5" />
+                    <BsMailbox2 className="fs-5  me-5" />
                   </svg>
                   <span>&nbsp;ITIinfo@iti.gov.eg</span>
                 </div>
@@ -47,7 +47,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <ul className="nav col-sm-12 col-md-4 justify-content-end list-unstyled d-flex">
             <li className="ms-3">
               <a
                 className="text-light"
