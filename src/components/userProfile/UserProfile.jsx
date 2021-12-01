@@ -97,7 +97,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
       <Navbar />
       <div class="main-content">
         <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center pb-5 ">
-          <div class="container d-flex align-items-center">
+          <div class="container-fluid d-flex align-items-center justify-content-center">
             <div class="row firstsec">
               <div class="col-7 ">
                 <h2 class="  text-white text-lg-start text-capitalize">
@@ -118,13 +118,17 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                 </ul>
               </div>
               <div class="card-profile-image col-4 d-flex ">
-                <img
-                  src={
-                    users[paramz.location.params].fields.avatar.stringValue ||
-                    Img
-                  }
-                  class=" w-100  user-profile-img "
-                />
+                <figure className="d-flex">
+                  <img
+                    src={
+                      users[paramz.location.params].fields.avatar.stringValue ||
+                      Img
+                    }
+                    class="   user-profile-img "
+                    alt="userprofile "
+                  />
+                </figure>
+
                 <button className="button w-50 rounded px-3 mt-2 d-block my-1 mx-auto">
                   Follow
                 </button>

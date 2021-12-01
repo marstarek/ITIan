@@ -102,13 +102,15 @@ export const MessagesPage = () => {
       <div className="messages_home_container">
         <div className="users_container">
           <input
-            className="form-control bg-light text-dark "
+            className="msg-search  form-control  text-light pt-3 "
             type="text"
             name="Search"
-            placeholder="Search"
+            placeholder="Search...."
             autoComplete="off"
             onChange={(event) => setQuery(event.target.value)}
           />
+          <hr className="login-hr" />
+
           {users
             .filter((user, i) => {
               if (Query === "") {

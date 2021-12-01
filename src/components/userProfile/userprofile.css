@@ -8,6 +8,8 @@
 }
 
 .user-profile-img {
+    width: 350px;
+    height: 400px;
     object-fit: cover;
     cursor: pointer;
     background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);

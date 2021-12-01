@@ -33,10 +33,14 @@ body {
     color: white;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&family=Pacifico&family=Varela+Round&display=swap');
 h2 {
+    font-family: 'Pacifico', cursive;
+    /* font-family: 'Indie Flower', cursive; */
+    font-weight: normal;
     color: #222831!important;
-    font-family: 'Indie Flower', cursive;
-    font-weight: bolder;
-    text-shadow: 2px 2px #76777a;
+    text-shadow: 2px 2px #89898bef;
 }

@@ -39,10 +39,20 @@
     margin-right: 10px;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&display=swap');
+
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&display=swap'); */
+
+
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&family=Varela+Round&display=swap'); */
+
+
+/* @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Indie+Flower&family=Pacifico&family=Varela+Round&display=swap');
 .subhead {
-    /* font-family: 'Dancing Script', cursive; */
+    font-family: 'Pacifico', cursive;
+    font-family: 'Dancing Script', cursive; 
     font-family: 'Indie Flower', cursive;
-    font-weight: bolder;
+ font-weight: normal; 
     text-shadow: 2px 2px #76777a;
-}
+} */

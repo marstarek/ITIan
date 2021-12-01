@@ -10,13 +10,22 @@
     /* border-right: 2px solid #222831; */
     background: #222831;
     box-shadow: 7px -12px 21px -3px rgba(34, 40, 49, 0.28);
-    color: #222831;
     color: #ffffff;
+    flex: 3;
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+    position: sticky;
 }
 
 .messages_container {
     position: relative;
     width: 100%;
+    margin-bottom: 24px;
+}
+
+.msg-search {
+    background: #222831!important;
+    border: none;
 }
 
 .messages_user {

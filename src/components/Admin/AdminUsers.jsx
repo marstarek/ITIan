@@ -41,7 +41,7 @@ const AdminUsers = () => {
     <>
       <Navbar />
       <div className="container-fluid bg-dark text-light ">
-        <h2 className="py-3 ">Users</h2>
+        <h2 className="py-3  admintittle">Users</h2>
 
         <div className="row text-light ">
           <div className="col-8  text-light ">

@@ -101,7 +101,7 @@ export const AdminHome = () => {
       <Navbar />
       <div className=" admin-container ">
         <div className="container text-center dashboard text-light">
-          <h2>Dashboard</h2>
+          <h2 className="admintittle">Dashboard</h2>
           <div className="content text-light">
             <div className="row justify-content-md-center">
               <div className="col-md-2">
