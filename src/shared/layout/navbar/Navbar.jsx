@@ -31,10 +31,20 @@ const Navbar = () => {
       <nav className="navBar navbar navbar-expand-lg navbar-dark sticky-top  ">
         <div className="container-fluid">
           <img className="topbarImg" src="/assets/log2.png" alt="ITI Logo" />
-
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
           <div
             className="collapse navbar-collapse  justify-content-center  "
-            id="navbarNav"
+            id="navbarNavAltMarkup"
           >
             <ul className="navbar-nav">
               <li className="nav-item">

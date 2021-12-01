@@ -3,18 +3,19 @@ import "./aboutTracks.css";
 import Carousel from "react-bootstrap/Carousel";
 import Cards from "../../shared/card/Cards";
 import Navbar from "../../shared/layout/navbar/Navbar";
+import ChatIcon from "../../shared/ChatIcon/ChatIcon";
 
 export const AboutTracks = () => {
   return (
     <>
       <Navbar />
-      <div className='slider   '>
-        <Carousel className='Carousel  w-100 g-0 '>
-          <Carousel.Item className='CarouselItem'>
+      <div className="slider   ">
+        <Carousel className="Carousel  w-100 g-0 ">
+          <Carousel.Item className="CarouselItem">
             <img
-              className='d-block w-100 img-fluid '
-              src='assets/news/iti3.jpg'
-              alt='First slide'
+              className="d-block w-100 img-fluid "
+              src="assets/news/iti3.jpg"
+              alt="First slide"
             />
             <Carousel.Caption>
               <p className={`text-light  d-none d-lg-block  fs-3`}>
@@ -24,11 +25,11 @@ export const AboutTracks = () => {
               </p>{" "}
             </Carousel.Caption>{" "}
           </Carousel.Item>{" "}
-          <Carousel.Item className='CarouselItem'>
+          <Carousel.Item className="CarouselItem">
             <img
-              className='d-block w-100 img-fluid '
-              src='assets/news/iti2.jpg'
-              alt='Second slide'
+              className="d-block w-100 img-fluid "
+              src="assets/news/iti2.jpg"
+              alt="Second slide"
             />
             <Carousel.Caption>
               <p className={`text-light d-none d-lg-block  fs-3`}>
@@ -38,11 +39,11 @@ export const AboutTracks = () => {
               </p>{" "}
             </Carousel.Caption>{" "}
           </Carousel.Item>{" "}
-          <Carousel.Item className='CarouselItem'>
+          <Carousel.Item className="CarouselItem">
             <img
-              className='d-block w-100 img-fluid'
-              src='assets/news/itivally (1).jpg'
-              alt='Third slide'
+              className="d-block w-100 img-fluid"
+              src="assets/news/itivally (1).jpg"
+              alt="Third slide"
             />
             <Carousel.Caption>
               <p className={`text-light d-none d-lg-block  fs-3`}>
@@ -55,10 +56,10 @@ export const AboutTracks = () => {
         </Carousel>{" "}
       </div>{" "}
       {/* cards */}{" "}
-      <div className='containerr w-75 text-center mx-auto'>
-        <div className='flex mx-auto'>
+      <div className="containerr w-75 text-center mx-auto">
+        <div className="flex mx-auto">
           <Cards
-            className=' w-100'
+            className=" w-100"
             text={
               "The front end of web development or the front end that is dealt with for web sites and applications using HTML, CSS, JavaScript, PHP, ASP, and others."
             }
@@ -135,6 +136,7 @@ export const AboutTracks = () => {
           />{" "}
         </div>{" "}
       </div>{" "}
+      <ChatIcon />{" "}
     </>
   );
 };

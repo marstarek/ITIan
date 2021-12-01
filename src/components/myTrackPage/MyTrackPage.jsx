@@ -3,6 +3,7 @@ import Online from "../online/Online";
 import MyTrackFeed from "../../components/myTrackfeed/MyTrackFeed";
 import Navbar from "../../shared/layout/navbar/Navbar";
 import MyTrackSidebar from "../myTrackSidbar/MyTrackSidebar";
+import ChatIcon from "../../shared/ChatIcon/ChatIcon";
 
 const MyTrackPage = () => {
   return (
@@ -18,6 +19,7 @@ const MyTrackPage = () => {
           </div>
         </div>
       </div>
+      <ChatIcon />
     </>
   );
 };
