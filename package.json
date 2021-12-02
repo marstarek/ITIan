@@ -28,6 +28,7 @@
         "react-scripts": "4.0.3",
         "react-show-more-text": "^1.5.0",
         "react-text-collapse": "^0.6.1",
+        "react-touch-carousel": "^0.10.2",
         "recharts": "^2.1.6",
         "styled-components": "^5.3.3",
         "web-vitals": "^1.1.2",

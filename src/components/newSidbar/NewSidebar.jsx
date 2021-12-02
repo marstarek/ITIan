@@ -2,7 +2,6 @@ import styles from "./sidebar.module.css";
 import { BsFillChatTextFill, BsChatFill, BsNewspaper } from "react-icons/bs";
 import { RiChat1Fill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
-
 import { Link, useHistory } from "react-router-dom";
 import { db, auth } from "../../firebase-config";
 import { collection, query, onSnapshot } from "firebase/firestore";
@@ -65,6 +64,11 @@ export const NewSidebar = () => {
         />
 
         {users
+          .filter((user, i) => {
+            if (user.follow?.includes(auth.currentUser.uid)) {
+              return user;
+            }
+          })
           .filter((user, i) => {
             if (Query === "") {
               return user;

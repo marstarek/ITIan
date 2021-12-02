@@ -15,7 +15,7 @@ export default function Job({ job, deleteJob, i, curUser }) {
             <img className=" shareProfileImg " src={job.avatar} alt="avatar" />
           </div>
           <div className="job__info flex-grow-1">
-            <p className="text-start  fs-5 text-capitalize fw-bold">
+            <p className="jobownar text-start  fs-5 text-capitalize fw-bold">
               {job.postOwner}{" "}
             </p>
             <div>

@@ -91,7 +91,53 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
       params: x,
     });
   }
+  const [followToggle, setfollowToggle] = useState();
 
+  const follow = () => {
+    if (
+      !users[paramz.location.params]?.fields?.follow?.stringValue?.includes(
+        auth.currentUser.uid
+      )
+    ) {
+      updateDoc(
+        doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
+        {
+          follow:
+            users[paramz.location.params]?.fields?.follow?.stringValue +
+            "," +
+            auth.currentUser.uid,
+        }
+      );
+      setfollowToggle("unFollow");
+    } else {
+      let x =
+        users[paramz.location.params]?.fields?.follow?.stringValue.split(",");
+
+      console.log(
+        users[paramz.location.params]?.fields?.follow?.stringValue
+          .split(",")
+          .indexOf(auth.currentUser.uid)
+      );
+      x.splice(
+        users[paramz.location.params]?.fields?.follow?.stringValue
+          .split(",")
+          .indexOf(auth.currentUser.uid),
+        1
+      );
+
+      updateDoc(
+        doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
+        {
+          follow: x.join(),
+          // [
+          //   users[paramz.location.params].fields.follow,
+          //   auth.currentUser.uid,
+          // ],
+        }
+      );
+      setfollowToggle("Follow");
+    }
+  };
   return user && users ? (
     <>
       <Navbar />
@@ -128,9 +174,26 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                     alt="userprofile "
                   />
                 </figure>
-
-                <button className="button w-50 rounded px-3 mt-2 d-block my-1 mx-auto">
-                  Follow
+                <button
+                  className="button w-50 rounded px-3 mt-2 d-block my-1 mx-auto"
+                  onClick={follow}
+                >
+                  {followToggle ? (
+                    <span> {followToggle}</span>
+                  ) : (
+                    <>
+                      {" "}
+                      {users[
+                        paramz.location.params
+                      ].fields.follow?.stringValue.includes(
+                        auth.currentUser.uid
+                      ) ? (
+                        <span>unFollow</span>
+                      ) : (
+                        <span>Follow</span>
+                      )}
+                    </>
+                  )}
                 </button>
               </div>
             </div>

@@ -69,39 +69,20 @@ const Navbar = () => {
                   Jobs
                 </Link>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Options
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                    <Link className="nav-link text-danger  " to="/Profile">
-                      <BsFillPersonFill className=" fs-4 " /> Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="nav-link text-danger " to="/AdminLogin">
-                      <BsServer className=" fs-4 my-auto" /> AdminHome
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="nav-link text-danger "
-                      onClick={handleSignout}
-                    >
-                      <BsBoxArrowRight className=" fs-4 my-auto" />
-                      Sign Out
-                    </Link>
-                  </li>
-                </ul>
+              <li>
+                <Link className="nav-link " onClick={handleSignout}>
+                  <BsBoxArrowRight className=" fs-4 my-auto" />
+                  Sign Out
+                </Link>
               </li>
+
+              {curUser?.rule === "admin" ? (
+                <li>
+                  <Link className="nav-link  " to="/AdminLogin">
+                    <BsServer className=" fs-4 my-auto" /> AdminHome
+                  </Link>
+                </li>
+              ) : null}
             </ul>
           </div>
           <div>

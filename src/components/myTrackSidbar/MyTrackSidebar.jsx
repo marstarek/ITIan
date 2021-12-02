@@ -60,16 +60,6 @@ export const MyTrackSidebar = () => {
             “First, solve the problem. Then, write the code.”
           </h5>
         </div>
-        <ul className={styles.sidebarList}>
-          <li className={styles.sidebarListItem}>
-            <Link
-              className={`${styles.sidebarButton} text-dark`}
-              to="/MessagesPage"
-            >
-              <BsFillChatTextFill className={styles.shareIcon} />
-            </Link>
-          </li>
-        </ul>
 
         <div className="text-center">
           <h3>

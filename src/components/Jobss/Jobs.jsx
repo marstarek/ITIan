@@ -48,19 +48,25 @@ export default function Jobs() {
           <PostJob getJob={getJob} />
         </div>
         <div className="col-lg-6">
-          <h3 className="text-center pt-4 pb-2">
+          <h3 className="text-center pt-4 pb-4">
             Explore New Career Opportunities
-          </h3>
-
+          </h3>{" "}
+          <figure className="d-flex justify-content-center">
+            <img
+              src="https://thecooperreview.com/wp-content/uploads/2016/03/thumb2-1.gif"
+              className=" w-50"
+              alt=""
+            />
+          </figure>
           <div className="input-group mx-auto w-75  text-light mb-4 ">
             <input
-              className="form-control text-danger py-2  "
+              className="form-control text-danger py-2   "
               type="text"
               name="Search"
               placeholder="Search"
               onChange={(event) => setQuery(event.target.value)}
             />{" "}
-            <span className=" b input-group-prepend input-group-text  ">
+            <span className=" job_search b input-group-prepend input-group-text  ">
               search
             </span>
           </div>
@@ -89,6 +95,7 @@ export default function Jobs() {
           </div>
         </div>
       </div>
+
       <ChatIcon />
     </>
   );

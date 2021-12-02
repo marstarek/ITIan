@@ -207,7 +207,7 @@ const Profile = () => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/test-29153/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),

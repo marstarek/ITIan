@@ -130,7 +130,8 @@
     border-radius: 10px;
 }
 
-.shareIcon {
+
+/* .shareIcon {
     font-size: 3.5rem;
     cursor: pointer;
     position: fixed;
@@ -142,4 +143,4 @@
     color: #ffffff;
     background: linear-gradient(271deg, rgba(117, 13, 13, 0.81) 0%, #bd2f2f 80%);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
+} */
