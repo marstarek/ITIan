@@ -76,8 +76,12 @@ export const RightBar = () => {
                   onClick={() => {
                     nav(user.uid);
                   }}
-                  style={{ width: "10rem", padding: "0.5rem" }}
-                  className="mx-auto mb-3 userCard"
+                  style={{
+                    width: "12rem",
+                    padding: "0.3rem",
+                    "min-width": "12rem",
+                  }}
+                  className=" mx-auto mb-3 userCard"
                 >
                   <div className="cardo ">
                     <Card.Img
@@ -87,9 +91,11 @@ export const RightBar = () => {
                     />
                   </div>
 
-                  <Card.Body style={{ height: "5rem" }}>
-                    <Card.Title>{user?.name}</Card.Title>
-                    <Card.Text className="mt-1">Some quick example</Card.Text>
+                  <Card.Body style={{ height: "4rem" }} className="my-1 py-1">
+                    <Card.Title className="fs-6 fw-bold">
+                      {user?.name}
+                    </Card.Title>
+                    <Card.Text className="mt-1">{user?.track}</Card.Text>
                   </Card.Body>
                 </Card>
               </Carousel.Item>

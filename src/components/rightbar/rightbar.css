@@ -193,9 +193,13 @@
 }
 
 .cardimg {
-    height: 200px;
+    height: 150px;
 }
 
 .userCard {
     cursor: pointer;
+}
+
+.carousel-indicators {
+    display: none;
 }
