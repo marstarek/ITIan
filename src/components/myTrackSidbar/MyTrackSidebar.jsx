@@ -78,7 +78,10 @@ export const MyTrackSidebar = () => {
 
         {users
           .filter((userz, i) => {
-            if (userz.track?.toLowerCase().includes("frontend")) {
+            if (
+              userz.track?.toLowerCase().includes("frontend") &&
+              userz.uid !== auth.currentUser?.uid
+            ) {
               return userz;
             }
           })

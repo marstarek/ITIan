@@ -207,7 +207,7 @@ const Profile = () => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/test-29153/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),
@@ -225,9 +225,34 @@ const Profile = () => {
         setError(error.message);
       }
     }
-    // "weak network please refresh and try again
-    // console.log(passwordRef.current.value)
   };
+  const [curUser, setcurUser] = useState();
+  useEffect(() => {
+    auth?.currentUser &&
+      getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
+        if (docSnap.exists()) {
+          setcurUser(docSnap.data());
+        }
+      });
+    // getFollowersNum();
+  }, []);
+  // const [followers, setfollowers] = useState();
+  // const [following, setfollowing] = useState();
+  // const getFollowersNum = () => {
+  //   if (curUser?.follow?.includes("undefined")) {
+  //     setfollowers(curUser?.follow?.split(",").length - 1);
+  //   } else {
+  //     setfollowers(curUser?.follow?.split(",").length);
+  //   }
+  //   if (
+  //     curUser?.following?.includes("undefined") ||
+  //     curUser?.following?.includes("")
+  //   ) {
+  //     setfollowing(curUser?.following?.split(",").length - 1);
+  //   } else {
+  //     setfollowing(curUser?.following?.split(",").length);
+  //   }
+  // };
 
   return user ? (
     <>
@@ -272,6 +297,25 @@ const Profile = () => {
                     </label>
                   </div>
                 </div>
+                {curUser?.follow?.includes("undefined") ? (
+                  <h5 className="text-dark">
+                    followers {curUser?.follow?.split(",").length - 1}
+                  </h5>
+                ) : (
+                  <h5 className="text-dark">
+                    followers {curUser?.follow?.split(",").length}
+                  </h5>
+                )}
+                {curUser?.following?.includes("undefined") ||
+                curUser?.following?.includes("") ? (
+                  <h5 className="text-dark">
+                    following {curUser?.following?.split(",").length - 1}
+                  </h5>
+                ) : (
+                  <h5 className="text-dark">
+                    following {curUser?.following?.split(",").length}
+                  </h5>
+                )}
               </div>
               <div className="col-lg-6 tex mx-auto">
                 <div className="text-sm-center text-lg-start">

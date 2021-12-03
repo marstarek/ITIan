@@ -65,7 +65,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/test-29153/databases/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),
@@ -76,13 +76,14 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/users"
+        "https://firestore.googleapis.com/v1/projects/test-29153/databases/(default)/documents/users"
       )
         .then((value) => value.json())
         .then((value) => setUsers(value.documents)),
     ]).catch((err) => {
       console.log(err);
     });
+    // getFollowersNum();
   }, []);
   const history = useHistory();
   function nav(x) {
@@ -91,6 +92,18 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
       params: x,
     });
   }
+  const [curUser, setcurUser] = useState();
+  /* -------------------------------------useEffect------------------------------------- */
+  useEffect(() => {
+    auth?.currentUser &&
+      getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
+        if (docSnap.exists()) {
+          setcurUser(docSnap.data());
+        }
+      });
+  }, []);
+  console.log(curUser);
+
   const [followToggle, setfollowToggle] = useState();
 
   const follow = () => {
@@ -108,36 +121,61 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
             auth.currentUser.uid,
         }
       );
+      updateDoc(doc(db, "users", auth.currentUser.uid), {
+        following:
+          curUser.following +
+          "," +
+          users[paramz.location.params]?.fields?.uid?.stringValue,
+      });
       setfollowToggle("unFollow");
     } else {
-      let x =
+      let splitedfollow =
         users[paramz.location.params]?.fields?.follow?.stringValue.split(",");
+      let splitedfollowing = curUser.following?.split(",");
 
-      console.log(
-        users[paramz.location.params]?.fields?.follow?.stringValue
-          .split(",")
-          .indexOf(auth.currentUser.uid)
-      );
-      x.splice(
+      splitedfollow.splice(
         users[paramz.location.params]?.fields?.follow?.stringValue
           .split(",")
           .indexOf(auth.currentUser.uid),
+        1
+      );
+      splitedfollowing.splice(
+        curUser.following
+          ?.split(",")
+          .indexOf(users[paramz.location.params]?.fields?.uid?.stringValue),
         1
       );
 
       updateDoc(
         doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
         {
-          follow: x.join(),
-          // [
-          //   users[paramz.location.params].fields.follow,
-          //   auth.currentUser.uid,
-          // ],
+          follow: splitedfollow.join(),
         }
       );
+      updateDoc(doc(db, "users", auth.currentUser.uid), {
+        following: splitedfollowing.join(),
+      });
       setfollowToggle("Follow");
     }
   };
+  // const getFollowersNum = () => {
+  //   if (
+  //     users?.[paramz.location.params]?.fields?.follow?.stringValue.includes(
+  //       "undefined"
+  //     ) ||
+  //     users?.[paramz.location.params]?.fields?.follow?.stringValue.includes("")
+  //   ) {
+  //     setfollowers(
+  //       users[paramz.location.params]?.fields?.follow?.stringValue.split(",")
+  //         .length - 1
+  //     );
+  //   } else {
+  //     setfollowers(
+  //       users[paramz.location.params]?.fields?.follow?.stringValue.split(",")
+  //         .length
+  //     );
+  //   }
+  // };
   return user && users ? (
     <>
       <Navbar />
@@ -195,6 +233,51 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                     </>
                   )}
                 </button>
+                {users?.[
+                  paramz.location.params
+                ]?.fields?.follow?.stringValue.includes("undefined") ||
+                users?.[
+                  paramz.location.params
+                ]?.fields?.follow?.stringValue.includes("") ? (
+                  <h5 className="text-light">
+                    followers{" "}
+                    {users[
+                      paramz.location.params
+                    ]?.fields?.follow?.stringValue.split(",").length - 1}
+                  </h5>
+                ) : (
+                  <h5 className="text-light">
+                    followers{" "}
+                    {
+                      users[
+                        paramz.location.params
+                      ]?.fields?.follow?.stringValue.split(",").length
+                    }
+                  </h5>
+                )}
+                {/* following */}
+                {users?.[
+                  paramz.location.params
+                ]?.fields?.following?.stringValue.includes("undefined") ||
+                users?.[
+                  paramz.location.params
+                ]?.fields?.following?.stringValue.includes("") ? (
+                  <h5 className="text-light">
+                    following
+                    {users[
+                      paramz.location.params
+                    ]?.fields?.following?.stringValue.split(",").length - 1}
+                  </h5>
+                ) : (
+                  <h5 className="text-light">
+                    following
+                    {
+                      users[
+                        paramz.location.params
+                      ]?.fields?.following?.stringValue.split(",").length
+                    }
+                  </h5>
+                )}
               </div>
             </div>
           </div>
