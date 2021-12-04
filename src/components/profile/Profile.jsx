@@ -207,7 +207,7 @@ const Profile = () => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/test-29153/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),
@@ -297,25 +297,6 @@ const Profile = () => {
                     </label>
                   </div>
                 </div>
-                {curUser?.follow?.includes("undefined") ? (
-                  <h5 className="text-dark">
-                    followers {curUser?.follow?.split(",").length - 1}
-                  </h5>
-                ) : (
-                  <h5 className="text-dark">
-                    followers {curUser?.follow?.split(",").length}
-                  </h5>
-                )}
-                {curUser?.following?.includes("undefined") ||
-                curUser?.following?.includes("") ? (
-                  <h5 className="text-dark">
-                    following {curUser?.following?.split(",").length - 1}
-                  </h5>
-                ) : (
-                  <h5 className="text-dark">
-                    following {curUser?.following?.split(",").length}
-                  </h5>
-                )}
               </div>
               <div className="col-lg-6 tex mx-auto">
                 <div className="text-sm-center text-lg-start">
@@ -324,11 +305,32 @@ const Profile = () => {
                   >
                     {user.name}
                   </h2>
-                  <p className="">{user.email}</p>
-                  <h4 className="">Front End Dev</h4>
-                  <small className="">
+                  <p className=" mb-0">{user.email}</p>
+                  <small className=" ">
                     Joined on: {user.createdAt.toDate().toDateString()}
                   </small>
+                  <h4 className="">{user.track}.Track</h4>
+                </div>
+                <div className="follow-counter d-flex ">
+                  {curUser?.follow?.includes("undefined") ? (
+                    <h6 className="text-dark me-2">
+                      followers :{curUser?.follow?.split(",").length - 1}
+                    </h6>
+                  ) : (
+                    <h6 className="text-dark me-2">
+                      followers :{curUser?.follow?.split(",").length}
+                    </h6>
+                  )}
+                  {curUser?.following?.includes("undefined") ||
+                  curUser?.following?.includes("") ? (
+                    <h6 className="text-dark ms-2">
+                      following :{curUser?.following?.split(",").length - 1}
+                    </h6>
+                  ) : (
+                    <h6 className="text-dark ms-2">
+                      following : {curUser?.following?.split(",").length}
+                    </h6>
+                  )}
                 </div>
               </div>
             </div>
@@ -336,7 +338,7 @@ const Profile = () => {
             <div className="SKILLS-head  pt-5 px-4 text-center row">
               <div className="col-lg-6 mt-lg-0">
                 <div className="skill-card">
-                  <h3>SKILLS</h3>
+                  <h3 className="mt-3">SKILLS</h3>
                   {TO1 ? (
                     <>
                       <ul className="text-center">
@@ -371,7 +373,7 @@ const Profile = () => {
               </div>
               <div className="col-lg-6 align-bottom mt-5 mt-lg-0">
                 <div className="skill-card">
-                  <h3> EXPERIANCES</h3>
+                  <h3 className="mt-3"> EXPERIANCES</h3>
                   {TO2 ? (
                     <>
                       <ul className="text-center">
@@ -408,7 +410,7 @@ const Profile = () => {
             <div className="SKILLS-head px-4 text-center row pb-5">
               <div className="col-lg-6 mt-5">
                 <div className="skill-card">
-                  <h3> CONTACTS</h3>
+                  <h3 className="mt-3"> CONTACTS</h3>
                   {TO3 ? (
                     <>
                       <ul className="text-center">
@@ -443,7 +445,7 @@ const Profile = () => {
               </div>
               <div className="set-password col-lg-6 mt-5">
                 <div className="skill-card">
-                  <h3> Change Password</h3>
+                  <h3 className="mt-3"> Change Password</h3>
                   {error && (
                     <div className="bg-danger rounded p-2 m-3 text-light">
                       {error}
@@ -453,13 +455,12 @@ const Profile = () => {
                   {TO4 ? (
                     <>
                       <div className="row">
-                        <div className="col">
-                          <div className="form-group">
-                            <label>Current Password</label>
+                        <div className="col ">
+                          <div className="form-group w-75 mx-auto mt-5">
                             <input
                               className="form-control"
                               type="password"
-                              placeholder="••••••"
+                              placeholder="Current Password"
                               ref={currentPasswordRef}
                             />
                           </div>

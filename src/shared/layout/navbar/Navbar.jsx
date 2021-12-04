@@ -30,7 +30,7 @@ const Navbar = () => {
     <>
       <nav className="navBar navbar navbar-expand-lg navbar-dark sticky-top  ">
         <div className="container-fluid">
-          <img className="topbarImg" src="/assets/log2.png" alt="ITI Logo" />
+          <h5 className="text-light">ITI Community</h5>
           <button
             class="navbar-toggler"
             type="button"
@@ -69,20 +69,20 @@ const Navbar = () => {
                   Jobs
                 </Link>
               </li>
+
+              {curUser?.rule === "admin" ? (
+                <li>
+                  <Link className="nav-link  " to="/AdminLogin">
+                    AdminHome
+                  </Link>
+                </li>
+              ) : null}
               <li>
                 <Link className="nav-link " onClick={handleSignout}>
                   <BsBoxArrowRight className=" fs-4 my-auto" />
                   Sign Out
                 </Link>
               </li>
-
-              {curUser?.rule === "admin" ? (
-                <li>
-                  <Link className="nav-link  " to="/AdminLogin">
-                    <BsServer className=" fs-4 my-auto" /> AdminHome
-                  </Link>
-                </li>
-              ) : null}
             </ul>
           </div>
           <div>
@@ -105,9 +105,8 @@ const Navbar = () => {
             ) : (
               <>
                 <div className="spinner-border fs-2 text-light" role="status">
-                  <span className="sr-only"></span>
+                  <span className="sr-only text-dark"></span>
                 </div>
-                {/* <p>...Loading</p> */}
               </>
             )}
           </div>

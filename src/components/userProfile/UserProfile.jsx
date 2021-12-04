@@ -65,7 +65,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/test-29153/databases/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),
@@ -76,7 +76,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/test-29153/databases/(default)/documents/users"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/users"
       )
         .then((value) => value.json())
         .then((value) => setUsers(value.documents)),
@@ -158,24 +158,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
       setfollowToggle("Follow");
     }
   };
-  // const getFollowersNum = () => {
-  //   if (
-  //     users?.[paramz.location.params]?.fields?.follow?.stringValue.includes(
-  //       "undefined"
-  //     ) ||
-  //     users?.[paramz.location.params]?.fields?.follow?.stringValue.includes("")
-  //   ) {
-  //     setfollowers(
-  //       users[paramz.location.params]?.fields?.follow?.stringValue.split(",")
-  //         .length - 1
-  //     );
-  //   } else {
-  //     setfollowers(
-  //       users[paramz.location.params]?.fields?.follow?.stringValue.split(",")
-  //         .length
-  //     );
-  //   }
-  // };
+
   return user && users ? (
     <>
       <Navbar />
@@ -187,7 +170,9 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                 <h2 class="  text-white text-lg-start text-capitalize">
                   {users[paramz.location.params].fields.name.stringValue}
                 </h2>
-                <h4 class="text-white  text-capitalize  ">Front End Dev</h4>
+                <h4 class="text-white  text-capitalize  ">
+                  {users[paramz.location.params].fields.track.stringValue}
+                </h4>
 
                 <ul className="text-left text-white mt-0 mb-5 py-1 lh-2">
                   {users[paramz.location.params].fields?.CONTACTS?.stringValue
@@ -200,6 +185,53 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                       );
                     })}
                 </ul>
+                <div className="follow-counter d-flex ">
+                  {users?.[
+                    paramz.location.params
+                  ]?.fields?.follow?.stringValue.includes("undefined") ||
+                  users?.[
+                    paramz.location.params
+                  ]?.fields?.follow?.stringValue.includes("") ? (
+                    <h6 className="text-light me-2">
+                      followers:{" "}
+                      {users[
+                        paramz.location.params
+                      ]?.fields?.follow?.stringValue.split(",").length - 1}
+                    </h6>
+                  ) : (
+                    <h6 className="text-light me-2">
+                      followers:{" "}
+                      {
+                        users[
+                          paramz.location.params
+                        ]?.fields?.follow?.stringValue.split(",").length
+                      }
+                    </h6>
+                  )}
+                  {/* following */}
+                  {users?.[
+                    paramz.location.params
+                  ]?.fields?.following?.stringValue.includes("undefined") ||
+                  users?.[
+                    paramz.location.params
+                  ]?.fields?.following?.stringValue.includes("") ? (
+                    <h6 className="text-light ms-2">
+                      following:
+                      {users[
+                        paramz.location.params
+                      ]?.fields?.following?.stringValue.split(",").length - 1}
+                    </h6>
+                  ) : (
+                    <h6 className="text-light ms-2">
+                      following:
+                      {
+                        users[
+                          paramz.location.params
+                        ]?.fields?.following?.stringValue.split(",").length
+                      }
+                    </h6>
+                  )}
+                </div>
               </div>
               <div class="card-profile-image col-4 d-flex ">
                 <figure className="d-flex">
@@ -233,51 +265,6 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                     </>
                   )}
                 </button>
-                {users?.[
-                  paramz.location.params
-                ]?.fields?.follow?.stringValue.includes("undefined") ||
-                users?.[
-                  paramz.location.params
-                ]?.fields?.follow?.stringValue.includes("") ? (
-                  <h5 className="text-light">
-                    followers{" "}
-                    {users[
-                      paramz.location.params
-                    ]?.fields?.follow?.stringValue.split(",").length - 1}
-                  </h5>
-                ) : (
-                  <h5 className="text-light">
-                    followers{" "}
-                    {
-                      users[
-                        paramz.location.params
-                      ]?.fields?.follow?.stringValue.split(",").length
-                    }
-                  </h5>
-                )}
-                {/* following */}
-                {users?.[
-                  paramz.location.params
-                ]?.fields?.following?.stringValue.includes("undefined") ||
-                users?.[
-                  paramz.location.params
-                ]?.fields?.following?.stringValue.includes("") ? (
-                  <h5 className="text-light">
-                    following
-                    {users[
-                      paramz.location.params
-                    ]?.fields?.following?.stringValue.split(",").length - 1}
-                  </h5>
-                ) : (
-                  <h5 className="text-light">
-                    following
-                    {
-                      users[
-                        paramz.location.params
-                      ]?.fields?.following?.stringValue.split(",").length
-                    }
-                  </h5>
-                )}
               </div>
             </div>
           </div>

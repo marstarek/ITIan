@@ -107,7 +107,7 @@ const Register = () => {
               alt=""
               className="w-100"
             />
-            <p className={`${styles.ITI_Community}`}>ITI Community</p>
+            <p className={`${styles.ITI_Community}`}> Community</p>
           </figure>
         </div>
         <div className={`col-12 col-lg-6 ${styles.form__wrapper} pb-5  my-5`}>

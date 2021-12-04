@@ -52,7 +52,7 @@ export const Feed = () => {
 
   useEffect(() => {
     fetch(
-      "https://firestore.googleapis.com/v1/projects/test-29153/databases/(default)/documents/posts"
+      "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/posts"
     )
       .then((response) => response.json())
       .then((data) => setallPosts(data.documents));
@@ -111,50 +111,14 @@ export const Feed = () => {
     }
   };
   /* -------------------------------------likeHandler------------------------------------- */
-  const [isLikeValue, setisLikeValue] = useState([]);
-  let x;
-  const likeHandler = async (i) => {
-    alert(curUser.uid);
-    // setisLikeValue(posts[i]?.islike);
-    // console.log(isLikeValue);
-    // setisLikeValue([...posts[i]?.islike, curUser.uid]);
-    // console.log(isLikeValue);
-    // alert(posts[i].islike);
-    getposts();
-    // alert(posts[i].islike);
-    if (posts[i].islike && !posts[i]?.islike?.includes(curUser.uid)) {
-      x = [...posts[i].islike, curUser.uid];
-      alert("!include");
-      // alert([...posts[i].islike, curUser.uid]);
-    } else if (posts[i].islike?.includes(curUser.uid)) {
-      // await posts[i].islike.splice(
-      //   posts[i].islike.indexOf(auth.currentUser.uid),
-      //   1
-      // );
-      // alert(posts[i].islike.indexOf(auth.currentUser.uid));
 
-      x = posts[i].islike;
-      x.splice(posts[i].islike.indexOf(curUser.uid), 1);
-      setisLikeValue(x);
-      alert("include");
-    } else {
-      x = [curUser.uid];
-      alert("else");
-    }
+  const likeHandler = async (i) => {
     await updateDoc(doc(db, "posts", posts[i].id), {
-      islike: x,
-      like: isLikeValue?.length > 0 ? isLikeValue.length : 0,
+      islike: !posts[i].islike,
+      like: posts[i].islike ? posts[i].like - 1 : posts[i].like + 1,
     });
     setrefresh(!refresh);
   };
-
-  // const likeHandler = async (i) => {
-  //   await updateDoc(doc(db, "posts", posts[i].id), {
-  //     islike: !posts[i].islike,
-  //     like: posts[i].islike ? posts[i].like - 1 : posts[i].like + 1,
-  //   });
-  //   setrefresh(!refresh);
-  // };
   /* ---------------------------------delatePost---------------------------------------- */
 
   const delatePost = async (i) => {
@@ -194,7 +158,7 @@ export const Feed = () => {
     setI(i);
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/test-29153/databases/(default)/documents/comments"
+        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/comments"
       )
         .then((value) => value.json())
         .then((value) => setcomments(value.documents)),
@@ -260,7 +224,7 @@ export const Feed = () => {
             {allPosts
               .filter((post, i) => {
                 if (
-                  curUser.following.includes(
+                  curUser.following?.includes(
                     post.fields.ownerID?.stringValue
                   ) ||
                   post.fields.ownerID?.stringValue === curUser.uid

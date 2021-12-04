@@ -59,7 +59,7 @@ export const RightBar = () => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        <h6 className="my-2 opacity-50 text-center ">people you may know </h6>
+        <h6 className="my-2 opacity-50 text-center ">Who to follow</h6>
         <Carousel className="mb-5 ">
           {users
             .filter((user, i) => {
