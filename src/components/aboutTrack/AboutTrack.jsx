@@ -13,7 +13,7 @@ const AboutTrack = () => {
       <div className="trackheader row m-0">
         <div className="text-center my-auto ">
           <h1> Front End Developmant </h1>
-          <p className=""> Totam excepturi eos animi. </p>
+          <p className="">All you need to be able to join the track.</p>
         </div>
       </div>
       {/* <!-- About track  --> */}
@@ -28,13 +28,13 @@ const AboutTrack = () => {
                 <h2 className=" text-md-start"> What is Front End ? </h2>
                 <p>
                   The front - end of a website is the part that users interact
-                  with.Everything that you see when you’ re navigating around
+                  with. Everything that you see when you’re navigating around
                   the Internet, from fonts and colors to dropdown menus and
                   sliders, is a combo of HTML, CSS, and JavaScript being
-                  controlled by your computer’ s browser.
+                  controlled by your computer’s browser.
                 </p>
                 <div className="">
-                  <h3>job profiles</h3>
+                  <h3>Job profiles</h3>
                   <ul>
                     <li>
                       <BsSun className="fs-5 me-2" /> UI Developer
@@ -61,15 +61,15 @@ const AboutTrack = () => {
             All University Graduates with prerequisites of the following: he
             must have a first degree from a recognized university or institution
             of higher education, or provide documentation indicating that they
-            will earn such a first degree before enrolment in the 3-month
-            program. Admission Requirements for Students vary depending on the
-            student's area of study.
+            will earn such a first degree before enrolment in the 3-month or
+            6-month program. Admission Requirements for Students vary depending
+            on the student's area of study.
           </p>
           <div className="apply-container row mt-5">
             <article className="apply-item col-md-6 col-lg-3">
               <h5 className="item_head"> Gender </h5>
               <ul>
-                <li> male </li> <li> female </li>
+                <li> Male </li> <li> Female </li>
               </ul>
             </article>
             <article className="apply-item  col-md-6 col-lg-3">
@@ -87,13 +87,13 @@ const AboutTrack = () => {
             <article className="apply-item  col-md-6 col-lg-3">
               <h5 className="item_head"> Military Service </h5>
               <ul>
-                <li> Defered or Exempted or Unkown or Completed </li>
+                <li> Defered, Exempted or Completed </li>
               </ul>
             </article>
             <article className="apply-item  col-md-6 col-lg-3">
               <h5 className="item_head"> Graduation Year </h5>
               <ul>
-                <li>Last 10 Years </li>
+                <li>Last 10 Years (not always 10 years) </li>
               </ul>
             </article>
           </div>
@@ -110,12 +110,12 @@ const AboutTrack = () => {
                   <Accordion.Header>IQ Exam</Accordion.Header>
                   <Accordion.Body>
                     <p>
-                      The IQ, English exam has a specific duration and a time
-                      counter that moves downward during your solution to the
-                      exam, so what is the number of minutes set for each exam
-                      of them and how to act smart and collect the largest
-                      number of points in the exam, all of this you will find
-                      clarified in this video:
+                      The IQ exam has a specific duration and a time counter
+                      that moves downward during your solution to the exam, so
+                      what is the number of minutes set for each exam of them
+                      and how to act smart and collect the largest number of
+                      points in the exam, all of this you will find clarified in
+                      this video:
                       <br />
                       https://www.youtube
                       <br />
@@ -130,14 +130,15 @@ const AboutTrack = () => {
                 <Accordion.Item eventKey="1">
                   <Accordion.Header>ٌEnglish Exam</Accordion.Header>
                   <Accordion.Body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    The English exam has a specific duration and a time counter
+                    that moves downward during your solution to the exam, so
+                    what is the number of minutes set for each exam of them and
+                    how to act smart and collect the largest number of points in
+                    the exam, all of this you will find clarified in this video:
+                    <br />
+                    https://www.youtube
+                    <br />
+                    .com/watch?v=L2ckEbIC9pY
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
@@ -145,12 +146,7 @@ const AboutTrack = () => {
             <div className=" AboutTrack_left mt-3 col-md-6">
               <h2 className=" text-md-start"> English & IQ Exam </h2>
               <p>
-                All University Graduates with prerequisites of the following: he
-                must have a first degree from a recognized university or
-                institution of higher education, or provide documentation
-                indicating that they will earn such a first degree before
-                enrolment in the 3-month program. Admission Requirements for
-                Students vary depending on the student's area of study.
+                You should pass both two exams to be able join the interview.
               </p>
             </div>
           </div>
@@ -158,7 +154,7 @@ const AboutTrack = () => {
       </section>
       <section className="before-apply py-5  my-5 ">
         <div className="container">
-          <div className="AboutTrack_items row">
+          <div className="AboutTrack_items row d-flex align-items-center">
             <div className="AboutTrack_left col-md-6">
               <img src="assets/pp.png" alt="" />
             </div>
@@ -166,11 +162,11 @@ const AboutTrack = () => {
               <article>
                 <h2 className=" text-md-start"> BEFORE YOU APPLY </h2>
                 <p className=" text-sm-center text-md-start">
-                  These topics will be discussed with you in the interviews”
+                  You can us these resources to prepare to the interview :
                 </p>
                 <Dropdown>
                   <Dropdown.Toggle variant="danger" id="dropdown-basic">
-                    BEFORE YOU APPLY
+                    Study resources
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
@@ -225,7 +221,7 @@ const AboutTrack = () => {
             <div className="col-md-6 col-lg-3 ">
               <CoursCard
                 coursedesc={
-                  "HTML, or Hyper Text Markup Language, is a standard set of tags you will use to tell the web browser how the content of your web pages and applications are struc"
+                  "Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins."
                 }
                 photo={"assets/courses/Bootstrap.png"}
                 title={"Bootstrap"}
@@ -240,7 +236,7 @@ const AboutTrack = () => {
             <div className="col-md-6 col-lg-3 ">
               <CoursCard
                 coursedesc={
-                  "HTML, or Hyper Text Markup Language, is a standard set of tags you will use to tell the web browser how the content of your web pages and applications are struc"
+                  "JavaScript is the world's most popular programming language and the programming language of the Web."
                 }
                 photo={"assets/courses/js.png"}
                 title={"JS&ES6"}
@@ -255,7 +251,7 @@ const AboutTrack = () => {
             <div className="col-md-6 col-lg-3 ">
               <CoursCard
                 coursedesc={
-                  "HTML, or Hyper Text Markup Language, is a standard set of tags you will use to tell the web browser how the content of your web pages and applications are struc"
+                  "React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes."
                 }
                 photo={"assets/courses/react.png"}
                 title={"React"}

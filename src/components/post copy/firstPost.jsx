@@ -19,41 +19,42 @@ export const FirstPost = ({
   likes,
 }) => {
   return (
-    <div className='post'>
-      <div className='postWrapper'>
-        <div className='postTop'>
-          <div className='postTopLeft'>
+    <div className="post">
+      <div className="postWrapper">
+        <div className="postTop">
+          <div className="postTopLeft">
             <img
-              className='shareProfileImg postProfileImg'
-              src={post.PostText || Img}
-              alt=''
+              className="shareProfileImg postProfileImg"
+              src={curUser.avatar}
+              alt=""
             />
             {/* PostText, from: id, createdAt: Timestamp.fromDate(new Date()),
             media: url || "", like: 0, islike: false, ownerImg: curUser.avatar,
             postOwnername: curUser.name, */}
             <figure>
-              <span className='postUsername'>{post.postOwnername}</span>
+              <span className="postUsername">{post.postOwnername}</span>
               <br />
               <figcaption>
                 <cite>
-                  <span className='postDate'>
+                  <span className="postDate">
                     {post.createdAt.timestampValue}
                   </span>
                 </cite>
               </figcaption>
             </figure>
           </div>
-          <div className='postTopRight'>
+          <div className="postTopRight">
             <>
-              <div className='nav-item dropdown'>
+              <div className="nav-item dropdown">
                 <a
-                  className='nav-link dropdown-toggle fs-3
-                    text-danger'
-                  id='navbarDropdown'
-                  role='button'
-                  data-bs-toggle='dropdown'
-                  aria-expanded='false'></a>
-                <ul className='dropdown-menu' aria-labelledby='navbarDropdown'>
+                  className="nav-link dropdown-toggle fs-3
+                    text-danger"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                ></a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
                     {/* {(curUser.rule === "admin" ||
                       postd.fields.from?.stringValue.includes(curUser.uid)) && (
@@ -68,7 +69,7 @@ export const FirstPost = ({
                     )} */}
                     <span>
                       <BsTrashFill
-                        className=' deleteIcon  fs-4 text-danger '
+                        className=" deleteIcon  fs-4 text-danger "
                         onClick={deletePost}
                       />{" "}
                       Delete Post
@@ -79,26 +80,27 @@ export const FirstPost = ({
             </>
           </div>
         </div>
-        <div className='postCenter'>
-          <bdi className='postText px-2'>
+        <div className="postCenter">
+          <bdi className="postText px-2">
             <ShowMoreText
               lines={4}
-              more='Show more'
-              less='...Show less'
+              more="Show more"
+              less="...Show less"
               anchor
-              className='oooeeer'
+              className="oooeeer"
               expanded={false}
-              width={0}>
+              width={0}
+            >
               {post.PostText}
             </ShowMoreText>
           </bdi>
-          <img className='postImg' src={post.media} alt='' />
+          <img className="postImg" src={post.media} alt="" />
         </div>
-        <div className='postBottom'>
-          <div className='postBottomLeft'>
-            <span className='postCommentText'>
+        <div className="postBottom">
+          <div className="postBottomLeft">
+            <span className="postCommentText">
               <BsChatSquareTextFill
-                className='deleteIcon me-1  fs-4 text-danger'
+                className="deleteIcon me-1  fs-4 text-danger"
                 // onClick={() => {
                 //   showComments(i);
                 // }}
@@ -106,19 +108,19 @@ export const FirstPost = ({
               Comments
             </span>
           </div>
-          <div className='postBottomRight'>
+          <div className="postBottomRight">
             <BsFillHeartFill
-              className='likeIcon text-danger'
+              className="likeIcon text-danger"
               onClick={likeHandler}
             />
-            <span className='postLikeCounter'>
+            <span className="postLikeCounter">
               {likes}
               Like It
             </span>
           </div>
         </div>
         <hr />
-        <div className='show-comments '>
+        <div className="show-comments ">
           {/* {comments ? (
             <div>
               {comments.map((comment, index) => {
@@ -177,15 +179,15 @@ export const FirstPost = ({
             " "
           )} */}
         </div>
-        <div className='postComment'>
+        <div className="postComment">
           <input
-            placeholder='inputComment'
-            className='inputComment'
+            placeholder="inputComment"
+            className="inputComment"
             // onChange={(e) => setcommentsText(e.target.value)}
           />
           <button
-            className='shareButton  btn-sm fs-6
-            '
+            className="shareButton  btn-sm fs-6
+            "
             // onClick={() => {
             //   commentsHandler(i); }}
           >

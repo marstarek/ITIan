@@ -234,25 +234,7 @@ const Profile = () => {
           setcurUser(docSnap.data());
         }
       });
-    // getFollowersNum();
-  }, []);
-  // const [followers, setfollowers] = useState();
-  // const [following, setfollowing] = useState();
-  // const getFollowersNum = () => {
-  //   if (curUser?.follow?.includes("undefined")) {
-  //     setfollowers(curUser?.follow?.split(",").length - 1);
-  //   } else {
-  //     setfollowers(curUser?.follow?.split(",").length);
-  //   }
-  //   if (
-  //     curUser?.following?.includes("undefined") ||
-  //     curUser?.following?.includes("")
-  //   ) {
-  //     setfollowing(curUser?.following?.split(",").length - 1);
-  //   } else {
-  //     setfollowing(curUser?.following?.split(",").length);
-  //   }
-  // };
+  }, [refresh]);
 
   return user ? (
     <>
@@ -285,14 +267,11 @@ const Profile = () => {
                   <div className="">
                     {user.avatar ? (
                       <BsTrashFill
-                        className=" deleteIcon fs-2 m-1 text-danger "
+                        className=" deleteIcon fs-2 m-1 b "
                         onClick={deleteImage}
                       />
                     ) : null}
-                    <label
-                      className="btn btn-danger rounded-pill"
-                      htmlFor="actual-btn"
-                    >
+                    <label className="btn btn-danger b" htmlFor="actual-btn">
                       change photo
                     </label>
                   </div>
