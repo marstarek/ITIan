@@ -65,32 +65,32 @@ const AboutTrack = () => {
             6-month program. Admission Requirements for Students vary depending
             on the student's area of study.
           </p>
-          <div className="apply-container row mt-5">
-            <article className="apply-item col-md-6 col-lg-3">
+          <div className="apply-container row mt-5     justify-content-center">
+            <article className="apply-item col-md-6 col-lg-2">
               <h5 className="item_head"> Gender </h5>
               <ul>
                 <li> Male </li> <li> Female </li>
               </ul>
             </article>
-            <article className="apply-item  col-md-6 col-lg-3">
+            <article className="apply-item  col-md-6 col-lg-2">
               <h5 className="item_head"> Nationality </h5>
               <ul>
                 <li> Egyptians </li>
               </ul>
             </article>
-            <article className="apply-item  col-md-6 col-lg-3">
+            <article className="apply-item  col-md-6 col-lg-2">
               <h5 className="item_head"> Educational Degree </h5>
               <ul>
                 <li> Bachelor Degree </li>
               </ul>
             </article>
-            <article className="apply-item  col-md-6 col-lg-3">
+            <article className="apply-item  col-md-6 col-lg-2">
               <h5 className="item_head"> Military Service </h5>
               <ul>
                 <li> Defered, Exempted or Completed </li>
               </ul>
             </article>
-            <article className="apply-item  col-md-6 col-lg-3">
+            <article className="apply-item  col-md-6 col-lg-2">
               <h5 className="item_head"> Graduation Year </h5>
               <ul>
                 <li>Last 10 Years (not always 10 years) </li>

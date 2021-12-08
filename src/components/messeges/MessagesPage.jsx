@@ -94,6 +94,7 @@ export const MessagesPage = () => {
     });
 
     setText("");
+    setImg("");
   };
   return (
     <>

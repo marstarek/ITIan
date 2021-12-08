@@ -355,8 +355,8 @@ const Profile = () => {
                   <h3 className="mt-3"> EXPERIANCES</h3>
                   {TO2 ? (
                     <>
-                      <ul className="text-center">
-                        {user?.EXPERIANCES?.split(" ").map((E, i) => {
+                      <ul className="text-center px-4">
+                        {user?.EXPERIANCES?.split(",").map((E, i) => {
                           return <li key={i}>{E}</li>;
                         })}
                       </ul>
@@ -393,7 +393,7 @@ const Profile = () => {
                   {TO3 ? (
                     <>
                       <ul className="text-center">
-                        {user?.CONTACTS?.split(" ").map((E, i) => {
+                        {user?.CONTACTS?.split(",").map((E, i) => {
                           return <li key={i}>{E}</li>;
                         })}
                       </ul>
