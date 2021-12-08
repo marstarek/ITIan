@@ -65,7 +65,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/myprofile"
       )
         .then((value) => value.json())
         .then((value) => setmyNEWprofile(value.documents)),
@@ -76,7 +76,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   useEffect(() => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/users"
+        "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/users"
       )
         .then((value) => value.json())
         .then((value) => setUsers(value.documents)),

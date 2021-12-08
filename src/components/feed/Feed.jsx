@@ -65,7 +65,7 @@ export const Feed = () => {
   }, []);
   const getAllPosts = () => {
     fetch(
-      "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/posts"
+      "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/posts"
     )
       .then((response) => response.json())
       .then((data) => {
@@ -84,7 +84,7 @@ export const Feed = () => {
   useEffect(() => {
     getAllPosts();
     // fetch(
-    //   "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/posts"
+    //   "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/posts"
     // )
     //   .then((response) => response.json())
     //   .then((data) => setallPosts(data.documents));
@@ -246,7 +246,7 @@ export const Feed = () => {
     setI(i);
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/comments"
+        "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/comments"
       )
         .then((value) => value.json())
         .then((value) => setcomments(value.documents)),
