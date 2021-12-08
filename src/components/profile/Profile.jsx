@@ -423,7 +423,7 @@ const Profile = () => {
                 </div>
               </div>
               <div className="set-password col-lg-6 mt-5">
-                <div className="skill-card">
+                <div className="skill-card overflow-hidden">
                   <h3 className="mt-3"> Change Password</h3>
                   {error && (
                     <div className="bg-danger rounded p-2 m-3 text-light">

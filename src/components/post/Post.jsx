@@ -117,14 +117,7 @@ export const Post = ({
               }}
             />
             <span className="postLikeCounter">
-              {/* {postd?.fields?.likedby?.stringValue
-                .split(",")
-                .includes("undefined") ||
-              (postd?.fields?.likedby?.stringValue.split(",").includes("") &&
-                likes)
-                ? likes - 1
-                : postd?.fields?.likedby?.stringValue.split(",").length} */}
-              {likes} Like It
+              {postd?.fields?.likedby?.stringValue.split(",").length} Like It
             </span>
             {/* <span className="postLikeCounter fw-bold">
               {postd.fields.like.integerValue

@@ -114,6 +114,11 @@ export const MessagesPage = () => {
 
           {users
             .filter((user, i) => {
+              if (user.follow?.includes(auth.currentUser.uid)) {
+                return user;
+              }
+            })
+            .filter((user, i) => {
               if (Query === "") {
                 return user;
               } else if (

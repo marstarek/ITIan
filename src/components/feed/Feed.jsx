@@ -37,7 +37,6 @@ export const Feed = () => {
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
     const postsData = await getDocs(postsCollectionRefrance);
-    // sort(a,b=>{diffInDate()})
     let x = [];
     x = postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     x.sort((b, a) => {
@@ -47,10 +46,7 @@ export const Feed = () => {
 
     console.log(posts);
   };
-  // const getposts = async () => {
-  //   const postsData = await getDocs(postsCollectionRefrance);
-  //   setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  // };
+
   const [curUser, setcurUser] = useState();
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
@@ -83,11 +79,6 @@ export const Feed = () => {
   /* -----------------------------------getAllPosts--------------------------------------- */
   useEffect(() => {
     getAllPosts();
-    // fetch(
-    //   "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/posts"
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => setallPosts(data.documents));
   }, []);
   /* -----------------------------------getnewcomments--------------------------------------- */
   const newcommentsCollectionRefrance = collection(db, "comments");
@@ -125,16 +116,16 @@ export const Feed = () => {
         postOwnername: curUser.name,
       });
       const docSnap = await getDoc(doc(db, "posts", id));
-      setfirstPost({
-        PostText,
-        from: id,
-        createdAt: Timestamp.fromDate(new Date()),
-        media: url || "",
-        like: 0,
-        islike: false,
-        ownerImg: curUser.avatar,
-        postOwnername: curUser.name,
-      });
+      // setfirstPost({
+      //   PostText,
+      //   from: id,
+      //   createdAt: Timestamp.fromDate(new Date()),
+      //   media: url || "",
+      //   like: 0,
+      //   islike: false,
+      //   ownerImg: curUser.avatar,
+      //   postOwnername: curUser.name,
+      // });
       setPostText("");
       setImg("");
       setrefresh(!refresh);
@@ -149,15 +140,11 @@ export const Feed = () => {
     await getposts();
     posts.filter((post, index) => {
       if (allPosts[i].fields.from.stringValue === post.from) {
-        if (
-          posts[index]?.likedby &&
-          !posts[index]?.likedby?.includes(curUser.uid)
-        ) {
-          updateDoc(doc(db, "posts", posts[i].id), {
-            likedby: posts[index]?.likedby + "," + curUser.uid,
+        if (post?.likedby && !post?.likedby?.includes(curUser.uid)) {
+          updateDoc(doc(db, "posts", posts[index].id), {
+            likedby: post?.likedby + "," + curUser.uid,
           });
-          getAllPosts();
-          getposts();
+
           setlikes(posts[index]?.likedby.split(",").length);
           alert(1);
           alert(likes);
@@ -174,8 +161,7 @@ export const Feed = () => {
           updateDoc(doc(db, "posts", posts[index].id), {
             likedby: like ? like?.join() : "",
           });
-          getAllPosts();
-          getposts();
+
           {
             like
               ? setlikes(posts[index]?.likedby.split(",").length)
@@ -186,11 +172,9 @@ export const Feed = () => {
         } else {
           updateDoc(doc(db, "posts", posts[index].id), {
             likedby: curUser.uid,
-            // like: posts[i]?.likedby.split(",")?.length,
           });
-          getAllPosts();
-          getposts();
-          setlikes(posts[index]?.likedby.split(",").length);
+
+          // setlikes(posts[index]?.likedby.split(",").length);
           alert(3);
           alert(likes);
         }
@@ -200,33 +184,34 @@ export const Feed = () => {
     getAllPosts();
     getposts();
   };
-  // const likeHandler = async (i) => {
-  //   await updateDoc(doc(db, "posts", posts[i].id), {
-  //     islike: !posts[i].islike,
-  //     like: posts[i].islike ? posts[i].like - 1 : posts[i].like + 1,
-  //   });
-  //   setrefresh(!refresh);
-  // };
+
   /* ---------------------------------delatePost---------------------------------------- */
 
   const delatePost = async (i) => {
-    try {
-      if (posts[i].from.includes(curUser.uid) || curUser.rule === "admin") {
-        const postDoc = doc(db, "posts", posts[i].id);
-        await deleteDoc(postDoc);
-        setrefresh(!refresh);
-      } else {
+    posts.filter((post, index) => {
+      if (allPosts[i].fields.from.stringValue === post.from) {
+        try {
+          if (
+            posts[index].from.includes(curUser.uid) ||
+            curUser.rule === "admin"
+          ) {
+            const postDoc = doc(db, "posts", posts[index].id);
+            deleteDoc(postDoc);
+            setrefresh(!refresh);
+          } else {
+          }
+          setrefresh(!refresh);
+        } catch (err) {
+          alert(err);
+        }
       }
-      setrefresh(!refresh);
-    } catch (err) {
-      alert(err);
-    }
+    });
   };
 
   /* --------------------------------------commentsHandler------------------------------------ */
   const commentsHandler = async (i) => {
     if (commentsText) {
-      await addDoc(collection(db, "comments"), {
+      addDoc(collection(db, "comments"), {
         commentsText,
         from: curUser.uid,
         createdAt: Timestamp.fromDate(new Date()),
@@ -256,25 +241,27 @@ export const Feed = () => {
   };
   /* ---------------------------------delete comment------------------------------------ */
   const delatecomment = async (i, index) => {
-    try {
-      showComments(i);
-      if (newcomments[index].from.includes(curUser.uid)) {
-        const commentDoc = doc(db, "comments", newcomments[index].id);
-        await deleteDoc(commentDoc);
-        setrefresh(!refresh);
+    console.log(allPosts);
+    console.log(posts);
+    posts.filter((post, INDEX) => {
+      if (allPosts[i].fields.from.stringValue === post.from) {
+        console.log(allPosts[i]);
+
+        try {
+          showComments(INDEX);
+          if (newcomments[index].from.includes(curUser.uid)) {
+            console.log(newcomments[index]);
+
+            const commentDoc = doc(db, "comments", newcomments[index].id);
+            deleteDoc(commentDoc);
+            setrefresh(!refresh);
+          }
+          setrefresh(!refresh);
+        } catch (err) {
+          alert(err);
+        }
       }
-      setrefresh(!refresh);
-    } catch (err) {
-      alert(err);
-    }
-  };
-  const delateFirstPost = () => {
-    setfirstPost();
-  };
-  const firstPostLikeHandler = () => {
-    {
-      firstPostLike === 0 ? setFirstPostLike(1) : setFirstPostLike(0);
-    }
+    });
   };
   return (
     <>
@@ -292,7 +279,7 @@ export const Feed = () => {
               query={query}
             />
             {/*  */}
-            {firstPost && (
+            {/* {firstPost && (
               <FirstPost
                 post={firstPost}
                 Img={Img}
@@ -308,7 +295,7 @@ export const Feed = () => {
                 commentsHandler={commentsHandler}
                 likes={firstPostLike}
               />
-            )}
+            )} */}
             {allPosts
               .filter((post, i) => {
                 if (
@@ -348,6 +335,7 @@ export const Feed = () => {
                   curUser={curUser}
                   likes={likes}
                   commentsHandler={commentsHandler}
+                  allPosts={allPosts}
                 />
               ))}
           </div>
