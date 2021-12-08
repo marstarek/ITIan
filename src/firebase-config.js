@@ -5,15 +5,6 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import "firebase/auth";
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDS92nWlcbRBQJzQ-rLZC8YXM3UgOyQA28",
-//     authDomain: "iti-test-9412d.firebaseapp.com",
-//     projectId: "iti-test-9412d",
-//     storageBucket: "iti-test-9412d.appspot.com",
-//     messagingSenderId: "295441365273",
-//     appId: "1:295441365273:web:9ccbc7d6af4845b56a6d88",
-// };
-
 const firebaseConfig = {
     apiKey: "AIzaSyDuDhMbWjawU-kdtkldyr8hBdNmW7umiSk",
     authDomain: "iti-test-9412d.firebaseapp.com",

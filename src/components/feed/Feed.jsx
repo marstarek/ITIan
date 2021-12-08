@@ -15,11 +15,13 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Share from "../share/Share";
 import Post from "../post/Post";
 import FirstPost from "../post copy/firstPost";
-
+const diffInDate = (date1, date2) => {
+  return new Date(date1).getTime() - new Date(date2).getTime();
+};
 /* ------------------------------------imports-------------------------------------- */
+
 export const Feed = () => {
   const [query, setQuery] = useState("");
-
   const [posts, setposts] = useState([]);
   const [PostText, setPostText] = useState("");
   const [allPosts, setallPosts] = useState([]);
@@ -35,8 +37,20 @@ export const Feed = () => {
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
     const postsData = await getDocs(postsCollectionRefrance);
-    setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    // sort(a,b=>{diffInDate()})
+    let x = [];
+    x = postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    x.sort((b, a) => {
+      return diffInDate(a.createdAt, b.createdAt);
+    });
+    setposts(x);
+
+    console.log(posts);
   };
+  // const getposts = async () => {
+  //   const postsData = await getDocs(postsCollectionRefrance);
+  //   setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  // };
   const [curUser, setcurUser] = useState();
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
@@ -49,13 +63,31 @@ export const Feed = () => {
         }
       });
   }, []);
-
-  useEffect(() => {
+  const getAllPosts = () => {
     fetch(
       "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/posts"
     )
       .then((response) => response.json())
-      .then((data) => setallPosts(data.documents));
+      .then((data) => {
+        setallPosts(
+          data.documents.sort((b, a) => {
+            return diffInDate(
+              a.fields.createdAt.timestampValue,
+              b.fields.createdAt.timestampValue
+            );
+          })
+        );
+      });
+    console.log(allPosts);
+  };
+  /* -----------------------------------getAllPosts--------------------------------------- */
+  useEffect(() => {
+    getAllPosts();
+    // fetch(
+    //   "https://firestore.googleapis.com/v1/projects/iti-test-9412d/databases/(default)/documents/posts"
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => setallPosts(data.documents));
   }, []);
   /* -----------------------------------getnewcomments--------------------------------------- */
   const newcommentsCollectionRefrance = collection(db, "comments");
@@ -111,14 +143,70 @@ export const Feed = () => {
     }
   };
   /* -------------------------------------likeHandler------------------------------------- */
+  const [likes, setlikes] = useState(0);
 
   const likeHandler = async (i) => {
-    await updateDoc(doc(db, "posts", posts[i].id), {
-      islike: !posts[i].islike,
-      like: posts[i].islike ? posts[i].like - 1 : posts[i].like + 1,
+    await getposts();
+    posts.filter((post, index) => {
+      if (allPosts[i].fields.from.stringValue === post.from) {
+        if (
+          posts[index]?.likedby &&
+          !posts[index]?.likedby?.includes(curUser.uid)
+        ) {
+          updateDoc(doc(db, "posts", posts[i].id), {
+            likedby: posts[index]?.likedby + "," + curUser.uid,
+          });
+          getAllPosts();
+          getposts();
+          setlikes(posts[index]?.likedby.split(",").length);
+          alert(1);
+          alert(likes);
+        } else if (
+          posts[index]?.likedby?.includes(curUser.uid) ||
+          posts[index]?.likedby === curUser.uid
+        ) {
+          let like = posts[index]?.likedby?.split(",");
+          like.splice(
+            posts[index]?.likedby?.split(",").indexOf(curUser.uid),
+            1
+          );
+
+          updateDoc(doc(db, "posts", posts[index].id), {
+            likedby: like ? like?.join() : "",
+          });
+          getAllPosts();
+          getposts();
+          {
+            like
+              ? setlikes(posts[index]?.likedby.split(",").length)
+              : setlikes(0);
+          }
+
+          alert(+",," + "2");
+        } else {
+          updateDoc(doc(db, "posts", posts[index].id), {
+            likedby: curUser.uid,
+            // like: posts[i]?.likedby.split(",")?.length,
+          });
+          getAllPosts();
+          getposts();
+          setlikes(posts[index]?.likedby.split(",").length);
+          alert(3);
+          alert(likes);
+        }
+      }
     });
     setrefresh(!refresh);
+    getAllPosts();
+    getposts();
   };
+  // const likeHandler = async (i) => {
+  //   await updateDoc(doc(db, "posts", posts[i].id), {
+  //     islike: !posts[i].islike,
+  //     like: posts[i].islike ? posts[i].like - 1 : posts[i].like + 1,
+  //   });
+  //   setrefresh(!refresh);
+  // };
   /* ---------------------------------delatePost---------------------------------------- */
 
   const delatePost = async (i) => {
@@ -258,6 +346,7 @@ export const Feed = () => {
                   setcommentsText={setcommentsText}
                   I={I}
                   curUser={curUser}
+                  likes={likes}
                   commentsHandler={commentsHandler}
                 />
               ))}

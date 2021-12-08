@@ -8,6 +8,7 @@ import {
 import ShowMoreText from "react-show-more-text";
 export const Post = ({
   postd,
+  likes,
   i,
   Img,
   delatePost,
@@ -115,12 +116,22 @@ export const Post = ({
                 await likeHandler(i);
               }}
             />
-            <span className="postLikeCounter fw-bold">
+            <span className="postLikeCounter">
+              {/* {postd?.fields?.likedby?.stringValue
+                .split(",")
+                .includes("undefined") ||
+              (postd?.fields?.likedby?.stringValue.split(",").includes("") &&
+                likes)
+                ? likes - 1
+                : postd?.fields?.likedby?.stringValue.split(",").length} */}
+              {likes} Like It
+            </span>
+            {/* <span className="postLikeCounter fw-bold">
               {postd.fields.like.integerValue
                 ? postd.fields.like.integerValue
                 : 1}
               Like It
-            </span>
+            </span> */}
           </div>
         </div>
         <hr />
