@@ -69,110 +69,122 @@ export const RightBar = () => {
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
-        <h6 className="my-2 opacity-50 text-center ">Who to follow</h6>
-        <Carousel className="mb-5 ">
+        <div>
+          <h6 className="my-2 opacity-50 text-center ">Who to follow</h6>
+          <Carousel className=" ">
+            {users
+              .filter((user, i) => {
+                if (
+                  !user.follow?.includes(auth.currentUser.uid) &&
+                  user.uid !== auth.currentUser.uid
+                ) {
+                  return user;
+                }
+              })
+              .map((user, i) => (
+                <Carousel.Item>
+                  <Card
+                    onClick={() => {
+                      nav(user.uid);
+                    }}
+                    style={{
+                      width: "12rem",
+                      padding: "0.3rem",
+                      "min-width": "12rem",
+                    }}
+                    className=" mx-auto mb-3 userCard"
+                  >
+                    <div className="cardo ">
+                      <Card.Img
+                        variant="top"
+                        src={user.avatar || Img}
+                        className="cardimg d-block  img-fluid"
+                      />
+                    </div>
+
+                    <Card.Body style={{ height: "4rem" }} className="my-1 py-1">
+                      <Card.Title className="fs-6 fw-bold">
+                        {user?.name}
+                      </Card.Title>
+                      <Card.Text className="mt-1">{user?.track}</Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Carousel.Item>
+              ))}
+          </Carousel>
+
+          <div className="row">
+            <div className="col-2 mx-auto">
+              <BsSearch
+                className=" deleteIcon fs-2 m-1 b  m "
+                onClick={toggle2}
+              />
+            </div>
+            <p className=" text-center">look for new friends</p>
+          </div>
+          <div className="">
+            {TO2 === true ? (
+              <input
+                className="form-control  border-0 shadow mb-2  w-100  text-dark"
+                type="text"
+                name="Search"
+                placeholder="look for new friends ...."
+                autoComplete="off"
+                onChange={(event) => setQuery(event.target.value)}
+              />
+            ) : null}
+          </div>
           {users
             .filter((user, i) => {
-              if (
-                !user.follow?.includes(auth.currentUser.uid) &&
-                user.uid !== auth.currentUser.uid
+              if (Query === "") {
+                return null;
+              } else if (
+                user?.name.toLowerCase().includes(Query.toLowerCase())
               ) {
                 return user;
               }
             })
             .map((user, i) => (
-              <Carousel.Item>
-                <Card
-                  onClick={() => {
-                    nav(user.uid);
-                  }}
-                  style={{
-                    width: "12rem",
-                    padding: "0.3rem",
-                    "min-width": "12rem",
-                  }}
-                  className=" mx-auto mb-3 userCard"
-                >
-                  <div className="cardo ">
-                    <Card.Img
-                      variant="top"
-                      src={user.avatar || Img}
-                      className="cardimg d-block  img-fluid"
-                    />
+              <div key={user.uid} className="user_wrapper">
+                <div className="">
+                  <div className="d-flex justify-content-between align-items-center w-100">
+                    <div className="d-flex justify-content-center align-items-center">
+                      <img
+                        src={user.avatar || Img}
+                        alt="tarek"
+                        className="avatar"
+                      />
+                      <h6
+                        className="mb-0"
+                        onClick={() => {
+                          nav(user.uid);
+                        }}
+                      >
+                        {user?.name}
+                      </h6>
+                    </div>
+                    <div
+                      className={`"user_status" ${
+                        user.isOnline ? "bg-success" : "bg-success opacity-25"
+                      }`}
+                    ></div>
                   </div>
 
-                  <Card.Body style={{ height: "4rem" }} className="my-1 py-1">
-                    <Card.Title className="fs-6 fw-bold">
-                      {user?.name}
-                    </Card.Title>
-                    <Card.Text className="mt-1">{user?.track}</Card.Text>
-                  </Card.Body>
-                </Card>
-              </Carousel.Item>
-            ))}
-        </Carousel>
-
-        {/* sidebare */}
-        <BsSearch className=" deleteIcon fs-2 m-1 b " onClick={toggle2} />
-        {TO2 === true ? (
-          <input
-            className="  form-control  border-0 mb-3  border-bottom text-dark"
-            type="text"
-            name="Search"
-            placeholder="look for new friends ...."
-            autoComplete="off"
-            onChange={(event) => setQuery(event.target.value)}
-          />
-        ) : null}
-
-        {users
-          .filter((user, i) => {
-            if (Query === "") {
-              return null;
-            } else if (user?.name.toLowerCase().includes(Query.toLowerCase())) {
-              return user;
-            }
-          })
-          .map((user, i) => (
-            <div key={user.uid} className="user_wrapper">
-              <div className="">
-                <div className="d-flex justify-content-between align-items-center w-100">
-                  <div className="d-flex justify-content-center align-items-center">
+                  <div
+                    className={`sm_container ${
+                      chat?.name === user?.name && "selected_user"
+                    }`}
+                  >
                     <img
                       src={user.avatar || Img}
-                      alt="tarek"
-                      className="avatar"
+                      alt="avatar"
+                      className="avatar sm_screen"
                     />
-                    <h6
-                      className="mb-0"
-                      onClick={() => {
-                        nav(user.uid);
-                      }}
-                    >
-                      {user?.name}
-                    </h6>
                   </div>
-                  <div
-                    className={`"user_status" ${
-                      user.isOnline ? "bg-success" : "bg-success opacity-25"
-                    }`}
-                  ></div>
-                </div>
-
-                <div
-                  className={`sm_container ${
-                    chat?.name === user?.name && "selected_user"
-                  }`}
-                >
-                  <img
-                    src={user.avatar || Img}
-                    alt="avatar"
-                    className="avatar sm_screen"
-                  />
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
         <h2 className="text-center fs-2 ">
           {" "}
           {/* <BsFillBookFill className=" fs-2 mb-1 me-2" /> */}
