@@ -26,7 +26,6 @@ const PostJob = ({ getJob }) => {
   /* ------------------------------------handleSubmit-------------------------------------- */
   const postJobSubmit = async (values) => {
     const id = `${curUser.uid}${new Date().getTime()}`;
-
     await addDoc(collection(db, "jobs"), {
       jobTitle: values.jobTitle,
       location: values.location,
@@ -37,7 +36,6 @@ const PostJob = ({ getJob }) => {
       jobId: id,
     });
     const docSnap = await getDoc(doc(db, "jobs", id));
-
     values.jobTitle = "";
     values.location = "";
     values.description = "";
@@ -47,7 +45,6 @@ const PostJob = ({ getJob }) => {
     location: "",
     description: "",
   };
-
   const validationSchema = Yup.object({
     jobTitle: Yup.string().required("Job title is required"),
     location: Yup.string().required("Location is required"),

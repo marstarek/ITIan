@@ -4,43 +4,37 @@ import "../App.css";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            setUser(user);
-            setLoading(false);
-        });
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      setLoading(false);
+    });
 
-        return unsubscribe;
-    }, []);
+    return unsubscribe;
+  }, []);
 
-    if (loading)
-        return ( <
-            div style = {
-                { position: "relative" } } >
-            <
-            h2 style = {
-                {
-                    position: "fixed",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                }
-            } >
-            <
-            div className = "spinner-border my-5 mx-5"
-            role = "status" >
-            <
-            span className = "visually-hidden" > Loading... < /span>{" "} <
-            /div>{" "} <
-            /h2>{" "} <
-            /div>
-        );
-
-    return ( <
-        AuthContext.Provider value = {
-            { user } } > { children } < /AuthContext.Provider>
+  if (loading)
+    return (
+      <div style={{ position: "relative" }}>
+        <h2
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <div className="spinner-border my-5 mx-5" role="status">
+            <span className="visually-hidden"> Loading... </span>{" "}
+          </div>{" "}
+        </h2>{" "}
+      </div>
     );
+
+  return (
+    <AuthContext.Provider value={{ user }}> {children} </AuthContext.Provider>
+  );
 };

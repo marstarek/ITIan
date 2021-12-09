@@ -40,7 +40,15 @@ export const Post = ({
               <figcaption>
                 <cite>
                   <span className="postDate">
-                    {postd.fields.createdAt.timestampValue}
+                    {new Date(
+                      postd.fields.createdAt.timestampValue
+                    ).toLocaleDateString("en-us", {
+                      // weekday: "short",
+                      // year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                      hour: "numeric",
+                    })}
                   </span>
                 </cite>
               </figcaption>

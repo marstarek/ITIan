@@ -241,17 +241,11 @@ export const Feed = () => {
   };
   /* ---------------------------------delete comment------------------------------------ */
   const delatecomment = async (i, index) => {
-    console.log(allPosts);
-    console.log(posts);
     posts.filter((post, INDEX) => {
       if (allPosts[i].fields.from.stringValue === post.from) {
-        console.log(allPosts[i]);
-
         try {
           showComments(INDEX);
           if (newcomments[index].from.includes(curUser.uid)) {
-            console.log(newcomments[index]);
-
             const commentDoc = doc(db, "comments", newcomments[index].id);
             deleteDoc(commentDoc);
             setrefresh(!refresh);

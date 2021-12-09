@@ -23,7 +23,6 @@ import Navbar from "../../shared/layout/navbar/Navbar";
 const Profile = () => {
   const [img, setImg] = useState("");
   const [user, setUser] = useState();
-
   const history = useHistory("");
   let [refresh, setrefresh] = useState(false);
   const confirmPasswordRef = useRef();
