@@ -35,7 +35,7 @@ export default function Job({ job, deleteJob, i, curUser }) {
                 more="Show more"
                 less="...Show less"
                 anchor
-                className="oooeeer"
+                className="show-more-p"
                 expanded={false}
                 width={0}
               >

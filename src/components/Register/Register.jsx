@@ -1,4 +1,4 @@
-import { FieldArray, Formik, Form, Field } from "formik";
+import { FieldArray, Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -54,6 +54,7 @@ const Register = () => {
   });
   const [user, setUser] = useState({});
   const history = useHistory();
+
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
@@ -195,7 +196,7 @@ const Register = () => {
                                             <label
                                               htmlFor={`Itian[${i}]`}
                                               name={`track`}
-                                              className={`form-label  ${styles.a}`}
+                                              className="form-label  "
                                               style={{
                                                 display: "block",
                                               }}

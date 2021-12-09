@@ -92,7 +92,7 @@ export const Post = ({
               more="Show more"
               less="...Show less"
               anchor
-              className="oooeeer px-3"
+              className="show-more-p px-3"
               expanded={false}
               width={0}
             >
@@ -125,13 +125,13 @@ export const Post = ({
               }}
             />
             <span className="postLikeCounter">
-              {postd?.fields?.likedby?.stringValue.split(",").length} Like It
-            </span>
-            {/* <span className="postLikeCounter fw-bold">
-              {postd.fields.like.integerValue
-                ? postd.fields.like.integerValue
-                : 1}
+              {postd?.fields?.likedby?.stringValue.split(",").includes("")
+                ? postd?.fields?.likedby?.stringValue.split(",").length - 1
+                : postd?.fields?.likedby?.stringValue.split(",").length}{" "}
               Like It
+            </span>
+            {/* <span className="postLikeCounter">
+              {postd?.fields?.likedby?.stringValue.split(",").length} Like It
             </span> */}
           </div>
         </div>

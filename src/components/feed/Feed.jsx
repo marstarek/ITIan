@@ -137,6 +137,7 @@ export const Feed = () => {
   const [likes, setlikes] = useState(0);
 
   const likeHandler = async (i) => {
+    await getAllPosts();
     await getposts();
     posts.filter((post, index) => {
       if (allPosts[i].fields.from.stringValue === post.from) {
@@ -181,8 +182,8 @@ export const Feed = () => {
       }
     });
     setrefresh(!refresh);
-    getAllPosts();
-    getposts();
+    await getAllPosts();
+    await getposts();
   };
 
   /* ---------------------------------delatePost---------------------------------------- */
@@ -206,12 +207,14 @@ export const Feed = () => {
         }
       }
     });
+    getAllPosts();
+    getposts();
   };
 
   /* --------------------------------------commentsHandler------------------------------------ */
   const commentsHandler = async (i) => {
     if (commentsText) {
-      addDoc(collection(db, "comments"), {
+      await addDoc(collection(db, "comments"), {
         commentsText,
         from: curUser.uid,
         createdAt: Timestamp.fromDate(new Date()),
@@ -225,6 +228,7 @@ export const Feed = () => {
     } else {
       alert("please say something");
     }
+    showComments(i);
   };
   /* --------------------------------------commentsHandler------------------------------------ */
   const showComments = (i) => {
@@ -241,21 +245,17 @@ export const Feed = () => {
   };
   /* ---------------------------------delete comment------------------------------------ */
   const delatecomment = async (i, index) => {
-    posts.filter((post, INDEX) => {
-      if (allPosts[i].fields.from.stringValue === post.from) {
-        try {
-          showComments(INDEX);
-          if (newcomments[index].from.includes(curUser.uid)) {
-            const commentDoc = doc(db, "comments", newcomments[index].id);
-            deleteDoc(commentDoc);
-            setrefresh(!refresh);
-          }
-          setrefresh(!refresh);
-        } catch (err) {
-          alert(err);
-        }
+    try {
+      showComments(i);
+      if (newcomments[index].from.includes(curUser.uid)) {
+        const commentDoc = doc(db, "comments", newcomments[index].id);
+        await deleteDoc(commentDoc);
+        setrefresh(!refresh);
       }
-    });
+      setrefresh(!refresh);
+    } catch (err) {
+      alert(err);
+    }
   };
   return (
     <>

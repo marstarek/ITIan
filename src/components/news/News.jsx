@@ -13,7 +13,7 @@ export const News = ({ news }) => {
               more="Show more"
               less="...Show less"
               anchor
-              className="oooeeer"
+              className="show-more-p"
               expanded={false}
               width={0}
             >
