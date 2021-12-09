@@ -46,14 +46,12 @@ export const NewSidebar = () => {
   return (
     <div className={styles.sidebar}>
       <div className={`${styles.sidebarWrapper}  `}>
-        <h2 className="text-center ">
+        <h2 className="text-center fs-2 ">
           {" "}
-          <FaUserFriends className=" fs-1 mb-1 me-2" />
-          Friends
+          <FaUserFriends className=" fs-2 mb-1 me-2" />
+          MY Friends
         </h2>
-        <hr
-          className={`${styles.sidebarHr} w-50 text-center  mx-auto shadow `}
-        />
+
         <input
           className="  form-control  border-0 mb-3  border-bottom text-dark"
           type="text"

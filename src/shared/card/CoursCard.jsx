@@ -5,7 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 const CoursCard = (props) => {
   return (
     <Card className="w-100 mb-sm-5 mb-lg-0 mx-sm-auto">
-      <Card.Img variant="top" src={props.photo} className="imgo" />
+      <Card.Img variant="top" src={props.photo} className="imgo w-50 mx-auto" />
       <Card.Body className="course-card-body">
         <Card.Title> {props.title} </Card.Title>
         <Card.Text> {props.coursedesc} </Card.Text>

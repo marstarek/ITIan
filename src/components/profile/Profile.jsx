@@ -52,7 +52,6 @@ const Profile = () => {
             avatar: url,
             avatarPath: snap.ref.fullPath,
           });
-
           setImg("");
         } catch (err) {
           console.log(err.message);
@@ -233,7 +232,7 @@ const Profile = () => {
           setcurUser(docSnap.data());
         }
       });
-  }, [refresh]);
+  }, []);
 
   return user ? (
     <>

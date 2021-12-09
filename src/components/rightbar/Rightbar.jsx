@@ -1,5 +1,10 @@
 import "./rightbar.css";
-import { BsFillBookFill, BsChatFill, BsNewspaper } from "react-icons/bs";
+import {
+  BsFillBookFill,
+  BsChatFill,
+  BsNewspaper,
+  BsSearch,
+} from "react-icons/bs";
 import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
@@ -56,6 +61,11 @@ export const RightBar = () => {
       }
     });
   }
+  const [TO2, setTO2] = useState(false);
+
+  const toggle2 = async () => {
+    setTO2(!TO2);
+  };
   return (
     <div className="rightbar">
       <div className="rightbarWrapper">
@@ -103,14 +113,17 @@ export const RightBar = () => {
         </Carousel>
 
         {/* sidebare */}
-        <input
-          className="  form-control  border-0 mb-3  border-bottom text-dark"
-          type="text"
-          name="Search"
-          placeholder="look for new friends ...."
-          autoComplete="off"
-          onChange={(event) => setQuery(event.target.value)}
-        />
+        <BsSearch className=" deleteIcon fs-2 m-1 b " onClick={toggle2} />
+        {TO2 === true ? (
+          <input
+            className="  form-control  border-0 mb-3  border-bottom text-dark"
+            type="text"
+            name="Search"
+            placeholder="look for new friends ...."
+            autoComplete="off"
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        ) : null}
 
         {users
           .filter((user, i) => {
@@ -160,14 +173,12 @@ export const RightBar = () => {
               </div>
             </div>
           ))}
-
-        <div className="rightbarContainer justify-content-center">
-          <h3 className="subhead">
-            <BsFillBookFill className="fs-3 mb-1" /> ITI News
-          </h3>
-        </div>
-
-        <hr className="w-50 text-center  mx-auto shadow " />
+        <h2 className="text-center fs-2 ">
+          {" "}
+          {/* <BsFillBookFill className=" fs-2 mb-1 me-2" /> */}
+          Events & News
+        </h2>
+        {/* <hr className="w-50 text-center  mx-auto shadow " /> */}
         <ul className="rightbarNewsList">
           {news.map((newsPost, i) => (
             <News key={i} news={newsPost} />
