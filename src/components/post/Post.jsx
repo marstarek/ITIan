@@ -119,29 +119,23 @@ export const Post = ({
           </div>
           <div className="postBottomRight">
             <BsFillHeartFill
-              className="likeIcon text-danger"
+              className={`likeIcon  ${
+                postd?.fields?.likedby?.stringValue
+                  .split(",")
+                  .includes(curUser.uid)
+                  ? "text-darck"
+                  : "text-danger"
+              }`}
               onClick={async () => {
                 await likeHandler(postd?.fields?.from?.stringValue);
               }}
             />
             <span className="postLikeCounter">
-              {!postd?.fields?.likedby?.stringValue.split(",")
-                ? 0
-                : postd?.fields?.likedby?.stringValue.split(",").includes("")
+              {postd?.fields?.likedby?.stringValue.split(",").includes("")
                 ? postd?.fields?.likedby?.stringValue.split(",").length - 1
                 : postd?.fields?.likedby?.stringValue.split(",").length}{" "}
               Likes
             </span>
-            {/* <span className="postLikeCounter">
-              {postd?.fields?.likedby?.stringValue.split(",").includes("")
-                ? postd?.fields?.likedby?.stringValue.split(",").length - 1
-                : postd?.fields?.likedby?.stringValue.split(",").length}{" "}
-              Like It
-            </span> */}
-            {/* <span className="postLikeCounter">
-              {postd?.fields?.likedby?.stringValue.split(",").length}
-              Love It
-            </span> */}
           </div>
         </div>
         <hr />

@@ -112,6 +112,7 @@ export const Feed = () => {
         media: url || "",
         like: 0,
         islike: false,
+        likedby: "",
         ownerImg: curUser.avatar,
         ownerID: curUser.uid,
         postOwnername: curUser.name,
@@ -140,7 +141,6 @@ export const Feed = () => {
           updateDoc(doc(db, "posts", posts[index].id), {
             likedby: post?.likedby + "," + curUser.uid,
           });
-
           setlikes(posts[index]?.likedby.split(",").length);
           alert(1);
           alert(likes);
@@ -153,16 +153,13 @@ export const Feed = () => {
             posts[index]?.likedby?.split(",").indexOf(curUser.uid),
             1
           );
-
           updateDoc(doc(db, "posts", posts[index].id), {
             likedby: like ? like?.join() : "",
           });
-
-          {
-            like
-              ? setlikes(posts[index]?.likedby.split(",").length)
-              : setlikes(0);
-          }
+          // {like
+          //     ? setlikes(posts[index]?.likedby.split(",").length)
+          //     : setlikes(0);
+          // }
 
           alert(+",," + "2");
         } else {

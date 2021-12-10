@@ -9,7 +9,6 @@ import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import News from "../news/News";
-// sidebare
 import { RiChat1Fill } from "react-icons/ri";
 import { FaUserFriends } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
@@ -139,7 +138,7 @@ export const RightBar = () => {
               if (Query === "") {
                 return null;
               } else if (
-                user?.name.toLowerCase().includes(Query.toLowerCase())
+                user?.name.toLowerCase().startsWith(Query.toLowerCase())
               ) {
                 return user;
               }
