@@ -52,24 +52,25 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-
-              <li className="nav-item">
-                <Link className="nav-link " to="/MyTrackPage">
-                  Front End
-                </Link>
-              </li>
-
+              {curUser?.track !== "applicant" ? (
+                <li className="nav-item">
+                  <Link className="nav-link " to="/MyTrackPage">
+                    Front End
+                  </Link>
+                </li>
+              ) : null}
               <li className="nav-item">
                 <Link className="nav-link " to="/about">
                   Tracks
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link " to="/Jobs">
-                  Jobs
-                </Link>
-              </li>
-
+              {curUser?.track !== "applicant" ? (
+                <li className="nav-item">
+                  <Link className="nav-link " to="/Jobs">
+                    Jobs
+                  </Link>
+                </li>
+              ) : null}
               {curUser?.rule === "admin" ? (
                 <li>
                   <Link className="nav-link  " to="/AdminLogin">

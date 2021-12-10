@@ -14,9 +14,11 @@ import { Timestamp, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Share from "../share/Share";
 import Post from "../post/Post";
-import FirstPost from "../post copy/firstPost";
 const diffInDate = (date1, date2) => {
   return new Date(date1).getTime() - new Date(date2).getTime();
+};
+export const diffInDateForPosts = (date1, date2) => {
+  return date1 - date2;
 };
 /* ------------------------------------imports-------------------------------------- */
 
@@ -30,9 +32,8 @@ export const Feed = () => {
   const [commentsText, setcommentsText] = useState("");
   const [img, setImg] = useState("");
   const [refresh, setrefresh] = useState(false);
-  const [I, setI] = useState();
-  const [firstPost, setfirstPost] = useState();
-  const [firstPostLike, setFirstPostLike] = useState(0);
+  const [postIndex, setpostIndex] = useState();
+
   /* ------------------------------------- END Stats------------------------------------- */
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
@@ -116,31 +117,25 @@ export const Feed = () => {
         postOwnername: curUser.name,
       });
       const docSnap = await getDoc(doc(db, "posts", id));
-      // setfirstPost({
-      //   PostText,
-      //   from: id,
-      //   createdAt: Timestamp.fromDate(new Date()),
-      //   media: url || "",
-      //   like: 0,
-      //   islike: false,
-      //   ownerImg: curUser.avatar,
-      //   postOwnername: curUser.name,
-      // });
       setPostText("");
       setImg("");
       setrefresh(!refresh);
     } else {
       alert("please say something");
     }
+    getAllPosts();
+    getposts();
   };
   /* -------------------------------------likeHandler------------------------------------- */
   const [likes, setlikes] = useState(0);
 
-  const likeHandler = async (i) => {
+  const likeHandler = async (from) => {
     await getAllPosts();
     await getposts();
     posts.filter((post, index) => {
-      if (allPosts[i].fields.from.stringValue === post.from) {
+      if (from === post.from) {
+        console.log(post);
+        console.log(allPosts[3]);
         if (post?.likedby && !post?.likedby?.includes(curUser.uid)) {
           updateDoc(doc(db, "posts", posts[index].id), {
             likedby: post?.likedby + "," + curUser.uid,
@@ -182,8 +177,8 @@ export const Feed = () => {
       }
     });
     setrefresh(!refresh);
-    await getAllPosts();
-    await getposts();
+    getAllPosts();
+    getposts();
   };
 
   /* ---------------------------------delatePost---------------------------------------- */
@@ -212,27 +207,29 @@ export const Feed = () => {
   };
 
   /* --------------------------------------commentsHandler------------------------------------ */
-  const commentsHandler = async (i) => {
+  const commentsHandler = async (postfrom, i) => {
     if (commentsText) {
       await addDoc(collection(db, "comments"), {
         commentsText,
         from: curUser.uid,
         createdAt: Timestamp.fromDate(new Date()),
-        postID: posts[i].id,
+        postID: postfrom,
         commentOwnerImg: curUser.avatar,
         commentOwnername: curUser.name,
       });
       setcommentsText("");
       setrefresh(!refresh);
-      showComments(i);
+      await showComments(postfrom);
     } else {
       alert("please say something");
     }
-    showComments(i);
+    showComments(postfrom);
+    console.log(postfrom);
   };
   /* --------------------------------------commentsHandler------------------------------------ */
-  const showComments = (i) => {
-    setI(i);
+  const showComments = (postCommentFrom) => {
+    console.log(postCommentFrom);
+    setpostIndex(postCommentFrom);
     Promise.all([
       fetch(
         "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/comments"
@@ -244,9 +241,8 @@ export const Feed = () => {
     });
   };
   /* ---------------------------------delete comment------------------------------------ */
-  const delatecomment = async (i, index) => {
+  const delatecomment = async (index, postcommentID) => {
     try {
-      showComments(i);
       if (newcomments[index].from.includes(curUser.uid)) {
         const commentDoc = doc(db, "comments", newcomments[index].id);
         await deleteDoc(commentDoc);
@@ -256,40 +252,26 @@ export const Feed = () => {
     } catch (err) {
       alert(err);
     }
+    showComments(postcommentID);
   };
   return (
     <>
       {curUser ? (
         <div className="feed">
           <div className="feedWrapper">
-            <Share
-              PostText={PostText}
-              handleSubmit={handleSubmit}
-              setPostText={setPostText}
-              setImg={setImg}
-              curUser={curUser}
-              Img={Img}
-              setQuery={setQuery}
-              query={query}
-            />
-            {/*  */}
-            {/* {firstPost && (
-              <FirstPost
-                post={firstPost}
-                Img={Img}
-                deletePost={delateFirstPost}
-                likeHandler={firstPostLikeHandler}
-                showComments={showComments}
-                comments={comments}
-                posts={posts}
-                delatecomment={delatecomment}
-                setcommentsText={setcommentsText}
-                I={I}
+            {curUser?.track !== "applicant" ? (
+              <Share
+                PostText={PostText}
+                handleSubmit={handleSubmit}
+                setPostText={setPostText}
+                setImg={setImg}
                 curUser={curUser}
-                commentsHandler={commentsHandler}
-                likes={firstPostLike}
+                Img={Img}
+                setQuery={setQuery}
+                query={query}
               />
-            )} */}
+            ) : null}
+
             {allPosts
               .filter((post, i) => {
                 if (
@@ -325,7 +307,7 @@ export const Feed = () => {
                   posts={posts}
                   delatecomment={delatecomment}
                   setcommentsText={setcommentsText}
-                  I={I}
+                  postIndex={postIndex}
                   curUser={curUser}
                   likes={likes}
                   commentsHandler={commentsHandler}

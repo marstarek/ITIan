@@ -75,7 +75,13 @@ export const NewSidebar = () => {
             }
           })
           .map((user, i) => (
-            <div key={user.uid} className={styles.user_wrapper}>
+            <div
+              key={user.uid}
+              className={styles.user_wrapper}
+              onClick={() => {
+                nav(user.uid);
+              }}
+            >
               <div className="">
                 <div className="d-flex justify-content-between align-items-center w-100">
                   <div className="d-flex justify-content-center align-items-center">
@@ -84,14 +90,10 @@ export const NewSidebar = () => {
                       alt="tarek"
                       className={styles.avatar}
                     />
-                    <h6
-                      className="mb-0"
-                      onClick={() => {
-                        nav(user.uid);
-                      }}
-                    >
-                      {user?.name}
-                    </h6>
+                    <div>
+                      <h6 className="mb-0">{user?.name}</h6>
+                      <p className="mb-0 ">{user?.track}</p>
+                    </div>
                   </div>
                   <div
                     className={`${styles.user_status} ${

@@ -14,12 +14,15 @@ import { Timestamp, getDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Share from "../share/Share";
 import Post from "../post/Post";
-import Navbar from "../../shared/layout/navbar/Navbar";
-
+const diffInDate = (date1, date2) => {
+  return new Date(date1).getTime() - new Date(date2).getTime();
+};
+export const diffInDateForPosts = (date1, date2) => {
+  return date1 - date2;
+};
 /* ------------------------------------imports-------------------------------------- */
-export const Feed = () => {
+export const MyTrackFeed = () => {
   const [query, setQuery] = useState("");
-
   const [posts, setposts] = useState([]);
   const [PostText, setPostText] = useState("");
   const [allPosts, setallPosts] = useState([]);
@@ -28,13 +31,23 @@ export const Feed = () => {
   const [commentsText, setcommentsText] = useState("");
   const [img, setImg] = useState("");
   const [refresh, setrefresh] = useState(false);
-  const [I, setI] = useState();
+  const [postIndex, setpostIndex] = useState();
+  const [firstPost, setfirstPost] = useState();
+  const [firstPostLike, setFirstPostLike] = useState(0);
   /* ------------------------------------- END Stats------------------------------------- */
   const postsCollectionRefrance = collection(db, "posts");
   const getposts = async () => {
     const postsData = await getDocs(postsCollectionRefrance);
-    setposts(postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    let x = [];
+    x = postsData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    x.sort((b, a) => {
+      return diffInDateForPosts(a.createdAt, b.createdAt);
+    });
+    setposts(x);
+
+    console.log(posts);
   };
+
   const [curUser, setcurUser] = useState();
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
@@ -47,13 +60,26 @@ export const Feed = () => {
         }
       });
   }, []);
-
-  useEffect(() => {
+  const getAllPosts = () => {
     fetch(
       "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/posts"
     )
       .then((response) => response.json())
-      .then((data) => setallPosts(data.documents));
+      .then((data) => {
+        setallPosts(
+          data.documents.sort((b, a) => {
+            return diffInDate(
+              a.fields.createdAt.timestampValue,
+              b.fields.createdAt.timestampValue
+            );
+          })
+        );
+      });
+    console.log(allPosts);
+  };
+  /* -----------------------------------getAllPosts--------------------------------------- */
+  useEffect(() => {
+    getAllPosts();
   }, []);
   /* -----------------------------------getnewcomments--------------------------------------- */
   const newcommentsCollectionRefrance = collection(db, "comments");
@@ -87,9 +113,11 @@ export const Feed = () => {
         like: 0,
         islike: false,
         ownerImg: curUser.avatar,
+        ownerID: curUser.uid,
         postOwnername: curUser.name,
       });
       const docSnap = await getDoc(doc(db, "posts", id));
+
       setPostText("");
       setImg("");
       setrefresh(!refresh);
@@ -98,31 +126,88 @@ export const Feed = () => {
     }
   };
   /* -------------------------------------likeHandler------------------------------------- */
+  const [likes, setlikes] = useState(0);
+
   const likeHandler = async (i) => {
-    await updateDoc(doc(db, "posts", posts[i].id), {
-      islike: !posts[i].islike,
-      like: posts[i].islike ? posts[i].like - 1 : posts[i].like + 1,
+    await getAllPosts();
+    await getposts();
+    posts.filter((post, index) => {
+      if (allPosts[i].fields.from.stringValue === post.from) {
+        if (post?.likedby && !post?.likedby?.includes(curUser.uid)) {
+          updateDoc(doc(db, "posts", posts[index].id), {
+            likedby: post?.likedby + "," + curUser.uid,
+          });
+
+          setlikes(posts[index]?.likedby.split(",").length);
+          alert(1);
+          alert(likes);
+        } else if (
+          posts[index]?.likedby?.includes(curUser.uid) ||
+          posts[index]?.likedby === curUser.uid
+        ) {
+          let like = posts[index]?.likedby?.split(",");
+          like.splice(
+            posts[index]?.likedby?.split(",").indexOf(curUser.uid),
+            1
+          );
+
+          updateDoc(doc(db, "posts", posts[index].id), {
+            likedby: like ? like?.join() : "",
+          });
+
+          {
+            like
+              ? setlikes(posts[index]?.likedby.split(",").length)
+              : setlikes(0);
+          }
+
+          alert(+",," + "2");
+        } else {
+          updateDoc(doc(db, "posts", posts[index].id), {
+            likedby: curUser.uid,
+          });
+
+          // setlikes(posts[index]?.likedby.split(",").length);
+          alert(3);
+          alert(likes);
+        }
+      }
     });
     setrefresh(!refresh);
+    await getAllPosts();
+    await getposts();
   };
+
   /* ---------------------------------delatePost---------------------------------------- */
 
   const delatePost = async (i) => {
-    try {
-      if (posts[i].from.includes(curUser.uid)) {
-        const postDoc = doc(db, "posts", posts[i].id);
-        await deleteDoc(postDoc);
-        setrefresh(!refresh);
-      } else {
+    posts.filter((post, index) => {
+      if (allPosts[i].fields.from.stringValue === post.from) {
+        try {
+          if (
+            posts[index].from.includes(curUser.uid) ||
+            curUser.rule === "admin"
+          ) {
+            const postDoc = doc(db, "posts", posts[index].id);
+            deleteDoc(postDoc);
+            setrefresh(!refresh);
+          } else {
+          }
+          setrefresh(!refresh);
+        } catch (err) {
+          alert(err);
+        }
       }
-      setrefresh(!refresh);
-    } catch (err) {
-      alert(err);
-    }
+    });
+    getAllPosts();
+    getposts();
   };
 
   /* --------------------------------------commentsHandler------------------------------------ */
   const commentsHandler = async (i) => {
+    console.log(allPosts);
+    console.log(posts);
+    console.log(i);
     if (commentsText) {
       await addDoc(collection(db, "comments"), {
         commentsText,
@@ -138,10 +223,11 @@ export const Feed = () => {
     } else {
       alert("please say something");
     }
+    showComments(i);
   };
   /* --------------------------------------commentsHandler------------------------------------ */
   const showComments = (i) => {
-    setI(i);
+    setpostIndex(i);
     Promise.all([
       fetch(
         "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/comments"
@@ -184,7 +270,7 @@ export const Feed = () => {
             />
 
             {allPosts
-              .filter((postd, i) => {
+              .filter((postd) => {
                 if (
                   postd.fields.PostText.stringValue
                     .toLowerCase()
@@ -193,7 +279,7 @@ export const Feed = () => {
                   return postd;
                 }
               })
-              .filter((postz, i) => {
+              .filter((postz) => {
                 if (query === "") {
                   return postz;
                 } else if (
@@ -217,7 +303,7 @@ export const Feed = () => {
                   posts={posts}
                   delatecomment={delatecomment}
                   setcommentsText={setcommentsText}
-                  I={I}
+                  postIndex={postIndex}
                   curUser={curUser}
                   commentsHandler={commentsHandler}
                 />
@@ -245,4 +331,4 @@ export const Feed = () => {
     </>
   );
 };
-export default Feed;
+export default MyTrackFeed;

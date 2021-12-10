@@ -4,7 +4,7 @@ import {
   BsSun,
   BsKeyboard,
   BsTools,
-  BsFileEarmarkPerson,
+  BsBank,
   BsTagsFill,
   BsGenderAmbiguous,
   BsFlagFill,
@@ -77,44 +77,71 @@ const AboutTrack = () => {
           </p>
           <div className='apply-container row mt-5     justify-content-center'>
             <article className='apply-item col-md-6 col-lg-2 '>
-              <h5 className='item_head'> Gender </h5>
+              <p className='d-flex'>
+                {" "}
+                <h5 className='item_head'> Gender</h5>{" "}
+                <h5>
+                  {" "}
+                  <BsGenderAmbiguous className='d-flex mx-2' size={25} />
+                </h5>
+              </p>
               <ul>
                 {" "}
-                <BsGenderAmbiguous className='d-flex mx-4' size={25} />
                 <li> Male , Female </li>{" "}
               </ul>{" "}
             </article>
             <article className='apply-item  col-md-6 col-lg-2'>
-              <h5 className='item_head'> Nationality </h5>
+              <p className='d-flex'>
+                {" "}
+                <h5 className='item_head'> Nationality </h5>{" "}
+                <h5>
+                  {" "}
+                  <BsFlagFill className='d-flex mx-2' size={25} />
+                </h5>
+              </p>
               <ul>
                 {" "}
-                <BsFlagFill className='d-flex mx-4' size={25} />
                 <li> Egyptians </li>
               </ul>{" "}
             </article>
             <article className='apply-item  col-md-6 col-lg-2'>
-              <h5 className='item_head'> Educational Degree </h5>
+              <p className='d-flex'>
+                {" "}
+                <h5 className='item_head '>Degree </h5>{" "}
+                <h5>
+                  <BsBank className='d-flex ms-2' size={30} />{" "}
+                </h5>
+              </p>
               <ul>
                 {" "}
-                <BsFileEarmarkPerson className='d-flex mx-5' size={30} />
                 <li> Bachelor Degree </li>
               </ul>{" "}
             </article>
-            <article className='apply-item  col-md-6 col-lg-2'>
-              <h5 className='item_head'> Military Service </h5>
+            <article className='apply-item  col-md-6 col-lg-2 '>
+              <p className='d-flex'>
+                {" "}
+                <h5 className='item_head'> Military Service </h5>{" "}
+                <h5>
+                  {" "}
+                  <BsTagsFill className='d-flex mx-2' size={25} />
+                </h5>
+              </p>
               <ul>
                 {" "}
-                <BsTagsFill className='d-inline mx-4' size={25} />{" "}
-                <BsTagsFill className='d-inline mx-1' size={25} />
                 <li> Defered, Exempted or Completed </li>
               </ul>
             </article>
             <article className='apply-item  col-md-6 col-lg-2'>
-              <h5 className='item_head'> Graduation Year </h5>
+              <p className='d-flex'>
+                {" "}
+                <h5 className='item_head'> Graduation Year </h5>{" "}
+                <h5>
+                  {" "}
+                  <BsFillAwardFill className='d-flex mx-2' size={25} />
+                </h5>
+              </p>
               <ul>
                 {" "}
-                <BsFillAwardFill className='d-inline mx-4' size={25} />{" "}
-                <BsFillAwardFill className='d-inline mx-2' size={25} />{" "}
                 <li>Last 10 Years (not always 10 years) </li>
               </ul>
             </article>

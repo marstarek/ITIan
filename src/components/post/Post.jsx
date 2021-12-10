@@ -18,7 +18,7 @@ export const Post = ({
   posts,
   delatecomment,
   setcommentsText,
-  I,
+  postIndex,
   commentsHandler,
   curUser,
 }) => {
@@ -111,7 +111,7 @@ export const Post = ({
               <BsChatSquareTextFill
                 className="deleteIcon me-1  fs-4 text-danger"
                 onClick={() => {
-                  showComments(i);
+                  showComments(postd.fields.from.stringValue);
                 }}
               />
               Comments
@@ -121,17 +121,26 @@ export const Post = ({
             <BsFillHeartFill
               className="likeIcon text-danger"
               onClick={async () => {
-                await likeHandler(i);
+                await likeHandler(postd?.fields?.from?.stringValue);
               }}
             />
             <span className="postLikeCounter">
+              {!postd?.fields?.likedby?.stringValue.split(",")
+                ? 0
+                : postd?.fields?.likedby?.stringValue.split(",").includes("")
+                ? postd?.fields?.likedby?.stringValue.split(",").length - 1
+                : postd?.fields?.likedby?.stringValue.split(",").length}{" "}
+              Likes
+            </span>
+            {/* <span className="postLikeCounter">
               {postd?.fields?.likedby?.stringValue.split(",").includes("")
                 ? postd?.fields?.likedby?.stringValue.split(",").length - 1
                 : postd?.fields?.likedby?.stringValue.split(",").length}{" "}
               Like It
-            </span>
+            </span> */}
             {/* <span className="postLikeCounter">
-              {postd?.fields?.likedby?.stringValue.split(",").length} Like It
+              {postd?.fields?.likedby?.stringValue.split(",").length}
+              Love It
             </span> */}
           </div>
         </div>
@@ -140,12 +149,17 @@ export const Post = ({
           {comments ? (
             <div>
               {comments.map((comment, index) => {
-                if (comment.fields.postID.stringValue === posts[i]?.id) {
+                if (
+                  comment.fields.postID.stringValue ===
+                  postd.fields.from?.stringValue
+                ) {
                   return (
                     <div
                       key={index}
                       className={` D-non ${
-                        I === i ? "d-flex" : "d-none "
+                        postIndex === postd.fields.from?.stringValue
+                          ? "d-flex"
+                          : "d-none "
                       } m-2 p-2  row g-0  justify-content-around   `}
                     >
                       <div className="col-1 me-3">
@@ -182,7 +196,10 @@ export const Post = ({
                           <BsFillXCircleFill
                             className="fs-4 text-danger deleteIcon "
                             onClick={() => {
-                              delatecomment(i, index);
+                              delatecomment(
+                                index,
+                                comment.fields.postID.stringValue
+                              );
                             }}
                           />
                         )}
@@ -206,7 +223,7 @@ export const Post = ({
             className="shareButton  btn-sm fs-6
             "
             onClick={() => {
-              commentsHandler(i);
+              commentsHandler(postd.fields.from?.stringValue);
             }}
           >
             Comment

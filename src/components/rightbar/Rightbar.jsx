@@ -120,7 +120,7 @@ export const RightBar = () => {
                 onClick={toggle2}
               />
             </div>
-            <p className=" text-center">look for new friends</p>
+            <p className="opacity-50 text-center">look for new friends</p>
           </div>
           <div className="">
             {TO2 === true ? (

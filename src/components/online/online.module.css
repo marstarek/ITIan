@@ -35,7 +35,6 @@
     color: rgb(144, 27, 32);
     font-size: 14px;
     white-space: nowrap;
-    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     flex-wrap: wrap;

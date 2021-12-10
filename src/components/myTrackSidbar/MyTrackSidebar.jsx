@@ -62,10 +62,8 @@ export const MyTrackSidebar = () => {
         </div>
 
         <div className="text-center">
-          <h3>
-            <FaUserFriends />
-            Front End Friends
-          </h3>
+          <FaUserFriends className="text-center fs-2 text-danger  " />
+          <h2 className="text-center fs-2 ">Front End Friends</h2>
         </div>
         <hr className={styles.sidebarHr} />
         <input
