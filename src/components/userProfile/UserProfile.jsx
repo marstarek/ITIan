@@ -1,14 +1,11 @@
 import "./userprofile.css";
 import Navbar from "../../shared/layout/navbar/Navbar";
-
 import Img from "../../image1.jpg";
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-
 import { storage, db, auth } from "../../firebase-config";
 import NewSidebar from "../newSidbar/NewSidebar";
 import { BsTrashFill } from "react-icons/bs";
-
 import {
   collection,
   getDocs,
@@ -37,42 +34,20 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
     });
   }, []);
   /* ---------------------------------msg----------------------------------------- */
-  const [data, setData] = useState("");
-  const user2 = user?.uid;
-  useEffect(() => {
-    const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
-    let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
-      setData(doc.data());
-    });
-    return () => unsub();
-  }, []);
+
   /* -------------------------------------------------------------------------- */
-  const [myprofile, setmyprofile] = useState([]);
-  const [myNEWprofile, setmyNEWprofile] = useState(null);
-
-  const myprofileCollectionRefrance = collection(db, "myprofile");
-  const getmyprofile = async () => {
-    const myprofileData = await getDocs(myprofileCollectionRefrance);
-    await setmyprofile(
-      myprofileData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    );
-  };
-
-  useEffect(() => {
-    getmyprofile();
-  }, []);
-
-  useEffect(() => {
+  const GetUsers = () => {
     Promise.all([
       fetch(
-        "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/myprofile"
+        "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/databases/(default)/documents/users"
       )
         .then((value) => value.json())
-        .then((value) => setmyNEWprofile(value.documents)),
+        .then((value) => setUsers(value.documents)),
     ]).catch((err) => {
       console.log(err);
     });
-  }, []);
+  };
+
   useEffect(() => {
     Promise.all([
       fetch(
@@ -102,17 +77,14 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
         }
       });
   }, []);
-  console.log(curUser);
-
   const [followToggle, setfollowToggle] = useState();
-
-  const follow = () => {
+  const follow = async () => {
     if (
       !users[paramz.location.params]?.fields?.follow?.stringValue?.includes(
         auth.currentUser.uid
       )
     ) {
-      updateDoc(
+      await updateDoc(
         doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
         {
           follow:
@@ -121,7 +93,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
             auth.currentUser.uid,
         }
       );
-      updateDoc(doc(db, "users", auth.currentUser.uid), {
+      await updateDoc(doc(db, "users", auth.currentUser.uid), {
         following:
           curUser.following +
           "," +
@@ -145,20 +117,19 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
           .indexOf(users[paramz.location.params]?.fields?.uid?.stringValue),
         1
       );
-
-      updateDoc(
+      await updateDoc(
         doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
         {
           follow: splitedfollow.join(),
         }
       );
-      updateDoc(doc(db, "users", auth.currentUser.uid), {
+      await updateDoc(doc(db, "users", auth.currentUser.uid), {
         following: splitedfollowing.join(),
       });
       setfollowToggle("Follow");
     }
+    GetUsers();
   };
-
   return user && users ? (
     <>
       <Navbar />
