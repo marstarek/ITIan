@@ -129,21 +129,17 @@ export const Feed = () => {
   };
   /* -------------------------------------likeHandler------------------------------------- */
   const [likes, setlikes] = useState(0);
-
   const likeHandler = async (from) => {
     await getAllPosts();
     await getposts();
-    posts.filter((post, index) => {
+    posts.filter(async (post, index) => {
       if (from === post.from) {
-        console.log(post);
-        console.log(allPosts[3]);
         if (post?.likedby && !post?.likedby?.includes(curUser.uid)) {
-          updateDoc(doc(db, "posts", posts[index].id), {
+          await updateDoc(doc(db, "posts", posts[index].id), {
             likedby: post?.likedby + "," + curUser.uid,
           });
           setlikes(posts[index]?.likedby.split(",").length);
-          alert(1);
-          alert(likes);
+          await getAllPosts();
         } else if (
           posts[index]?.likedby?.includes(curUser.uid) ||
           posts[index]?.likedby === curUser.uid
@@ -153,29 +149,19 @@ export const Feed = () => {
             posts[index]?.likedby?.split(",").indexOf(curUser.uid),
             1
           );
-          updateDoc(doc(db, "posts", posts[index].id), {
+          await updateDoc(doc(db, "posts", posts[index].id), {
             likedby: like ? like?.join() : "",
           });
-          // {like
-          //     ? setlikes(posts[index]?.likedby.split(",").length)
-          //     : setlikes(0);
-          // }
-
-          alert(+",," + "2");
+          await getAllPosts();
         } else {
-          updateDoc(doc(db, "posts", posts[index].id), {
+          await updateDoc(doc(db, "posts", posts[index].id), {
             likedby: curUser.uid,
           });
-
-          // setlikes(posts[index]?.likedby.split(",").length);
-          alert(3);
-          alert(likes);
+          await getAllPosts();
         }
       }
     });
     setrefresh(!refresh);
-    getAllPosts();
-    getposts();
   };
 
   /* ---------------------------------delatePost---------------------------------------- */
