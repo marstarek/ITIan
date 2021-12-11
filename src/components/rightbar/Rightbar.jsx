@@ -60,8 +60,20 @@ export const RightBar = () => {
       }
     });
   }
+  // function nav(Uid) {
+  //   users.filter((user, i) => {
+  //     if (Uid === user.uid) {
+  //       localStorage.setItem("index", i);
+  //       setnewIndex(i);
+  //       history.push({
+  //         pathname: "/UserProfile",
+  //         params: i,
+  //       });
+  //     }
+  //   });
+  // }
   const [TO2, setTO2] = useState(false);
-
+  console.log(users);
   const toggle2 = async () => {
     setTO2(!TO2);
   };
@@ -134,6 +146,11 @@ export const RightBar = () => {
             ) : null}
           </div>
           {users
+            .filter((user, i) => {
+              if (user.uid !== auth.currentUser.uid) {
+                return user;
+              }
+            })
             .filter((user, i) => {
               if (Query === "") {
                 return null;

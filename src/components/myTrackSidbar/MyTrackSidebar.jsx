@@ -34,12 +34,12 @@ export const MyTrackSidebar = () => {
   function nav(Uid) {
     users.filter((user, i) => {
       if (Uid === user.uid) {
+        localStorage.setItem("index", i);
+
         setnewIndex(i);
         history.push({
           pathname: "/UserProfile",
-          params: i,
         });
-        console.log(i);
       }
     });
   }

@@ -80,6 +80,7 @@ const Register = () => {
         CONTACTS: "",
         rule: "user",
         track: values.Itian[0],
+        following: "vMsaYyksVAMCoGbT2hY7y0M7CjG2",
       });
       setData({
         name: "",
@@ -251,7 +252,7 @@ const Register = () => {
             }}
           </Formik>
           <p className="text-center">
-            Already a user ?
+            Already a user?{" "}
             <Link to="/login" className="text-danger">
               Log In
             </Link>

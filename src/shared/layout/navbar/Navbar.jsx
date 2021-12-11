@@ -30,7 +30,7 @@ const Navbar = () => {
     <>
       <nav className="navBar navbar navbar-expand-lg navbar-dark sticky-top  ">
         <div className="container-fluid">
-          <h5 className="text-light">ITI Community</h5>
+          <h5 className="text-light">ITIian</h5>
           <button
             class="navbar-toggler"
             type="button"
@@ -48,38 +48,38 @@ const Navbar = () => {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link " to="/">
+                <Link className="nav-link text-white " to="/">
                   Home
                 </Link>
               </li>
               {curUser?.track !== "applicant" ? (
                 <li className="nav-item">
-                  <Link className="nav-link " to="/MyTrackPage">
+                  <Link className="nav-link  text-white" to="/MyTrackPage">
                     Front End
                   </Link>
                 </li>
               ) : null}
               <li className="nav-item">
-                <Link className="nav-link " to="/about">
+                <Link className="nav-link text-white " to="/about">
                   Tracks
                 </Link>
               </li>
               {curUser?.track !== "applicant" ? (
                 <li className="nav-item">
-                  <Link className="nav-link " to="/Jobs">
+                  <Link className="nav-link text-white " to="/Jobs">
                     Jobs
                   </Link>
                 </li>
               ) : null}
               {curUser?.rule === "admin" ? (
                 <li>
-                  <Link className="nav-link  " to="/AdminLogin">
+                  <Link className="nav-link text-white  " to="/AdminLogin">
                     AdminHome
                   </Link>
                 </li>
               ) : null}
               <li>
-                <Link className="nav-link " onClick={handleSignout}>
+                <Link className="nav-link text-white " onClick={handleSignout}>
                   <BsBoxArrowRight className=" fs-4 my-auto" />
                   Sign Out
                 </Link>
@@ -91,7 +91,7 @@ const Navbar = () => {
               <>
                 <div className="profile">
                   <Link
-                    className="text-light fs-5 text-capitalize"
+                    className="text-white fs-5 text-capitalize"
                     to="/Profile"
                   >
                     {curUser.name}

@@ -207,7 +207,7 @@ export const Feed = () => {
       alert("please say something");
     }
     showComments(postfrom);
-    console.log(postfrom);
+    setcommentsText("");
   };
   /* --------------------------------------commentsHandler------------------------------------ */
   const showComments = (postCommentFrom) => {

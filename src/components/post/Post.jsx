@@ -218,6 +218,7 @@ export const Post = ({
             "
             onClick={() => {
               commentsHandler(postd.fields.from?.stringValue);
+              
             }}
           >
             Comment

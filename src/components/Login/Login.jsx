@@ -4,11 +4,7 @@ import FormikField from "../../shared/form/FormikField";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { auth, db } from "../../firebase-config";
-import {
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { updateDoc, doc } from "firebase/firestore";
 import styles from "./Login.module.css";
 const validationSchema = yup.object({
@@ -107,7 +103,7 @@ const Login = () => {
           </Form>
         </Formik>
         <p className="text-center">
-          Not a user ?
+          Not a user?{" "}
           <Link to="/register" className="text-danger">
             Sign Up
           </Link>

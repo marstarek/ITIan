@@ -237,7 +237,7 @@ export const AdminHome = () => {
                         <CountUp
                           delay={0}
                           start={0}
-                          end={posts}
+                          end={news}
                           duration={3}
                           useEasing
                         />

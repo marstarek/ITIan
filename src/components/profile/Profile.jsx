@@ -28,12 +28,16 @@ const Profile = () => {
   const confirmPasswordRef = useRef();
   const newPasswordRef = useRef();
   const currentPasswordRef = useRef();
-  useEffect(() => {
+  const GetUser = () => {
     getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
       if (docSnap.exists) {
         setUser(docSnap.data());
       }
     });
+  };
+
+  useEffect(() => {
+    GetUser();
 
     if (img) {
       const uploadImg = async () => {
@@ -76,67 +80,27 @@ const Profile = () => {
         history.replace("/");
       }
     } catch (err) {
-      console.log(err.message);
+      alert(err.message);
     }
+    GetUser();
   };
   /* -------------------------------------------------------------------------- */
-  const [myprofile, setmyprofile] = useState([]);
   const [error, setError] = useState("");
-  const [myNEWprofile, setmyNEWprofile] = useState(null);
   const [SKILLS, setSKILLS] = useState("");
   const [EXPERIANCES, setEXPERIANCES] = useState("");
   const [CONTACTS, setCONTACTS] = useState("");
-  const [newSkills, setnewSkills] = useState([]);
-  const [newEXPERIANCES, setnewEXPERIANCES] = useState([]);
-  const [newCONTACTS, setnewCONTACTS] = useState([]);
-  const myprofileCollectionRefrance = collection(db, "myprofile");
+
   const [userr, setUserr] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const getmyprofile = async () => {
-    const myprofileData = await getDocs(myprofileCollectionRefrance);
-    await setmyprofile(
-      myprofileData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    );
-  };
 
   useEffect(() => {
-    getmyprofile();
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUserr(user);
-      setLoading(false);
     });
 
     return unsubscribe;
   }, []);
-  const saveChangs = async (e) => {
-    if (SKILLS.trim()) {
-      await updateDoc(doc(db, "users", auth.currentUser.uid), {
-        SKILLS: SKILLS,
-      });
-      setrefresh(!refresh);
-    } else {
-      alert("enter your skills");
-    }
-    if (EXPERIANCES.trim()) {
-      await updateDoc(doc(db, "users", auth.currentUser.uid), {
-        EXPERIANCES: EXPERIANCES,
-      });
-      setrefresh(!refresh);
-    } else {
-      alert("enter your EXPERIANCES");
-    }
-    if (CONTACTS.trim()) {
-      await updateDoc(doc(db, "users", auth.currentUser.uid), {
-        CONTACTS: CONTACTS,
-      });
-      setrefresh(!refresh);
-    } else {
-      alert("enter your CONTACTS");
-    }
-    getmyprofile();
-  };
-  const [TO1, setTO1] = useState(true);
 
+  const [TO1, setTO1] = useState(true);
   const toggle1 = async () => {
     if (!TO1) {
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
@@ -144,6 +108,7 @@ const Profile = () => {
       });
     }
     setTO1(!TO1);
+    GetUser();
   };
   const [TO2, setTO2] = useState(true);
 
@@ -154,6 +119,7 @@ const Profile = () => {
       });
     }
     setTO2(!TO2);
+    GetUser();
   };
   const [TO3, setTO3] = useState(true);
 
@@ -164,6 +130,7 @@ const Profile = () => {
       });
     }
     setTO3(!TO3);
+    GetUser();
   };
   /////////
   const [TO4, setTO4] = useState(true);
@@ -202,17 +169,7 @@ const Profile = () => {
     }
   };
   //////
-  useEffect(() => {
-    Promise.all([
-      fetch(
-        "https://firestore.googleapis.com/v1/projects/new-test-7e4d3/(default)/documents/myprofile"
-      )
-        .then((value) => value.json())
-        .then((value) => setmyNEWprofile(value.documents)),
-    ]).catch((err) => {
-      console.log(err);
-    });
-  }, []);
+
   const changepassword = async () => {
     if (newPasswordRef?.current?.value?.length > 5) {
       try {
@@ -319,7 +276,7 @@ const Profile = () => {
                   {TO1 ? (
                     <>
                       <ul className="text-center">
-                        {user?.SKILLS?.split(" ").map((E, i) => {
+                        {user?.SKILLS?.split(",").map((E, i) => {
                           return <li key={i}>{E}</li>;
                         })}
                       </ul>

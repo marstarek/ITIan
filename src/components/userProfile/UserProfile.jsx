@@ -32,6 +32,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
         // console.log(user);
       }
     });
+    // localStorag();
   }, []);
   /* ---------------------------------msg----------------------------------------- */
 
@@ -60,13 +61,11 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
     });
     // getFollowersNum();
   }, []);
-  const history = useHistory();
-  function nav(x) {
-    history.push({
-      pathname: "/MessagesPage",
-      params: x,
-    });
-  }
+  // const [paramz.location.params, setparamz.location.params] = useState(paramz.location.params);
+  // const localStorag = () => {
+  //   // setparamz.location.params(localStorage.getItem("index"));
+  // };
+
   const [curUser, setcurUser] = useState();
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
@@ -139,14 +138,14 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
             <div class="row firstsec">
               <div class="col-7 ">
                 <h2 class="  text-white text-lg-start text-capitalize">
-                  {users[paramz.location.params].fields.name.stringValue}
+                  {users[paramz?.location.params]?.fields.name.stringValue}
                 </h2>
                 <h4 class="text-white  text-capitalize  ">
-                  {users[paramz.location.params].fields.track.stringValue}
+                  {users[paramz.location.params]?.fields.track.stringValue}
                 </h4>
 
                 <ul className="text-left text-white mt-0 mb-5 py-1 lh-2">
-                  {users[paramz.location.params].fields?.CONTACTS?.stringValue
+                  {users[paramz.location.params]?.fields?.CONTACTS?.stringValue
                     .split(",")
                     .map((C, i) => {
                       return (
@@ -208,8 +207,8 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                 <figure className="d-flex">
                   <img
                     src={
-                      users[paramz.location.params].fields.avatar.stringValue ||
-                      Img
+                      users[paramz.location.params]?.fields.avatar
+                        .stringValue || Img
                     }
                     class="   user-profile-img "
                     alt="userprofile "
@@ -226,7 +225,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                       {" "}
                       {users[
                         paramz.location.params
-                      ].fields.follow?.stringValue.includes(
+                      ]?.fields.follow?.stringValue.includes(
                         auth.currentUser.uid
                       ) ? (
                         <span>unFollow</span>
@@ -271,7 +270,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
               <div className="userprofilecard p-2">
                 <>
                   <ul className="text-center p-2">
-                    {users[paramz.location.params].fields?.SKILLS?.stringValue
+                    {users[paramz.location.params]?.fields?.SKILLS?.stringValue
                       .split(",")
                       .map((s, i) => {
                         return <li key={i}>{s}</li>;

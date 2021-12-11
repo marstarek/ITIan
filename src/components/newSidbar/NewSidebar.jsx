@@ -30,6 +30,19 @@ export const NewSidebar = () => {
     return () => unsub();
   }, []);
   const history = useHistory();
+  // function nav(Uid) {
+  //   users.filter((user, i) => {
+  //     if (Uid === user.uid) {
+  //       localStorage.setItem("index", i);
+
+  //       setnewIndex(i);
+  //       history.push({
+  //         pathname: "/UserProfile",
+  //       });
+  //       console.log(i);
+  //     }
+  //   });
+  // }
   function nav(Uid) {
     users.filter((user, i) => {
       if (Uid === user.uid) {
