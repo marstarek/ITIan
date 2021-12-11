@@ -61,14 +61,15 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
     });
     // getFollowersNum();
   }, []);
-  // const [paramz.location.params, setparamz.location.params] = useState(paramz.location.params);
-  // const localStorag = () => {
-  //   // setparamz.location.params(localStorage.getItem("index"));
-  // };
 
+  const [userindex, setuserindex] = useState();
+  const GetUserIndex = () => {
+    setuserindex(localStorage.getItem("index"));
+  };
   const [curUser, setcurUser] = useState();
   /* -------------------------------------useEffect------------------------------------- */
   useEffect(() => {
+    GetUserIndex();
     auth?.currentUser &&
       getDoc(doc(db, "users", auth.currentUser?.uid)).then((docSnap) => {
         if (docSnap.exists()) {
@@ -79,33 +80,31 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
   const [followToggle, setfollowToggle] = useState();
   const follow = async () => {
     if (
-      !users[paramz.location.params]?.fields?.follow?.stringValue?.includes(
+      !users[userindex]?.fields?.follow?.stringValue?.includes(
         auth.currentUser.uid
       )
     ) {
       await updateDoc(
-        doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
+        doc(db, "users", users[userindex].fields.uid.stringValue),
         {
           follow:
-            users[paramz.location.params]?.fields?.follow?.stringValue +
+            users[userindex]?.fields?.follow?.stringValue +
             "," +
             auth.currentUser.uid,
         }
       );
       await updateDoc(doc(db, "users", auth.currentUser.uid), {
         following:
-          curUser.following +
-          "," +
-          users[paramz.location.params]?.fields?.uid?.stringValue,
+          curUser.following + "," + users[userindex]?.fields?.uid?.stringValue,
       });
       setfollowToggle("unFollow");
     } else {
       let splitedfollow =
-        users[paramz.location.params]?.fields?.follow?.stringValue.split(",");
+        users[userindex]?.fields?.follow?.stringValue.split(",");
       let splitedfollowing = curUser.following?.split(",");
 
       splitedfollow.splice(
-        users[paramz.location.params]?.fields?.follow?.stringValue
+        users[userindex]?.fields?.follow?.stringValue
           .split(",")
           .indexOf(auth.currentUser.uid),
         1
@@ -113,11 +112,11 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
       splitedfollowing.splice(
         curUser.following
           ?.split(",")
-          .indexOf(users[paramz.location.params]?.fields?.uid?.stringValue),
+          .indexOf(users[userindex]?.fields?.uid?.stringValue),
         1
       );
       await updateDoc(
-        doc(db, "users", users[paramz.location.params].fields.uid.stringValue),
+        doc(db, "users", users[userindex].fields.uid.stringValue),
         {
           follow: splitedfollow.join(),
         }
@@ -138,14 +137,14 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
             <div class="row firstsec">
               <div class="col-7 ">
                 <h2 class="  text-white text-lg-start text-capitalize">
-                  {users[paramz?.location.params]?.fields.name.stringValue}
+                  {users[userindex]?.fields.name.stringValue}
                 </h2>
                 <h4 class="text-white  text-capitalize  ">
-                  {users[paramz.location.params]?.fields.track.stringValue}
+                  {users[userindex]?.fields.track.stringValue}
                 </h4>
 
                 <ul className="text-left text-white mt-0 mb-5 py-1 lh-2">
-                  {users[paramz.location.params]?.fields?.CONTACTS?.stringValue
+                  {users[userindex]?.fields?.CONTACTS?.stringValue
                     .split(",")
                     .map((C, i) => {
                       return (
@@ -156,48 +155,46 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                     })}
                 </ul>
                 <div className="follow-counter d-flex ">
-                  {users?.[
-                    paramz.location.params
-                  ]?.fields?.follow?.stringValue.includes("undefined") ||
-                  users?.[
-                    paramz.location.params
-                  ]?.fields?.follow?.stringValue.includes("") ? (
+                  {users?.[userindex]?.fields?.follow?.stringValue.includes(
+                    "undefined"
+                  ) ||
+                  users?.[userindex]?.fields?.follow?.stringValue.includes(
+                    ""
+                  ) ? (
                     <h6 className="text-light me-2">
                       followers:{" "}
-                      {users[
-                        paramz.location.params
-                      ]?.fields?.follow?.stringValue.split(",").length - 1}
+                      {users[userindex]?.fields?.follow?.stringValue.split(",")
+                        .length - 1}
                     </h6>
                   ) : (
                     <h6 className="text-light me-2">
                       followers:{" "}
                       {
-                        users[
-                          paramz.location.params
-                        ]?.fields?.follow?.stringValue.split(",").length
+                        users[userindex]?.fields?.follow?.stringValue.split(",")
+                          .length
                       }
                     </h6>
                   )}
                   {/* following */}
-                  {users?.[
-                    paramz.location.params
-                  ]?.fields?.following?.stringValue.includes("undefined") ||
-                  users?.[
-                    paramz.location.params
-                  ]?.fields?.following?.stringValue.includes("") ? (
+                  {users?.[userindex]?.fields?.following?.stringValue.includes(
+                    "undefined"
+                  ) ||
+                  users?.[userindex]?.fields?.following?.stringValue.includes(
+                    ""
+                  ) ? (
                     <h6 className="text-light ms-2">
                       following:
-                      {users[
-                        paramz.location.params
-                      ]?.fields?.following?.stringValue.split(",").length - 1}
+                      {users[userindex]?.fields?.following?.stringValue.split(
+                        ","
+                      ).length - 1}
                     </h6>
                   ) : (
                     <h6 className="text-light ms-2">
                       following:
                       {
-                        users[
-                          paramz.location.params
-                        ]?.fields?.following?.stringValue.split(",").length
+                        users[userindex]?.fields?.following?.stringValue.split(
+                          ","
+                        ).length
                       }
                     </h6>
                   )}
@@ -206,10 +203,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
               <div class="card-profile-image col-4 d-flex ">
                 <figure className="d-flex">
                   <img
-                    src={
-                      users[paramz.location.params]?.fields.avatar
-                        .stringValue || Img
-                    }
+                    src={users[userindex].fields.avatar.stringValue || Img}
                     class="   user-profile-img "
                     alt="userprofile "
                   />
@@ -223,9 +217,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
                   ) : (
                     <>
                       {" "}
-                      {users[
-                        paramz.location.params
-                      ]?.fields.follow?.stringValue.includes(
+                      {users[userindex]?.fields.follow?.stringValue.includes(
                         auth.currentUser.uid
                       ) ? (
                         <span>unFollow</span>
@@ -250,9 +242,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
               </button>
               <div className="userprofilecard p-2">
                 <ul className="text-center p-2  ">
-                  {users[
-                    paramz.location.params
-                  ].fields?.EXPERIANCES?.stringValue
+                  {users[userindex].fields?.EXPERIANCES?.stringValue
                     .split(",")
                     .map((E, i) => {
                       return <li key={i}>{E}</li>;
@@ -270,7 +260,7 @@ const UserProfile = (paramz, { user1, selectUser, chat }) => {
               <div className="userprofilecard p-2">
                 <>
                   <ul className="text-center p-2">
-                    {users[paramz.location.params]?.fields?.SKILLS?.stringValue
+                    {users[userindex]?.fields?.SKILLS?.stringValue
                       .split(",")
                       .map((s, i) => {
                         return <li key={i}>{s}</li>;

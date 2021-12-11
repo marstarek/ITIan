@@ -48,30 +48,30 @@ export const RightBar = () => {
     return () => unsub();
   }, []);
   const history = useHistory();
-  function nav(Uid) {
-    users.filter((user, i) => {
-      if (Uid === user.uid) {
-        setnewIndex(i);
-        history.push({
-          pathname: "/UserProfile",
-          params: i,
-        });
-        console.log(i);
-      }
-    });
-  }
   // function nav(Uid) {
   //   users.filter((user, i) => {
   //     if (Uid === user.uid) {
-  //       localStorage.setItem("index", i);
   //       setnewIndex(i);
   //       history.push({
   //         pathname: "/UserProfile",
   //         params: i,
   //       });
+  //       console.log(i);
   //     }
   //   });
   // }
+  function nav(Uid) {
+    users.filter((user, i) => {
+      if (Uid === user.uid) {
+        localStorage.setItem("index", i);
+        setnewIndex(i);
+        history.push({
+          pathname: "/UserProfile",
+          params: i,
+        });
+      }
+    });
+  }
   const [TO2, setTO2] = useState(false);
   console.log(users);
   const toggle2 = async () => {
